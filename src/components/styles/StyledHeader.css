@@ -1,0 +1,125 @@
+#header {
+    background-color: #1F1F1F;
+    position: fixed;
+    display: flex;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    z-index: 1;
+    padding: 0px 90px;
+    justify-content: space-between;
+    opacity: 0.9;
+}
+
+#headerCommon {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+}
+
+#headerCommon > img {
+    cursor: pointer;
+}
+
+#nav {
+    display: flex;
+    height: 100%;
+}
+
+#nav > li {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+}
+
+#nav > li:hover {
+    background-color: #343434;
+}
+
+#nav > li > a {
+    font-size: 17px;
+    margin: 0;
+    color: #FAFCFC;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
+}
+
+
+
+.btn {
+    background-color: #FAFCFC;
+    color: #248F55;
+}
+
+.icon {
+    display: flex;
+    height: 40px;
+    width: 40px;
+    cursor: pointer;
+    border: 1px solid #248F55;
+    border-radius: 40px;
+    justify-content: center;
+    align-items: center;
+}
+
+#headerCilent {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+#headerCilent > button {
+    height: 40px;
+    font-size: 14px;
+    border: none;
+    border-radius: 20px;
+    padding: 0 15px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 500;
+}
+
+#headerUser {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+#headerUser > div {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.subnav {
+    position: absolute;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0,0,0, 0.5);
+    display: none;
+    min-width: 160px;
+    top: 100%;
+    right: 100px;
+    list-style-type: none;
+}
+
+.subnav a {
+    color: #000;
+    padding: 0 16px;
+    line-height: 38.5px;
+}
+
+.subnav > li {
+    position: relative;
+}
+
+
+.subnav li:hover{
+    color: #000;
+    background-color: #ccc;
+}
+
+.subnav{
+    display: block;
+}

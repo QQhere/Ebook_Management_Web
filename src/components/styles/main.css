@@ -1,0 +1,109 @@
+:root {
+    --green_button: #248F55;
+    --green_more: #73D99F;
+    --green: #15B088;
+    
+    --yellow: #F2CD5E;
+    --nude: #F2C49B;
+    --red: #D93E30;
+
+    --dark_grey: #7F7E79;
+    --smoky_gray: #D5D4D2;
+
+    --black: #1F1F1F;
+
+    --white: #FAFCFC;
+    --bg_white: #F2F8F3;
+    --bg_dark: #343434;
+    --more: #4e4e4e;
+}
+
+.marginBottom {
+    margin-bottom: 20px;
+}
+
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex {
+    display: flex;
+}
+
+.inputLog {
+    border-radius: 20px;
+    border: 1px solid var(--green_button);
+}
+
+.button {
+    background-color: var(--green_button);
+    color: var(--white);
+    font-size: 16px;
+}
+
+.link {
+    color: var(--green_button);
+    font-weight: 600;
+    cursor: pointer;
+    font-style: unset;
+}
+
+.iconColor {
+    color: var(--green_button);
+    cursor: pointer;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #909090;
+    opacity: 1; /* Firefox */
+}
+  
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #909090;
+}
+  
+::-ms-input-placeholder { /* Microsoft Edge */
+    color: #909090;
+}
+
+.textBold {
+    color: var(--white);
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 10px 0;
+}
+
+.list {
+    display: flex;
+    gap: 70px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.boxRelative {
+    position: relative;
+    display: flex;
+}
+
+.body {
+    padding: 50px 90px;
+}
+
+.nav {
+    color: var(--white);
+    cursor: pointer;
+    font-style: unset;
+}
+
+.navIcon {
+    color: var(--white);
+    margin: 0 10px;
+}
+
+.inline {
+    display: inline-flex;
+    align-items: center;
+}
