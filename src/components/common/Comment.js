@@ -27,7 +27,6 @@ const Line = styled.div`
 `;
 
 const StyledComment = styled.div`
-    display: flex;
     background-color: ${Colors.white};
     color: ${Colors.black};
     border-radius: 20px;
@@ -45,8 +44,8 @@ const ReplayComment = styled.div`
 `;
 
 const Content = styled.p`
-    color: ${Colors.white};
-    margin-top: 10px;
+    color: ${Colors.black};
+    margin: 10px 0 0 47px;
     width: 100%;
     word-wrap: break-word;
     gap: 12px;
@@ -54,7 +53,7 @@ const Content = styled.p`
     text-align: justify;
 `;
 
-const Comment = () => {
+const Comment = (props) => {
     return (
         <Box>
             <StyledComment>
@@ -69,7 +68,7 @@ const Comment = () => {
                 </Line>
 
                 <Box>
-                    <Content></Content>
+                    <Content>Truyện chưa hoàn ạ{props.haha}</Content>
                 </Box>
                         
             </StyledComment>

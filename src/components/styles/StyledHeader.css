@@ -54,6 +54,10 @@
     color: #248F55;
 }
 
+.btn > a {
+    color: #248F55;
+}
+
 .icon {
     display: flex;
     height: 40px;

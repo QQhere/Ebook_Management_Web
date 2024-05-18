@@ -8,10 +8,10 @@ import Comment from '../../components/common/Comment';
 import Header from '../../components/header/Header';
 
 
-const Body = styled.div`
-    background: linear-gradient(180deg, #000 0%, #343434 100%) no-repeat, #343434;
-    background-size: 100% 900px;
-`;
+// const Body = styled.div`
+//     background: linear-gradient(180deg, #000 0%, #343434 100%) no-repeat, #343434;
+//     background-size: 100% 900px;
+// `;
 
 const BoxLinks = styled.div`
     width: 100%;
@@ -144,9 +144,7 @@ const Rating = ({rating}) => {
 const Overview = ({data}) => {
     const categories = data.categories;
     return (
-        <div>
-            <Header></Header>
-            <Body className='body'>
+            <div className='body'>
                 <BoxLinks>
                     <a className='nav' href='#'>Trang chủ</a>
                     <i class="fa-solid fa-angle-right navIcon"></i>
@@ -206,7 +204,6 @@ const Overview = ({data}) => {
                                 <StyledChapter>hhhh</StyledChapter>
                             </div>
                             <BoxSelect>
-                                <StyledBoxSelect type="button">Chọn trang</StyledBoxSelect>
                                 <select>
                                     <option value="1">Trang 1</option>
                                     <option value="2">Trang 2</option>
@@ -221,9 +218,9 @@ const Overview = ({data}) => {
                     </Col2>
                 </Box>
                 <TextTitle>Bình luận</TextTitle>
-                <Comment></Comment>
-            </Body>
-        </div>
+                <Comment haha='hhh'></Comment>
+                <Comment haha='jjj'></Comment>
+            </div>
     );
 };
 

@@ -45,11 +45,9 @@ const Shadow = styled.div`
 const Homepage = () => {
     return (
         <div>
-            <HeaderCilent></HeaderCilent>
             <StyledSlider>
                 <Shadow></Shadow>
             </StyledSlider>
-                
 
             <StyledBox>
                 <StyledBoxTitle>

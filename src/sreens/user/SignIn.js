@@ -67,6 +67,18 @@ const StyledBox2 = styled.div`
   margin: 10px;
 `;
 
+const StyledInput = styled.input`
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 384px;
+    height: 48px;
+    padding: 15px;
+    margin: 11px 0px;
+    border: 1px solid ${Colors.green_button};
+    border-radius: 10px;
+`;
+
 const SignIn = () => {
   const [move, setMove] = useState(true);
   const handleMove = () => {
@@ -86,7 +98,7 @@ const SignIn = () => {
             <P1>Chào mừng trở lại!</P1>
             <p style={{fontSize: '13px', marginBottom: '26px'}}>Đăng nhập để truy cập thư viện của bạn</p>
             <InputLogin text="Số điện thoại"></InputLogin>
-            <InputLogin text="Mật khẩu"></InputLogin>
+            <StyledInput type="password" placeholder='Mật khẩu' />
             <StyledBox2>
               <StyledMiniBox>
                   <input type="checkbox" id='checkbox'/>
@@ -108,8 +120,8 @@ const SignIn = () => {
             <p style={{fontSize: '13px', marginBottom: '20px'}}>Tạo tài khoản để khám phá nhiều hơn</p>
             <InputLogin text="Họ và tên"></InputLogin>
             <InputLogin text="Số điện thoại"></InputLogin>
-            <InputLogin text="Mật khẩu"></InputLogin>
-            <InputLogin text="Xác nhận lại mật khẩu"></InputLogin>
+            <StyledInput type="password" placeholder='Mật khẩu' />
+            <StyledInput type="password" placeholder='Xác nhận lại mật khẩu' />
             <StyledButton style={{margin: '10px'}} className='button'>Đăng ký</StyledButton>
             <p style={{marginTop: '20px'}}>Bạn đã có tài khoản? <span className='link' id='signIn' onClick={handleReset}>Đăng nhập</span></p>
             <p style={{marginTop: '20px'}}>Quay lại <span className='link' href=''>Trang chủ</span></p>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Routes, Route } from 'react-router-dom'
 import '../styles/StyledHeader.css';
 import { styled } from 'styled-components' 
 import Avatar from '../common/Avatar';
@@ -23,7 +24,7 @@ const Header = () => {
     return (
         <div id='header'>
             <div id='headerCommon'>
-                <a href="#"><img src='/assets/Elogo.svg' alt='logo'></img></a>
+                <a href="/"><img src='/assets/Elogo.svg' alt='logo'></img></a>
                 
                 <ul id="nav">
                     <li><a href="#freeBooks">Sách miễn phí</a></li>
@@ -33,9 +34,9 @@ const Header = () => {
             </div>
             
             <div id ="headerUser">
-                <div className='btn icon'>
+                <a className='btn icon' href='/search'>
                     <i class="fa-solid fa-magnifying-glass link"></i>
-                </div>
+                </a>
                 <div>
                     <Box> <Avatar id='avatar'></Avatar> </Box>
                     <h4 style={{color: '#FAFCFC'}}>Quỳnh Phạm</h4>

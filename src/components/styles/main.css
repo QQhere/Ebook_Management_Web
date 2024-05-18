@@ -43,6 +43,10 @@
     font-size: 16px;
 }
 
+.button > a {
+    color: var(--white);
+}
+
 .link {
     color: var(--green_button);
     font-weight: 600;
@@ -83,13 +87,23 @@
     justify-content: space-between;
 }
 
+.list1 {
+    display: flex;
+    gap: 25px;
+    justify-content: space-between;
+    font-size: 20px;
+}
+
 .boxRelative {
     position: relative;
     display: flex;
 }
 
 .body {
-    padding: 50px 90px;
+    padding: 60px 90px;
+    min-height: 100vh;
+    background: linear-gradient(180deg, #000 0%, #343434 100%) no-repeat, #343434;
+    background-size: 100% 900px;
 }
 
 .nav {
@@ -106,4 +120,11 @@
 .inline {
     display: inline-flex;
     align-items: center;
+}
+
+.selection {
+    border: 2px solid var(--dark_grey);
+    color:  var(--dark_grey);
+    background: transparent;
+    padding: 0 10px;
 }

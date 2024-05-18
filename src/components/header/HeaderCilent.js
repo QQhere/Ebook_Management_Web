@@ -5,7 +5,7 @@ const HeaderCilent = () => {
     return (
         <div id='header'>
             <div id='headerCommon'>
-                <a href="#"><img src='/assets/Elogo.svg' alt='logo'></img></a>
+                <a href="/"><img src='/assets/Elogo.svg' alt='logo'></img></a>
                 
                 <ul id="nav">
                     <li><a href="#freeBooks">Sách miễn phí</a></li>
@@ -15,11 +15,11 @@ const HeaderCilent = () => {
             </div>
             
             <div id ="headerCilent">
-                <div className='btn icon'>
+                <a className='btn icon' href='/search'>
                     <i class="fa-solid fa-magnifying-glass iconColor"></i>
-                </div>              
-                <button className='button'>Đăng nhập</button>
-                <button className='btn'>Đăng ký</button>
+                </a>           
+                <button className='button'><a href='/signin'>Đăng nhập</a></button>
+                <button className='btn'><a href='/signin'>Đăng ký</a></button>
             </div>
         </div>
     );
