@@ -90,7 +90,7 @@ const Search = () => {
                 <div>
                     <BoxFlex>
                         <p>Tình trạng:</p>
-                        <Selection className='selection'>
+                        <Selection className='collection'>
                             <option value="" selected disabled hidden>Chọn tình trạng sách</option>
                             <option value="1">Đang tiến hành</option>
                             <option value="2">Đã hoàn thành</option>
@@ -100,7 +100,7 @@ const Search = () => {
 
                     <BoxFlex>
                         <p>Loại sách:</p>
-                        <Selection className='selection'>
+                        <Selection className='collection'>
                             <option value="" selected disabled hidden>Chọn loại sách</option>
                             <option value="1">Miễn phí</option>
                             <option value="2">Theo dõi</option>
@@ -110,7 +110,7 @@ const Search = () => {
 
                     <BoxFlex>
                         <p>Phân loại:</p>
-                        <Selection className='selection'>
+                        <Selection className='collection'>
                             <option value="" selected disabled hidden>Phân loại sách</option>
                             <option value="1">Miễn phí</option>
                             <option value="2">Theo dõi</option>

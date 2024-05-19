@@ -155,7 +155,30 @@ const ChageThumbnail = () => {
     );
 }
 
-const NewBook = () => {
+const listChapter = [
+    {
+        index: 1,
+        name: 'Chương 1: Cuộc gọi lúc nửa đêm bla blabalancdsvegfffffffffffffffff ffffffff',
+    },
+    {
+        index: 2,
+        name: 'Chương 1',
+    },
+    {
+        index: 3,
+        name: 'Chương 1',
+    },
+    {
+        index: 4,
+        name: 'Chương 1',
+    },
+    {
+        index: 5,
+        name: 'Chương 1',
+    },
+]
+
+const EditBook = () => {
     return (
         <Box className='body'>
             <Col1>
@@ -164,7 +187,7 @@ const NewBook = () => {
 
             <Col2>
                 <div id="headerCilent" style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '25px' }}>
-                    <button className='button'><a href='/'>Thêm mới sách</a></button>
+                    <button className='button'><a href='/'>Lưu thay đổi</a></button>
                     <button className='btn'><a href=''></a>Hủy bỏ</button>
                 </div>
                 <div>
@@ -204,9 +227,14 @@ const NewBook = () => {
                         <InputDescription className='collection'></InputDescription>
                     </div>
                 </div>
+
+                <div>
+                    <h3>Mục lục</h3>
+                    <TabletOfContents data={listChapter} type='edit'></TabletOfContents>
+                </div>
             </Col2>
         </Box>
     );
 };
 
-export default NewBook;
+export default EditBook;

@@ -59,11 +59,10 @@
 
 .bodyReading {
     display: flex;
-    margin: 50px 200px;
-    padding: 20px 100px;
+    padding: 70px 300px;
     justify-content: center;
     flex-direction: column;
-    background-color: var(--black);
+    min-height: 100vh;
 }
 
 .contents {
@@ -74,11 +73,10 @@
 
 .content {
     display: flex;
-    font-size: 17px;
     width: 100%;
     text-align: justify;
     text-indent: 30px;
-    line-height: 30px;
+    line-height: 1.6;
 }
 
 .select {
@@ -137,12 +135,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--white);
     width: 80px;
     height: 40px;
     border-radius: 20px;
-    border: 1px solid var(--nude);
     cursor: pointer;
+    border: 1px solid;
 }
 
 .toggleChoice {
@@ -173,6 +170,7 @@
     border: none;
     background-color: var(--green_button);
     color: var(--white);
+    cursor: pointer;
 }
 
 #fontOptions{

@@ -6,6 +6,7 @@ import Avatar from './Avatar';
 
 const Box = styled.div`
     display: flex;
+    margin-bottom: 15px;
 `;
 
 const BoxAvatar = styled.div`

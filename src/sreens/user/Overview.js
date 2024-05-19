@@ -6,6 +6,7 @@ import Colors from '../../constants/Color';
 import '../../components/styles/StyledHeader.css';
 import Comment from '../../components/common/Comment';
 import Header from '../../components/header/Header';
+import TabletOfContents from '../../components/common/TabletOfContents';
 
 
 // const Body = styled.div`
@@ -57,11 +58,13 @@ const P = styled.p`
     gap: 20px;
     align-items: center;
     text-align: justify;
+    font-size: 17px;
 `;
 
 const Span = styled.span`
     color: ${Colors.white};
     font-weight: 600;
+    font-size: 17px;
 `;
 
 const StyledButton = styled.button`
@@ -177,32 +180,7 @@ const Overview = ({data}) => {
 
                         <TextTitle>Mục lục</TextTitle>
                         <div>
-                            <div>
-                                <StyledChapter>hhhh</StyledChapter>
-                                <StyledChapter>hhhh</StyledChapter>
-                                <StyledChapter>hhhh</StyledChapter>
-                                <StyledChapter>hhhh</StyledChapter>
-                                <StyledChapter>hhhh</StyledChapter>
-                                <StyledChapter>hhhh</StyledChapter>
-                                <StyledChapter>hhhh</StyledChapter>
-                                <StyledChapter>hhhh</StyledChapter>
-                                <StyledChapter>hhhh</StyledChapter>
-                                <StyledChapter>hhhh</StyledChapter>
-                                <StyledChapter>hhhh</StyledChapter>
-                                <StyledChapter>hhhh</StyledChapter>
-                                <StyledChapter>hhhh</StyledChapter>
-                                <StyledChapter>hhhh</StyledChapter>
-                                <StyledChapter>hhhh</StyledChapter>
-                                <StyledChapter>hhhh</StyledChapter>
-                                <StyledChapter>hhhh</StyledChapter>
-                                <StyledChapter>hhhh</StyledChapter>
-                                <StyledChapter>hhhh</StyledChapter>
-                                <StyledChapter>hhhh</StyledChapter>
-                                <StyledChapter>hhhh</StyledChapter>
-                                <StyledChapter>hhhh</StyledChapter>
-                                <StyledChapter>hhhh</StyledChapter>
-                                <StyledChapter>hhhh</StyledChapter>
-                            </div>
+                            <TabletOfContents data={data.listChapter} type='overview'></TabletOfContents>
                             <BoxSelect>
                                 <select>
                                     <option value="1">Trang 1</option>
@@ -212,7 +190,6 @@ const Overview = ({data}) => {
                                 </select>
 
                                 <StyledBoxSelect className="button">Đến</StyledBoxSelect>
-
                             </BoxSelect>     
                         </div>
                     </Col2>

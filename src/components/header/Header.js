@@ -1,5 +1,4 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom'
+import React, { useState }from 'react';
 import '../styles/StyledHeader.css';
 import { styled } from 'styled-components' 
 import Avatar from '../common/Avatar';
@@ -21,6 +20,10 @@ const Box = styled.div`
 `;
 
 const Header = () => {
+    const [showSubNav, setShowSubNav] = useState(false);
+    const handleClick = () => {
+        setShowSubNav(!showSubNav);
+    }
     return (
         <div id='header'>
             <div id='headerCommon'>
@@ -37,19 +40,35 @@ const Header = () => {
                 <a className='btn icon' href='/search'>
                     <i class="fa-solid fa-magnifying-glass link"></i>
                 </a>
-                <div>
+                <div onClick={handleClick} style={{cursor: 'pointer' }}>
                     <Box> <Avatar id='avatar'></Avatar> </Box>
                     <h4 style={{color: '#FAFCFC'}}>Quỳnh Phạm</h4>
                     <i class="fa-solid fa-sort-down" style={{color: '#ffffff'}}></i>
-                    <ul class="subnav">
-                        <li><a href="#">Quản lý tài khoản</a></li>
-                        <li><a href="#">Thư viện cá nhân</a></li>
-                        <li><a href="#">Lịch sử giao dịch</a></li>
-                        <li><a href="#">Hỗ trợ kỹ thuật</a></li>
-                        <li><a href="#">Đăng xuất</a></li>
+                </div>
+                <div style={{ display: showSubNav ? 'block' : 'none'}}>
+                    <ul id="subnav">
+                        <li><a href="#">
+                            <div>
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+                            Quản lý tài khoản</a></li>
+                        <li><a href="#">
+                            <div>
+                                <i class="fa-solid fa-bookmark"></i>
+                            </div>
+                            Thư viện cá nhân</a></li>
+                        <li><a href="#">
+                            <div>
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            </div>
+                            Lịch sử giao dịch</a></li>
+                        <li><a href="#">
+                            <div>
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                            </div>
+                            Đăng xuất</a></li>
                     </ul>
                 </div>
-                    
             </div>
         </div>
     );
