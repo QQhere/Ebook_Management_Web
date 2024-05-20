@@ -1,5 +1,5 @@
 import React from 'react';
-import HeaderCilent from '../../components/header/HeaderCilent';
+import HeaderCilent from '../../components/header/HeaderClient';
 import { styled } from 'styled-components'
 import Book from '../../components/common/Book';
 import Colors from '../../constants/Color';

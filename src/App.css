@@ -67,4 +67,5 @@ select option {
 
 ul > li, i {
   cursor: pointer;
+  list-style-type: none;
 }

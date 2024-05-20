@@ -3,7 +3,7 @@ import { styled } from 'styled-components';
 import Colors from '../../constants/Color';
 import Book from '../../components/common/Book';
 import ListBooks from '../../components/hompage/ListBooks';
-import HeaderCilent from '../../components/header/HeaderCilent';
+import HeaderCilent from '../../components/header/HeaderClient';
 import '../../components/styles/StyledHeader.css';
 import Header from '../../components/header/Header';
 

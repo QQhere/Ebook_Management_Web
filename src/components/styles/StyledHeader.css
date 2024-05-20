@@ -69,13 +69,13 @@
     align-items: center;
 }
 
-#headerCilent {
+#headerClient {
     display: flex;
     align-items: center;
     gap: 12px;
 }
 
-#headerCilent > button {
+#headerClient > button {
     height: 40px;
     font-size: 14px;
     border: none;

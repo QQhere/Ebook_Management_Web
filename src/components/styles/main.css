@@ -26,6 +26,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 100vh;
+    font-size: 40px;
 }
 
 .flex {
@@ -67,6 +69,14 @@
 .iconGrey {
     color: var(--bg_dark);
     cursor: pointer;
+}
+
+.colorWhite {
+    color: var(--white);
+}
+
+.colorGey {
+    color: var(--dark_grey);
 }
 
 .textBold {
@@ -130,4 +140,14 @@
     color:  var(--dark_grey);
     background: transparent;
     padding: 0 10px;
+}
+
+.titleProfile {
+    font-size: 22px;
+    font-weight: 600;
+
+}
+
+.optionProfile {
+    font-size: 18px;
 }

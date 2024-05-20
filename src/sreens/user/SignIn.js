@@ -8,6 +8,8 @@ const StyledView = styled.div`
   display: grid;
   grid-template-columns: 50% 50%;
   height: 100vh;
+  background-color: ${Colors.white};
+  color: ${Colors.black};
 `;
 
 const StyledBoxImage = styled.div`
@@ -79,8 +81,8 @@ const StyledInput = styled.input`
     border-radius: 10px;
 `;
 
-const SignIn = () => {
-  const [move, setMove] = useState(true);
+const SignIn = (props) => {
+  const [move, setMove] = useState(props.state);
   const handleMove = () => {
     setMove(false);
   };

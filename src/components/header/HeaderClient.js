@@ -1,7 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/StyledHeader.css';
 
-const HeaderCilent = () => {
+const HeaderClient = () => {
     return (
         <div id='header'>
             <div id='headerCommon'>
@@ -14,15 +15,15 @@ const HeaderCilent = () => {
                 </ul>
             </div>
             
-            <div id ="headerCilent">
-                <a className='btn icon' href='/search'>
+            <div id ="headerClient">
+                <Link className='btn icon' to='/search'>
                     <i class="fa-solid fa-magnifying-glass iconColor"></i>
-                </a>           
-                <button className='button'><a href='/signin'>Đăng nhập</a></button>
-                <button className='btn'><a href='/signin'>Đăng ký</a></button>
+                </Link>           
+                <button className='button'><Link to="/signin">Đăng nhập</Link></button>
+                <button className='btn'><Link to="/signup">Đăng ký</Link></button>
             </div>
         </div>
     );
 };
 
-export default HeaderCilent;
+export default HeaderClient;

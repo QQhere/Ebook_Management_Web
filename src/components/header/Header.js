@@ -47,22 +47,22 @@ const Header = () => {
                 </div>
                 <div style={{ display: showSubNav ? 'block' : 'none'}}>
                     <ul id="subnav">
-                        <li><a href="#">
+                        <li><a href="/account_management">
                             <div>
                                 <i class="fa-solid fa-user"></i>
                             </div>
                             Quản lý tài khoản</a></li>
-                        <li><a href="#">
+                        <li><a href="/library">
                             <div>
                                 <i class="fa-solid fa-bookmark"></i>
                             </div>
                             Thư viện cá nhân</a></li>
-                        <li><a href="#">
+                        <li><a href="transaction_history">
                             <div>
                             <i class="fa-solid fa-cart-shopping"></i>
                             </div>
                             Lịch sử giao dịch</a></li>
-                        <li><a href="#">
+                        <li><a href='/'>
                             <div>
                                 <i class="fa-solid fa-right-from-bracket"></i>
                             </div>
