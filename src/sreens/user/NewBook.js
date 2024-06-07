@@ -91,6 +91,14 @@ const InputDescription = styled.textarea`
     font-family: Arial, Helvetica, sans-serif;
 `;
 
+const Button = styled.button`
+    border-radius: 20px;
+    height: 40px;
+    padding: 0 20px;
+    margin-right: 20px;
+    border: none;
+`;
+
 const Categories = ({ categories }) => {
     return (
         <List>
@@ -164,8 +172,8 @@ const NewBook = () => {
 
             <Col2>
                 <div id="headerCilent" style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '25px' }}>
-                    <button className='button'><a href='/'>Thêm mới sách</a></button>
-                    <button className='btn'><a href=''></a>Hủy bỏ</button>
+                    <Button className='button'><a href='/'>Thêm mới sách</a></Button>
+                    <Button className='btn'><a href=''></a>Hủy bỏ</Button>
                 </div>
                 <div>
                     <BoxFlex>

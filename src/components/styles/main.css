@@ -75,8 +75,20 @@
     color: var(--white);
 }
 
-.colorGey {
+.textDarkGrey {
     color: var(--dark_grey);
+}
+
+.textSmokyGrey {
+     color: var(--smoky_gray);
+}
+
+.bgGrey {
+    background-color: var(--bg_dark);
+}
+
+.bgTransparent {
+    background-color: transparent;
 }
 
 .textBold {
@@ -150,4 +162,31 @@
 
 .optionProfile {
     font-size: 18px;
+}
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+}
+
+.iconProfile {
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+}
+
+.boxInfor {
+    width: 100%;
+}
+
+.btnTransparent {
+    background-color: transparent;
+    color: var(--smoky_gray);
+    border: 1px solid var(--more);
+}
+
+.cursor {
+    cursor: pointer;
 }

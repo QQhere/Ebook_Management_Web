@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { styled } from 'styled-components'
 import Colors from '../../../constants/Color';
-import ListBooks from '../../../components/hompage/ListBooks'
 import Avatar from '../../../components/common/Avatar';
 
 const Box = styled.div`
@@ -26,7 +25,7 @@ const BoxAvatar = styled.div`
     flex-direction: column;
     margin: 20px 0;
     align-items: center;
-    gap: 20px
+    gap: 20px;
 `;
 
 const ButtonEditAvatar = styled.button`
@@ -77,14 +76,10 @@ const BoxOption = styled.div`
 
 const BoxInfor = styled.div`
     display: flex;
-    flex-direction: column;
-    border: 1px solid var(--dark_grey);
-    background-color: var(--bg_dark);
+    border: 1px solid ${Colors.dark_grey};
     border-radius: 20px;
     height: 66px;
-    justify-content: center;
     padding: 0 30px;
-    width: 80%;
 `;
 
 const BoxOrther = styled.div`
@@ -94,12 +89,82 @@ const BoxOrther = styled.div`
     gap: 15px;
 `;
 
+const BoxFlex = styled.div`
+    display: flex;
+    width: 80%;
+    gap: 20px;
+    justify-content: space-between;
+    gap: 20px;
+`;
+
+const Button = styled.button`
+    border-radius: 20px;
+    height: 40px;
+    padding: 0 20px;
+    margin-right: 20px;
+`;
+
+const H1 = styled.p`
+    font-size: 26px;
+    font-weight: bold;
+`;
+
+const BoxApp = styled.div`
+    justify-content: center;
+    gap: 40px;
+`;
+
+const BoxCenter = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+`;
+
+const InputPassword = styled.input`
+    display: flex;
+    border: 1px solid ${Colors.dark_grey};
+    border-radius: 10px;
+    background-color: transparent;
+    height: 40px;
+    padding: 0 30px;
+    width: 80%;
+    color: ${Colors.white};;
+`;
+
+const ChageAvatar = () => {
+    const [selectedFile, setSelectedFile] = useState(null);
+
+    const handleFileChange = (event) => {
+        setSelectedFile(URL.createObjectURL(event.target.files[0]));
+    };
+
+    const handleClick = () => {
+        document.getElementById('myFile').click();
+    };
+
+    useEffect(() => {
+        if (selectedFile) {
+            document.getElementById('myavt').style.backgroundImage = `url(${selectedFile})`;
+        }
+    }, [selectedFile]);
+
+    return (
+        <>
+            <Avatar id="myDiv"></Avatar>
+            <input type="file" id="myFile" accept="image/*" style={{ display: 'none' }} onChange={handleFileChange} />
+            <ButtonEditAvatar className='button' onClick={handleClick}>Thay ảnh <i class="fa-regular fa-pen-to-square"></i></ButtonEditAvatar>
+        </>
+    );
+}
+
 const AccountManagement = () => {
     return (
         <Box className='body'>
             <Col1>
                 <BoxAvatar>
-                    <p style={{fontSize: '26px'}}>Quỳnh Phạm</p>
+                    <p style={{ fontSize: '26px' }}>Quỳnh Phạm</p>
                     <Avatar></Avatar>
                     <ButtonEditAvatar className='button'>Thay ảnh <i class="fa-regular fa-pen-to-square"></i></ButtonEditAvatar>
                 </BoxAvatar>
@@ -120,27 +185,95 @@ const AccountManagement = () => {
                         </Orther>
                         Lịch sử giao dịch</a></li>
                 </BoxNav>
+
+                <BoxCenter>
+                    <H1>5</H1>
+                    <p>Sách đã đăng</p>
+                </BoxCenter>
+                <BoxApp className='flex'>
+                    <BoxCenter>
+                        <H1>10</H1>
+                        <p>Đang thẽo dõi</p>
+                    </BoxCenter>
+
+                    <BoxCenter>
+                        <H1>0</H1>
+                        <p>Người theo dõi</p>
+                    </BoxCenter>
+                </BoxApp>
+
             </Col1>
 
             <Col2>
                 <p className='titleProfile'>Quản lý tài khoản</p>
                 <BoxOption>
-                    <p className='optionProfile'>Thông tin cá nhân</p>
-                    <p className='optionProfile'>Tài khoản và bảo mật</p>
+                    <p className='optionProfile iconColor'>Thông tin cá nhân</p>
+                    <p className='optionProfile cursor'>Tài khoản và bảo mật</p>
                 </BoxOption>
 
-                <BoxOrther>
-                    <BoxInfor>
-                        <p className='colorGey'>Tên đăng nhập:</p>
-                        <p>hahhahahah</p>
-                    </BoxInfor>
-                    <BoxInfor>
-                        <p className='colorGey'>ID tài khoản:</p>
-                        <p>59484348</p>
-                    </BoxInfor>
-                </BoxOrther>
+                <div id='infor' >
+                    <BoxOrther>
+                        <BoxInfor className='bgGrey profile' style={{ width: '80%' }}>
+                            <p className='textDarkGrey'>ID tài khoản:</p>
+                            <p>59484348</p>
+                        </BoxInfor>
 
-                
+                        <BoxInfor className='bgTransparent profile' style={{ width: '80%' }}>
+                            <p className='textSmokyGrey'>Họ và tên:</p>
+                            <p>Quỳnh Phạm</p>
+                        </BoxInfor>
+
+                        <BoxFlex className='flex'>
+                            <BoxInfor className='bgTransparent boxInfor'>
+                                <div className='profile'>
+                                    <p className='textSmokyGrey'>Ngày sinh:</p>
+                                    <p>23/08/2003</p>
+                                </div>
+                                <i class="fa-regular fa-calendar iconProfile"></i>
+                            </BoxInfor>
+                            <BoxInfor className='bgTransparent boxInfor'>
+                                <div className='profile'>
+                                    <p className='textSmokyGrey'>Giới tính:</p>
+                                    <p>Nữ</p>
+                                </div>
+                                <i class="fa-solid fa-caret-down iconProfile"></i>
+                            </BoxInfor>
+                        </BoxFlex>
+                    </BoxOrther>
+                    <div>
+                        <Button className='button' style={{ border: 'none', fontSize: '15px' }}><a href='/'>Cập nhật</a></Button>
+                        <Button className='btnTransparent'><a href=''></a>Hủy bỏ</Button>
+                    </div>
+                </div>
+
+                <div id='account'>
+                    <BoxOrther>
+                        <BoxInfor className='bgGrey profile' style={{ width: '80%' }}>
+                            <p className='textDarkGrey'>Số điện thoại:</p>
+                            <p>0384990556</p>
+                        </BoxInfor>
+                    </BoxOrther>
+                    <div id='ChangePassword'>
+                        <BoxOrther>
+                            <p>Mật khẩu hiện tại:</p>
+                            <InputPassword type='text' placeholder='Nhập mật khẩu hiện tại' className='bgTransparent boxInfor'/>
+                        </BoxOrther>
+                        <BoxOrther>
+                            <p>Mật khẩu mới:</p>
+                            <InputPassword type='text' placeholder='Nhập mật khẩu mới' className='bgTransparent boxInfor'/>
+                        </BoxOrther>
+                        <BoxOrther>
+                            <p>Xác nhận mật khẩu:</p>
+                            <InputPassword type='text' placeholder='Xác nhận mật khẩu' className='bgTransparent boxInfor'/>
+                        </BoxOrther>
+                        <Button className='button' style={{ border: 'none', fontSize: '15px' }}>
+                            <a href='/'>Đổi mật khẩu</a>
+                        </Button>
+                        <Button className='btn bgTransparent' style={{ border: '1px solid #4e4e4e', fontSize: '15px' }}>
+                            <a href='/'>Hủy</a>
+                        </Button>
+                    </div>
+                </div>
             </Col2>
         </Box>
     );

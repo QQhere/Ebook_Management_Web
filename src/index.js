@@ -9,6 +9,9 @@ import Search from './sreens/user/Search';
 import NotFound from './sreens/NotFound';
 import Homepage from './sreens/user/Homepage';
 import AccountManagement from './sreens/user/profile/AccountManagement';
+import Library from './sreens/user/profile/Library';
+import TransactionHistory from './sreens/user/profile/TransactionHistory';
+import NewBook from './sreens/user/NewBook';
 
 const Book1 = {
   id: 1,
@@ -59,6 +62,9 @@ root.render(
         <Route path='/signup' element={<SignIn state=''></SignIn>} />
         <Route path='/search' element={<Search></Search>} />
         <Route path='/account_management' element={<AccountManagement></AccountManagement>}/>
+        <Route path='/library' element={<Library></Library>}/>
+        <Route path='/transaction_history' element={<TransactionHistory></TransactionHistory>} />
+        <Route path='/new_book' element={<NewBook></NewBook>} />
         <Route path='*' element={<NotFound></NotFound>} />
       </Route>
     </Routes>
