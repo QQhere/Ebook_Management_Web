@@ -7,6 +7,7 @@ import '../../components/styles/StyledHeader.css';
 import Comment from '../../components/common/Comment';
 import Header from '../../components/header/Header';
 import TabletOfContents from '../../components/common/TabletOfContents';
+import { DataBook } from '../../dataBook';
 
 
 // const Body = styled.div`
@@ -113,8 +114,9 @@ const Categories = ({categories}) => {
     return (
         <List>
             {categories.map((item, index) => {
+                console.log(item);
                 return (
-                    <Category>{item}</Category>          
+                    <Category>{item.name}</Category>          
                 );
             })}
         </List>
@@ -144,8 +146,10 @@ const Rating = ({rating}) => {
     );
 }
 
-const Overview = ({data}) => {
+const Overview = () => {
+    const data = DataBook.data;
     const categories = data.categories;
+    const { time_dmy } = require('../../function/time');
     return (
             <div className='body'>
                 <BoxLinks>
@@ -155,18 +159,18 @@ const Overview = ({data}) => {
                 </BoxLinks>
                 <Box>
                     <Col1>
-                        <Book type={data.type} src={data.src}></Book>
+                        <Book type={data.type_of_book} src={data.image}></Book>
                     </Col1>
                     <Col2>
                         <h3>{data.title}</h3>
                         <div>
                             <Categories categories={categories}></Categories>
-                            <P><Span>Tác giả: </Span> {data.author}</P>
-                            <P><Span>Tình trạng: </Span> {data.progress}</P>
-                            <P><Span>Cập nhật gần nhất: </Span> 1 ngày trước</P>
-                            <P><Span>Số chương: </Span> {data.chapters}</P>
-                            <P><Span>Đánh giá: </Span> <Rating rating={data.rating}></Rating> {data.rating}</P>
-                            <P><Span>Lượt đọc: </Span> {data.reading}</P>
+                            <P><Span>Tác giả: </Span> {data.authors.map(author => author.name).join(', ')}</P>
+                            <P><Span>Tình trạng: </Span> {data.status}</P>
+                            <P><Span>Cập nhật gần nhất: </Span>{time_dmy(data.updated_at)}</P>
+                            <P><Span>Số chương: </Span> {data.chapters.length}</P>
+                            <P><Span>Đánh giá: </Span> <Rating rating='4.3'></Rating> 4.3</P>
+                            <P><Span>Lượt đọc: </Span> {data.number_reads}</P> 
                             <StyledBox>
                                 <StyledButton className='button'><i class="fa-solid fa-book-open"></i> Đọc sách</StyledButton>
                                 <i class="fa-regular fa-star iconColor btn icon"></i>
@@ -174,13 +178,13 @@ const Overview = ({data}) => {
                                 <i class="fa-regular fa-share-from-square iconColor btn icon"></i>
                             </StyledBox>
                             <Span>Mô tả:</Span>
-                            <P>{data.description}</P>
+                            <P>{data.summary}</P>
                         </div>
                         
 
                         <TextTitle>Mục lục</TextTitle>
                         <div>
-                            <TabletOfContents data={data.listChapter} type='overview'></TabletOfContents>
+                            <TabletOfContents data={data.chapters} type='overview'></TabletOfContents>
                             <BoxSelect>
                                 <select>
                                     <option value="1">Trang 1</option>

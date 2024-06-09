@@ -9,7 +9,7 @@ const StyledChapter = styled.div`
     padding: 10px 20px;
     border-radius: 10px;
     justify-content: space-between;
-    gap: 20px
+    gap: 20px;
 `;
 
 const P = styled.p`
@@ -45,7 +45,7 @@ const Chapter = ({data, type}) => {
     };
     return (
         <StyledChapter>
-            <P>{data.name}</P>
+            <P>{data}</P>
             <List>
                 {renderContent(type)}
             </List>

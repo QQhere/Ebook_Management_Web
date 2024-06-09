@@ -12,6 +12,7 @@ import AccountManagement from './sreens/user/profile/AccountManagement';
 import Library from './sreens/user/profile/Library';
 import TransactionHistory from './sreens/user/profile/TransactionHistory';
 import NewBook from './sreens/user/NewBook';
+import Overview from './sreens/user/Overview';
 
 const Book1 = {
   id: 1,
@@ -65,6 +66,7 @@ root.render(
         <Route path='/library' element={<Library></Library>}/>
         <Route path='/transaction_history' element={<TransactionHistory></TransactionHistory>} />
         <Route path='/new_book' element={<NewBook></NewBook>} />
+        <Route path='/overview' element={<Overview></Overview>} />
         <Route path='*' element={<NotFound></NotFound>} />
       </Route>
     </Routes>

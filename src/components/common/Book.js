@@ -21,6 +21,7 @@ const StyledType = styled.div`
   justify-content: center;
   align-items: center;
   padding: 10px 20px;
+  text-transform: uppercase;
 `;
 
 const Book = (props) => {

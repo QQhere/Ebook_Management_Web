@@ -95,6 +95,7 @@ const BoxFlex = styled.div`
     gap: 20px;
     justify-content: space-between;
     gap: 20px;
+    align-items: center;
 `;
 
 const Button = styled.button`
@@ -133,6 +134,17 @@ const InputPassword = styled.input`
     color: ${Colors.white};;
 `;
 
+const Collection = styled.input`
+    flex: 1;
+    height: 35px;
+    padding: 0 10px;
+    border-radius: 5px;
+    background-color: ${Colors.white};
+    border: none;
+    color: ${Colors.black};
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+`;
+
 const ChageAvatar = () => {
     const [selectedFile, setSelectedFile] = useState(null);
 
@@ -160,6 +172,126 @@ const ChageAvatar = () => {
 }
 
 const AccountManagement = () => {
+    const [activeElement, setActiveElement] = useState('p1');
+    const [isVisible, setIsVisible] = useState(false);
+    const [isUnHidden, setIsUnHidden] = useState(false);
+    const [date, setDate] = useState('2003-08-23');
+
+    const handleChange = (event) => {
+        setDate(event.target.value);
+    };
+
+    function renderChangePassword() {
+        return (
+            <div>
+                {isVisible ? (
+                    <>
+                        <div>
+                            <BoxOrther>
+                                <p>Mật khẩu hiện tại:</p>
+                                <InputPassword type='text' placeholder='Nhập mật khẩu hiện tại' className='bgTransparent boxInfor'/>
+                            </BoxOrther>
+                            <BoxOrther>
+                                <p>Mật khẩu mới:</p>
+                                <InputPassword type='text' placeholder='Nhập mật khẩu mới' className='bgTransparent boxInfor'/>
+                            </BoxOrther>
+                            <BoxOrther>
+                                <p>Xác nhận mật khẩu:</p>
+                                <InputPassword type='text' placeholder='Xác nhận mật khẩu' className='bgTransparent boxInfor'/>
+                            </BoxOrther>
+                        </div>
+                        <Button className='button' style={{ border: 'none', fontSize: '15px' }}>
+                            Đổi mật khẩu
+                        </Button>
+                        <Button className='btn bgTransparent' style={{ border: '1px solid #4e4e4e', fontSize: '15px' }} onClick={() => setIsVisible(false)}>
+                            Hủy
+                        </Button>
+                    </>
+                ) : (
+                    <Button id="changePassword" className='button' style={{ border: 'none', fontSize: '15px' }} onClick={() => setIsVisible(true)}>
+                        Đổi mật khẩu
+                    </Button>
+                )}
+            </div>
+        );
+    }
+
+    function renderChangeInfor() {
+        return (
+            <div>
+                {isUnHidden ? (
+                    <>
+                        <BoxOrther>
+                            <BoxFlex>
+                                <p>Họ và tên:</p>
+                                <Collection type='text' className='collection' placeholder='Quỳnh Phạm'></Collection>
+                            </BoxFlex>
+                            <BoxFlex>
+                                <p className='textSmokyGrey'>Ngày sinh:</p>
+                                <Collection type="date" value={date} onChange={handleChange} />
+                            </BoxFlex>
+                        </BoxOrther>           
+                        <Button className='button' style={{ border: 'none', fontSize: '15px' }}>Cập nhật</Button>
+                        <Button className='btnTransparent' onClick={() => setIsUnHidden(false)}>Hủy bỏ</Button>
+                    </>
+                ) : (
+                    <Button id="changeInfor" className='button' style={{ border: 'none', fontSize: '15px' }} onClick={() => setIsUnHidden(true)}>
+                        Cập nhật
+                    </Button>
+                )}
+            </div>
+        );
+    }
+    
+    function renderContent() {
+        return (
+            <div>
+                <BoxOption>
+                    <p id='p1' className={activeElement === 'p1' ? 'optionProfile cursor iconColor' : 'optionProfile cursor'} onClick={() => setActiveElement('p1')}>
+                        Thông tin cá nhân
+                    </p>
+
+                    <p id='p2' className={activeElement === 'p2' ? 'optionProfile cursor iconColor' : 'optionProfile cursor'} onClick={() => setActiveElement('p2')}>
+                        Tài khoản và bảo mật
+                    </p>
+                </BoxOption>
+                {activeElement === 'p1' && <div id='infor'>
+                    <BoxOrther>
+                        <BoxInfor className='bgGrey profile' style={{ width: '80%' }}>
+                            <p className='textDarkGrey'>ID tài khoản:</p>
+                            <p>59484348</p>
+                        </BoxInfor>
+
+                        <BoxFlex className='flex'>
+                            <BoxInfor className='bgGrey boxInfor'>
+                                <div className='profile'>
+                                    <p className='textSmokyGrey'>Họ và tên:</p>
+                                    <p>Quỳnh Phạm</p>
+                                </div>
+                            </BoxInfor>
+                            <BoxInfor className='bgGrey boxInfor'>
+                                <div className='profile'>
+                                    <p className='textSmokyGrey'>Ngày sinh:</p>
+                                    <p>08/23/2003</p>
+                                </div>
+                            </BoxInfor>
+                        </BoxFlex>
+                        {renderChangeInfor()}
+                    </BoxOrther>
+            </div>}
+
+                {activeElement === 'p2' && <div id='account'>
+                    <BoxOrther>
+                        <BoxInfor className='bgGrey profile' style={{ width: '80%' }}>
+                            <p className='textDarkGrey'>Số điện thoại:</p>
+                            <p>0384990556</p>
+                        </BoxInfor>
+                    </BoxOrther>
+                    {renderChangePassword()}
+                </div>}
+            </div>
+        );
+    }
     return (
         <Box className='body'>
             <Col1>
@@ -206,74 +338,7 @@ const AccountManagement = () => {
 
             <Col2>
                 <p className='titleProfile'>Quản lý tài khoản</p>
-                <BoxOption>
-                    <p className='optionProfile iconColor'>Thông tin cá nhân</p>
-                    <p className='optionProfile cursor'>Tài khoản và bảo mật</p>
-                </BoxOption>
-
-                <div id='infor' >
-                    <BoxOrther>
-                        <BoxInfor className='bgGrey profile' style={{ width: '80%' }}>
-                            <p className='textDarkGrey'>ID tài khoản:</p>
-                            <p>59484348</p>
-                        </BoxInfor>
-
-                        <BoxInfor className='bgTransparent profile' style={{ width: '80%' }}>
-                            <p className='textSmokyGrey'>Họ và tên:</p>
-                            <p>Quỳnh Phạm</p>
-                        </BoxInfor>
-
-                        <BoxFlex className='flex'>
-                            <BoxInfor className='bgTransparent boxInfor'>
-                                <div className='profile'>
-                                    <p className='textSmokyGrey'>Ngày sinh:</p>
-                                    <p>23/08/2003</p>
-                                </div>
-                                <i class="fa-regular fa-calendar iconProfile"></i>
-                            </BoxInfor>
-                            <BoxInfor className='bgTransparent boxInfor'>
-                                <div className='profile'>
-                                    <p className='textSmokyGrey'>Giới tính:</p>
-                                    <p>Nữ</p>
-                                </div>
-                                <i class="fa-solid fa-caret-down iconProfile"></i>
-                            </BoxInfor>
-                        </BoxFlex>
-                    </BoxOrther>
-                    <div>
-                        <Button className='button' style={{ border: 'none', fontSize: '15px' }}><a href='/'>Cập nhật</a></Button>
-                        <Button className='btnTransparent'><a href=''></a>Hủy bỏ</Button>
-                    </div>
-                </div>
-
-                <div id='account'>
-                    <BoxOrther>
-                        <BoxInfor className='bgGrey profile' style={{ width: '80%' }}>
-                            <p className='textDarkGrey'>Số điện thoại:</p>
-                            <p>0384990556</p>
-                        </BoxInfor>
-                    </BoxOrther>
-                    <div id='ChangePassword'>
-                        <BoxOrther>
-                            <p>Mật khẩu hiện tại:</p>
-                            <InputPassword type='text' placeholder='Nhập mật khẩu hiện tại' className='bgTransparent boxInfor'/>
-                        </BoxOrther>
-                        <BoxOrther>
-                            <p>Mật khẩu mới:</p>
-                            <InputPassword type='text' placeholder='Nhập mật khẩu mới' className='bgTransparent boxInfor'/>
-                        </BoxOrther>
-                        <BoxOrther>
-                            <p>Xác nhận mật khẩu:</p>
-                            <InputPassword type='text' placeholder='Xác nhận mật khẩu' className='bgTransparent boxInfor'/>
-                        </BoxOrther>
-                        <Button className='button' style={{ border: 'none', fontSize: '15px' }}>
-                            <a href='/'>Đổi mật khẩu</a>
-                        </Button>
-                        <Button className='btn bgTransparent' style={{ border: '1px solid #4e4e4e', fontSize: '15px' }}>
-                            <a href='/'>Hủy</a>
-                        </Button>
-                    </div>
-                </div>
+                {renderContent()}
             </Col2>
         </Box>
     );

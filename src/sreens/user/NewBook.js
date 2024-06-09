@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { styled } from 'styled-components'
 import Colors from '../../constants/Color';
-import TabletOfContents from '../../components/common/TabletOfContents';
 
 const Box = styled.div`
     display: flex;
@@ -164,6 +163,7 @@ const ChageThumbnail = () => {
 }
 
 const NewBook = () => {
+    const inputRef = useRef();
     return (
         <Box className='body'>
             <Col1>
@@ -172,14 +172,18 @@ const NewBook = () => {
 
             <Col2>
                 <div id="headerCilent" style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '25px' }}>
-                    <Button className='button'><a href='/'>Thêm mới sách</a></Button>
-                    <Button className='btn'><a href=''></a>Hủy bỏ</Button>
+                    <Button className='button'><a href=''>Thêm mới sách</a></Button>
+                    <Button className='btn'><a href='/'></a>Hủy bỏ</Button>
                 </div>
                 <div>
                     <BoxFlex>
                         <p>Tên sách:</p>
-                        <Collection type='text' className='collection' placeholder='Nhập tên sách'>
-                        </Collection>
+                        <Collection 
+                            type='text' 
+                            className='collection' 
+                            placeholder='Nhập tên sách'
+                            ref={inputRef}
+                        ></Collection>
                     </BoxFlex>
 
                     <BoxFlex>
@@ -189,21 +193,13 @@ const NewBook = () => {
                     </BoxFlex>
 
                     <BoxFlex>
-                        <p>Tình trạng:</p>
-                        <Selection className='collection'>
-                            <option value="" selected disabled hidden>Chọn tình trạng sách</option>
-                            <option value="1">Miễn phí</option>
-                            <option value="2">Theo dõi</option>
-                            <option value="3">Trả phí</option>
-                        </Selection>
-                    </BoxFlex>
-                    <BoxFlex>
                         <p>Loại sách:</p>
                         <Selection className='collection'>
                             <option value="" selected disabled hidden>Chọn loại sách</option>
                             <option value="1">Miễn phí</option>
                             <option value="2">Theo dõi</option>
                             <option value="3">Trả phí</option>
+                            <option value="4">Riêng tư</option>
                         </Selection>
                     </BoxFlex>
                     <CategoryComponent></CategoryComponent>

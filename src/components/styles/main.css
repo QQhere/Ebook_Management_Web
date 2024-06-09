@@ -190,3 +190,7 @@
 .cursor {
     cursor: pointer;
 }
+
+.hidden {
+    display: none;
+}

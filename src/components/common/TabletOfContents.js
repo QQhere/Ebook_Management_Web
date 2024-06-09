@@ -1,12 +1,13 @@
 import React from 'react';
 import Chapter from './Chapter';
 
-const TabletOfContents = ({data, type}) => {
+const TabletOfContents = (props) => {
+    const data = props.data;
     return (
         <div className="listcolumn">
             {data.map((item, index) => {
                 return (
-                    <Chapter data={item} type={type}></Chapter>
+                    <Chapter data={item.name} type={props.type}></Chapter>
                 );
             })}
         </div>
