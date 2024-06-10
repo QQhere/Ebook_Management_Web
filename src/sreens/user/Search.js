@@ -131,8 +131,10 @@ const Search = () => {
                     <H1>Tác giả</H1>
                     <H1>Tài khoản</H1>
                 </BoxFlex>
-
-                <ListBooks></ListBooks>
+                <div style={{margin: '20px 0'}}>
+                    <ListBooks></ListBooks>
+                </div>
+                
                 <BoxSelect>
                     <select style={{height: '100%'}}>
                         <option value="1">Trang 1</option>

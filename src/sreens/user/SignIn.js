@@ -110,7 +110,7 @@ const SignIn = (props) => {
             </StyledBox2>
             <StyledButton className='button'>Đăng nhập</StyledButton>
             <p style={{marginTop: '20px'}}>Bạn chưa có tài khoản? <span className='link' id='signUp' onClick={handleMove}>Đăng ký</span></p>
-            <p style={{marginTop: '20px'}}>Quay lại <span className='link' href=''>Trang chủ</span></p>
+            <p style={{marginTop: '20px'}}>Quay lại <a className='link' href='/'>Trang chủ</a></p>
           </StyleFlex>
         </StyledBox>
         <StyledBox>  
@@ -126,7 +126,7 @@ const SignIn = (props) => {
             <StyledInput type="password" placeholder='Xác nhận lại mật khẩu' />
             <StyledButton style={{margin: '10px'}} className='button'>Đăng ký</StyledButton>
             <p style={{marginTop: '20px'}}>Bạn đã có tài khoản? <span className='link' id='signIn' onClick={handleReset}>Đăng nhập</span></p>
-            <p style={{marginTop: '20px'}}>Quay lại <span className='link' href=''>Trang chủ</span></p>
+            <p style={{marginTop: '20px'}}>Quay lại <a className='link' href='/'>Trang chủ</a></p>
           </StyleFlex>
         </StyledBox>
 

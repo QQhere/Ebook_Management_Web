@@ -1,18 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import SignIn from './sreens/user/SignIn';
-import Search from './sreens/user/Search';
-import NotFound from './sreens/NotFound';
-import Homepage from './sreens/user/Homepage';
-import AccountManagement from './sreens/user/profile/AccountManagement';
-import Library from './sreens/user/profile/Library';
-import TransactionHistory from './sreens/user/profile/TransactionHistory';
-import NewBook from './sreens/user/NewBook';
-import Overview from './sreens/user/Overview';
 
 const Book1 = {
   id: 1,
@@ -55,22 +45,7 @@ const Book1 = {
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-    <Routes>
-      <Route path='/' element={<App isLoggedIn='1'/>}>
-        <Route index element={<Homepage></Homepage>} />
-        <Route path='/signin' element={<SignIn state='true'></SignIn>} />
-        <Route path='/signup' element={<SignIn state=''></SignIn>} />
-        <Route path='/search' element={<Search></Search>} />
-        <Route path='/account_management' element={<AccountManagement></AccountManagement>}/>
-        <Route path='/library' element={<Library></Library>}/>
-        <Route path='/transaction_history' element={<TransactionHistory></TransactionHistory>} />
-        <Route path='/new_book' element={<NewBook></NewBook>} />
-        <Route path='/overview' element={<Overview></Overview>} />
-        <Route path='*' element={<NotFound></NotFound>} />
-      </Route>
-    </Routes>
-    </BrowserRouter> 
+    <App/>
   </React.StrictMode>
 );
 reportWebVitals();

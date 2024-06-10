@@ -76,5 +76,5 @@ export const Data = [
         
         Và có hai điều đặc biệt trùng hợp với các cô gái trước khi nhảy lầu chết, một là các nữ sinh này luôn lẩm bẩm một câu đó là : "Ánh trăng là gì?" và hai là những nữ sinh này đều đã từng đi qua khu phòng phẫu thuật của trường vào ban đêm. Vậy ánh trăng có phải là nguyên nhân gây ra những cái chết rùng rợn này? Khu phòng phẫu thuật của trường đã gì bí mật? Hãy cùng theo dõi cuốn tiểu thuyết trinh thám này để hiểu rõ nhé!`,
     },
-
+    
 ]
