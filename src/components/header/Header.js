@@ -49,7 +49,7 @@ const Header = () => {
                                 <i class="fa-solid fa-cart-shopping"></i>
                                 </div>
                                 Lịch sử giao dịch</a></li>
-                            <li><a onClick={logout}>
+                            <li><a onClick={logout} >
                                 <div>
                                     <i class="fa-solid fa-right-from-bracket"></i>
                                 </div>
