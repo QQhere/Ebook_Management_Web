@@ -1,4 +1,4 @@
-import { fetchData } from "./Base";
+import { fetchData } from "../api/Base";
 
 export const logIn = async (phoneNumber, password) => {
   try {
@@ -19,12 +19,17 @@ export const logIn = async (phoneNumber, password) => {
   }
 };
 
-export const signUp = async (fullname, phoneNumber, password, retypePassword) => {
+export const signUp = async (
+  fullname,
+  phoneNumber,
+  password,
+  retypePassword
+) => {
   try {
     const response = await fetchData("api/v1/user/register", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         fullname: fullname,
@@ -37,4 +42,19 @@ export const signUp = async (fullname, phoneNumber, password, retypePassword) =>
   } catch (error) {
     throw error;
   }
+};
+
+export const getUserDetails = async (token) => {
+    try {
+        const response = await fetchData("api/v1/user/details", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        }
+        });
+        return response;
+    } catch (error) {
+        throw error;
+    }
 }

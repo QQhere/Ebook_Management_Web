@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import InputLogin from "../../components/common/InputLogin";
 import Colors from "../../constants/Color";
 import "../../components/styles/main.css";
-import { logIn } from "../../services/api/SignInApi";
-import { signUp } from "../../services/api/SignInApi";
+import { logIn } from "../../services/api/User";
+import { signUp } from "../../services/api/User";
 
 const StyledView = styled.div`
   display: grid;
@@ -96,8 +96,8 @@ const SignIn = (props) => {
         navigate(-1);
       }
       else alert(status + "! " + message + "\nTry again!");
-      
 
+      // Chuyển hướng đến trang chính
     } catch (error) {
       const message = error.message;
       alert(message + "\nTry again!");

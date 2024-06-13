@@ -3,8 +3,6 @@ import './App.css';
 import Header from './components/header/Header';
 import { routes } from './routes';
 import { Fragment } from 'react';
-import { Counter } from './counter/Counter';
-
 
 function App() {
   return (
