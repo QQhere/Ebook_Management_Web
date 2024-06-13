@@ -37,7 +37,6 @@ const Span = styled.span`
 `;
 
 const Transaction = (props) => {
-    console.log(props);
     return (
         <Container>
             <Box>

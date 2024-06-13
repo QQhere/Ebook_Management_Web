@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { styled } from "styled-components";
 import Colors from '../../constants/Color';
 import '../styles/main.css';
@@ -15,10 +15,14 @@ const StyledInput = styled.input`
     border-radius: 10px;
 `;
 
-const InputLogin = ({text}) => {
+const InputLogin = ({text, placeholder, setValue}) => {
     return (
         <div>
-            <StyledInput type="text" placeholder={text} />
+            <StyledInput 
+                type="text" 
+                placeholder={placeholder ? placeholder : text}  
+                onChange={(e) => setValue(e.target.value)}
+            />
         </div>
     );
 };
