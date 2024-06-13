@@ -97,7 +97,6 @@ const SignIn = (props) => {
       }
       else alert(status + "! " + message + "\nTry again!");
 
-      // Chuyển hướng đến trang chính
     } catch (error) {
       const message = error.message;
       alert(message + "\nTry again!");

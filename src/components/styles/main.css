@@ -127,8 +127,6 @@
 .body {
     padding: 60px 90px;
     min-height: 100vh;
-    background: linear-gradient(180deg, #000 0%, #343434 100%) no-repeat, #343434;
-    background-size: 100% 900px;
 }
 
 .nav {
