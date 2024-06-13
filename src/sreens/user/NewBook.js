@@ -109,7 +109,7 @@ const NewBook = () => {
     const [categoryIds, setcategoryIds] = useState([]);
 
     const addBook = async (book) => {
-        const response = await createBook('eyJhbGciOiJIUzI1NiJ9.eyJwaG9uZU51bWJlciI6IjAzODU0Mjc2NTYiLCJzdWIiOiIwMzg1NDI3NjU2IiwiZXhwIjoxNzIwODc5MjQzfQ.dzGbpBlvjeO1RdHQr91UephuyLnmp1pEBIom7qi2PAM'
+        const response = await createBook('eyJhbGciOiJIUzI1NiJ9.eyJwaG9uZU51bWJlciI6IjAzODU0Mjc2NTYiLCJzdWIiOiIwMzg1NDI3NjU2IiwiZXhwIjoxNzIwODgxMDAxfQ.nxe1jUKhB5VcEdrWm8WDk1qQaBFruhbkRMz82DiwJi0'
             , book, 1);
 
         return response;

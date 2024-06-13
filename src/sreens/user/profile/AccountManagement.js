@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import Colors from "../../../constants/Color";
 import Avatar from "../../../components/common/Avatar";
-import { getUserDetails } from "../../../services/api/User";
+import { getUserDetails, updateUserDetails } from "../../../services/api/User";
 
 const ChageAvatar = () => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -41,13 +41,58 @@ const ChageAvatar = () => {
 };
 
 const AccountManagement = () => {
+  const [reload, setReload] = useState(false);
   const [activeElement, setActiveElement] = useState("p1");
   const [isVisible, setIsVisible] = useState(false);
   const [isUnHidden, setIsUnHidden] = useState(false);
   const [date, setDate] = useState("2003-08-23");
+  const [fullname, setFullname] = useState("");
+  const [oldPassword, setOldPassword] = useState("");
+  const [password, setPassword] = useState("");
+  const [retypePassword, setRetypePassword] = useState("");
 
   const handleChange = (event) => {
     setDate(event.target.value);
+  };
+
+  const changePassword = async () => {
+    if (oldPassword === "" || password === "" || retypePassword === "") {
+      alert("Không được để trống");
+      return;
+    } else if (oldPassword !== "123456") {
+      alert("Mật khẩu cũ không đúng");
+      return;
+    } else if (password !== retypePassword) {
+      alert("Mật khẩu mới không trùng khớp");
+      return;
+    }
+
+    const response = await updateUserDetails(
+      "eyJhbGciOiJIUzI1NiJ9.eyJwaG9uZU51bWJlciI6IjAzODU0Mjc2NTYiLCJzdWIiOiIwMzg1NDI3NjU2IiwiZXhwIjoxNzIwODgyOTM1fQ.CoUXf6jCIA40fQxU6c1hiK1kWw8GaAP9K_PU8KVgINY",
+      {
+        password: password,
+        retype_password: retypePassword,
+      },
+      1
+    );
+
+    if (response.status === "OK") {
+      alert("Đổi mật khẩu thành công");
+      setIsVisible(false);
+    }
+  };
+
+  const changeInformation = async () => {
+    const response = await updateUserDetails("eyJhbGciOiJIUzI1NiJ9.eyJwaG9uZU51bWJlciI6IjAzODU0Mjc2NTYiLCJzdWIiOiIwMzg1NDI3NjU2IiwiZXhwIjoxNzIwODg0MTE1fQ.Qh8jbUkaCk2uU00h9wMB9ypYRdDuEk6JjeUV3LzyRmE", {
+      fullname: fullname,
+      date_of_birth: new Date(date).toLocaleDateString('en-GB'),
+    }, 1);
+
+    if (response.status === "OK") {
+      alert("Cập nhật thông tin thành công");
+      setReload(!reload);
+      setIsUnHidden(false);
+    }
   };
 
   const [dataUser, setDataUser] = useState({});
@@ -55,13 +100,13 @@ const AccountManagement = () => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await getUserDetails(
-        "eyJhbGciOiJIUzI1NiJ9.eyJwaG9uZU51bWJlciI6IjAzODU0Mjc2NTYiLCJzdWIiOiIwMzg1NDI3NjU2IiwiZXhwIjoxNzIwODU1Mjg5fQ.mZzG1HGS7ecUJVLGd_q-6NyE0PJzySgoz5CO6VTvR84"
+        "eyJhbGciOiJIUzI1NiJ9.eyJwaG9uZU51bWJlciI6IjAzODU0Mjc2NTYiLCJzdWIiOiIwMzg1NDI3NjU2IiwiZXhwIjoxNzIwODgxMDAxfQ.nxe1jUKhB5VcEdrWm8WDk1qQaBFruhbkRMz82DiwJi0"
       );
       setDataUser(response.data);
     };
 
     fetchData();
-  }, [date]);
+  }, [reload]);
 
   function renderChangePassword() {
     return (
@@ -75,6 +120,7 @@ const AccountManagement = () => {
                   type="text"
                   placeholder="Nhập mật khẩu hiện tại"
                   className="bgTransparent boxInfor"
+                  onChange={(e) => setOldPassword(e.target.value)}
                 />
               </BoxOrther>
               <BoxOrther>
@@ -83,6 +129,7 @@ const AccountManagement = () => {
                   type="text"
                   placeholder="Nhập mật khẩu mới"
                   className="bgTransparent boxInfor"
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </BoxOrther>
               <BoxOrther>
@@ -91,12 +138,14 @@ const AccountManagement = () => {
                   type="text"
                   placeholder="Xác nhận mật khẩu"
                   className="bgTransparent boxInfor"
+                  onChange={(e) => setRetypePassword(e.target.value)}
                 />
               </BoxOrther>
             </div>
             <Button
               className="button"
               style={{ border: "none", fontSize: "15px" }}
+              onClick={changePassword}
             >
               Đổi mật khẩu
             </Button>
@@ -133,7 +182,10 @@ const AccountManagement = () => {
                 <Collection
                   type="text"
                   className="collection"
-                  placeholder="Quỳnh Phạm"
+                  placeholder={
+                    dataUser.fullname == null ? "Chưa có" : dataUser.fullname
+                  }
+                  onChange={(e) => setFullname(e.target.value)}
                 ></Collection>
               </BoxFlex>
               <BoxFlex>
@@ -144,6 +196,7 @@ const AccountManagement = () => {
             <Button
               className="button"
               style={{ border: "none", fontSize: "15px" }}
+              onClick={changeInformation}
             >
               Cập nhật
             </Button>

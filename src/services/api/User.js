@@ -45,16 +45,33 @@ export const signUp = async (
 };
 
 export const getUserDetails = async (token) => {
-    try {
-        const response = await fetchData("api/v1/user/details", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-        }
-        });
-        return response;
-    } catch (error) {
-        throw error;
-    }
-}
+  try {
+    const response = await fetchData("api/v1/user/details", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const updateUserDetails = async (token, data, userId) => {
+  try {
+    const response = await fetchData(`api/v1/user/details/${userId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    });
+    console.log(response)
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
