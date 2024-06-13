@@ -1,5 +1,4 @@
 import React from 'react';
-import { Data } from '../../data';
 import { styled } from 'styled-components';
 import Transaction from '../common/Transaction';
 import { TransactionData } from '../../transactionData';

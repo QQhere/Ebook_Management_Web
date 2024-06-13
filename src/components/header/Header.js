@@ -77,9 +77,9 @@ const Header = () => {
                 <a href="/"><img src='/assets/Elogo.svg' alt='logo'></img></a>
                 
                 <ul id="nav">
-                    <li><a href="#freeBooks">Sách miễn phí</a></li>
-                    <li><a href="#followBooks">Sách theo dõi</a></li>
-                    <li><a href="#paidBooks">Sách trả phí</a></li>
+                    <li><a href="/#freeBooks">Sách miễn phí</a></li>
+                    <li><a href="/#followBooks">Sách theo dõi</a></li>
+                    <li><a href="/#paidBooks">Sách trả phí</a></li>
                 </ul>
             </div>
             {showHeader()}

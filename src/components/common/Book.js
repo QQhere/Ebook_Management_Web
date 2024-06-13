@@ -26,14 +26,14 @@ const StyledType = styled.div`
 
 const Book = (props) => {
     return (
-        <div>
+        <a href='/overview'>
             <div className='boxRelative'>
                 <StyledImage src={props.src}></StyledImage>
                 <StyledType className='textBold'>
                   {props.type}
                 </StyledType>
             </div>           
-        </div>
+        </a>
     );
 };
 

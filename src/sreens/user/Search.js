@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { styled } from 'styled-components'
 import Colors from '../../constants/Color';
 import ListBooks from '../../components/search/ListBooks'
+import ListAccounts from '../../components/search/ListAccounts';
 
 const Box = styled.div`
     display: flex;
@@ -81,6 +82,29 @@ const BoxSelect = styled.div`
 `;
 
 const Search = () => {
+    const [activeElement, setActiveElement] = useState('book');
+
+    function renderContent() {
+        return (
+            <div>
+                <BoxFlex style={{gap: '30px', borderBottom: '1px solid #343434'}}>
+                    <p id="book" className={activeElement === 'book' ? 'optionProfile cursor iconColor' : 'optionProfile cursor'} onClick={() => setActiveElement('book')}>Sách</p>
+                    <p id="account" className={activeElement === 'account' ? 'optionProfile cursor iconColor' : 'optionProfile cursor'} onClick={() => setActiveElement('account')}>Tài khoản</p>
+                </BoxFlex>
+                {activeElement === 'book' && <div>
+                    <div style={{margin: '20px 0'}}>
+                        <ListBooks></ListBooks>
+                    </div>
+                </div>}
+                {activeElement === 'account' && <div>
+                    <div style={{margin: '20px 0'}}>
+                        <ListAccounts></ListAccounts>
+                    </div>
+                </div>}
+            </div>
+        );
+    }
+
     return (
         <Box className='body'>
             <Col1>
@@ -111,7 +135,7 @@ const Search = () => {
                     <BoxFlex>
                         <p>Phân loại:</p>
                         <Selection className='collection'>
-                            <option value="" selected disabled hidden>Phân loại sách</option>
+                            <option value="" selected disabled hidden>Thể loại sách</option>
                             <option value="1">Miễn phí</option>
                             <option value="2">Theo dõi</option>
                             <option value="3">Trả phí</option>
@@ -122,19 +146,10 @@ const Search = () => {
 
             <Col2>
                 <BoxFlex>
-                    <SearchBox type="text" placeholder="Tìm theo tên sách, tên tác giả, tên tài khoản"></SearchBox>
+                    <SearchBox type="text" placeholder="Tìm theo tên sách, tên tài khoản"></SearchBox>
                     <ButtonSearch className='button'>Tìm kiếm</ButtonSearch>
                 </BoxFlex>
-
-                <BoxFlex style={{gap: '30px', borderBottom: '1px solid #343434'}}>
-                    <H1>Sách</H1>
-                    <H1>Tác giả</H1>
-                    <H1>Tài khoản</H1>
-                </BoxFlex>
-                <div style={{margin: '20px 0'}}>
-                    <ListBooks></ListBooks>
-                </div>
-                
+                {renderContent()}
                 <BoxSelect>
                     <select style={{height: '100%'}}>
                         <option value="1">Trang 1</option>

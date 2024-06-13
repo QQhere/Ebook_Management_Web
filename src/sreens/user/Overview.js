@@ -1,19 +1,11 @@
 import React from 'react';
-import HeaderCilent from '../../components/header/HeaderClient';
 import { styled } from 'styled-components'
 import Book from '../../components/common/Book';
 import Colors from '../../constants/Color';
 import '../../components/styles/StyledHeader.css';
 import Comment from '../../components/common/Comment';
-import Header from '../../components/header/Header';
 import TabletOfContents from '../../components/common/TabletOfContents';
 import { DataBook } from '../../dataBook';
-
-
-// const Body = styled.div`
-//     background: linear-gradient(180deg, #000 0%, #343434 100%) no-repeat, #343434;
-//     background-size: 100% 900px;
-// `;
 
 const BoxLinks = styled.div`
     width: 100%;
@@ -84,15 +76,6 @@ const StyledBox = styled.div`
 
 const TextTitle = styled.h3`
     margin: 40px 0;
-`;
-
-const StyledChapter = styled.div`
-    width: 100%;
-    background-color: ${Colors.white};
-    padding: 10px 20px;
-    margin: 5px 0;
-    border-radius: 10px;
-    justify-content: space-between;
 `;
 
 const BoxSelect = styled.div`

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { styled } from "styled-components";
+import { useNavigate } from "react-router-dom";
 import InputLogin from "../../components/common/InputLogin";
 import Colors from "../../constants/Color";
 import "../../components/styles/main.css";
@@ -77,6 +78,7 @@ const SignIn = (props) => {
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleMove = () => {
     setMove(false);
@@ -85,7 +87,20 @@ const SignIn = (props) => {
   const handleLoginIn = async () => {
     try {
       const response = await logIn(phoneNumber, password);
+      const message = response.message;
+      const status = response.status;
+      const data = response.data;
+
+      if (status === "OK") {
+        alert(status + "! " + message);
+        navigate(-1);
+      }
+      else alert(status + "! " + message + "\nTry again!");
+      
+
     } catch (error) {
+      const message = error.message;
+      alert(message + "\nTry again!");
       console.log(error);
     }
   };
@@ -94,8 +109,18 @@ const SignIn = (props) => {
     console.log("Sign up");
     try {
       const response = await signUp(fullName, phoneNumber, password, confirmPassword);
-      console.log(response);
+      const message = response.message;
+      const status = response.status;
+      const data = response.data;
+
+      if (status === "OK") {
+        alert(status + "! " + message);
+        navigate(-1);
+      }
+      else alert(status + "! " + message + "\nTry again!");
     } catch (error) {
+      const message = error.message;
+      alert(message + "\nTry again!");
       console.log(error);
     }
   };

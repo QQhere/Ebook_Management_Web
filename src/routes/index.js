@@ -7,6 +7,7 @@ import Library from '../sreens/user/profile/Library';
 import TransactionHistory from '../sreens/user/profile/TransactionHistory';
 import NewBook from '../sreens/user/NewBook';
 import Overview from '../sreens/user/Overview';
+import Account from '../components/account/Account';
 
 export const routes = [
     {
@@ -46,6 +47,10 @@ export const routes = [
     {
         path: '/overview',
         element: Overview,
+    },
+    {
+        path: '/inforAccount',
+        element: Account,
     },
     {
         path: '*',

@@ -49,7 +49,7 @@ const Homepage = () => {
             <StyledBox>
                 <StyledBoxTitle>
                     <h3>Sách miễn phí</h3>
-                    <p className='link'>Xem thêm <i class="fa-solid fa-angles-right"></i></p>
+                    <a className='link' href='/search'>Xem thêm <i class="fa-solid fa-angles-right"></i></a>
                 </StyledBoxTitle>
                 
                 <StyledBoxList id='freeBooks'>                
@@ -58,7 +58,7 @@ const Homepage = () => {
 
                 <StyledBoxTitle>
                     <h3>Sách theo dõi</h3>
-                    <p className='link'>Xem thêm <i class="fa-solid fa-angles-right"></i></p>
+                    <a className='link' href='/search'>Xem thêm <i class="fa-solid fa-angles-right"></i></a>
                 </StyledBoxTitle>
                 <StyledBoxList id='followBooks'>             
                     <ListBooks></ListBooks>
@@ -66,7 +66,7 @@ const Homepage = () => {
                 
                 <StyledBoxTitle>
                     <h3>Sách trả phí</h3>
-                    <p className='link'>Xem thêm <i class="fa-solid fa-angles-right"></i></p>
+                    <a className='link' href='/search'>Xem thêm <i class="fa-solid fa-angles-right"></i></a>
                 </StyledBoxTitle>
                 <StyledBoxList id='paidBooks'>
                     <ListBooks></ListBooks>

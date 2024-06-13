@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { styled } from 'styled-components'
 import Colors from '../../constants/Color';
+import { useNavigate } from 'react-router';
 
 const Box = styled.div`
     display: flex;
@@ -163,7 +164,7 @@ const ChageThumbnail = () => {
 }
 
 const NewBook = () => {
-    const inputRef = useRef();
+    const navigate = useNavigate();
     return (
         <Box className='body'>
             <Col1>
@@ -172,8 +173,8 @@ const NewBook = () => {
 
             <Col2>
                 <div id="headerCilent" style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '25px' }}>
-                    <Button className='button'><a href=''>Thêm mới sách</a></Button>
-                    <Button className='btn'><a href='/'></a>Hủy bỏ</Button>
+                    <Button className='button'>Thêm mới sách</Button>
+                    <Button className='btn' onClick={() => navigate(-1)}>Hủy bỏ</Button>
                 </div>
                 <div>
                     <BoxFlex>
@@ -182,7 +183,6 @@ const NewBook = () => {
                             type='text' 
                             className='collection' 
                             placeholder='Nhập tên sách'
-                            ref={inputRef}
                         ></Collection>
                     </BoxFlex>
 
