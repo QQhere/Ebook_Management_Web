@@ -45,8 +45,9 @@ const AccountManagement = () => {
   const [activeElement, setActiveElement] = useState("p1");
   const [isVisible, setIsVisible] = useState(false);
   const [isUnHidden, setIsUnHidden] = useState(false);
-  const [date, setDate] = useState("2003-08-23");
-  const [fullname, setFullname] = useState("");
+  const [dataUser, setDataUser] = useState({});
+  const [date, setDate] = useState("2000-01-01");
+  const [fullname, setFullname] = useState(dataUser.fullname ? dataUser.fullname  : "Chưa có");
   const [oldPassword, setOldPassword] = useState("");
   const [password, setPassword] = useState("");
   const [retypePassword, setRetypePassword] = useState("");
@@ -94,8 +95,6 @@ const AccountManagement = () => {
       setIsUnHidden(false);
     }
   };
-
-  const [dataUser, setDataUser] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -182,9 +181,7 @@ const AccountManagement = () => {
                 <Collection
                   type="text"
                   className="collection"
-                  placeholder={
-                    dataUser.fullname == null ? "Chưa có" : dataUser.fullname
-                  }
+                  value={fullname}
                   onChange={(e) => setFullname(e.target.value)}
                 ></Collection>
               </BoxFlex>
@@ -275,9 +272,9 @@ const AccountManagement = () => {
                   <div className="profile">
                     <p className="textSmokyGrey">Họ và tên:</p>
                     <p>
-                      {dataUser.fullname === null
-                        ? "Chưa có"
-                        : dataUser.fullname}
+                      {dataUser.fullname
+                        ? dataUser.fullname
+                        : "Chưa có"}
                     </p>
                   </div>
                 </BoxInfor>
@@ -285,9 +282,9 @@ const AccountManagement = () => {
                   <div className="profile">
                     <p className="textSmokyGrey">Ngày sinh:</p>
                     <p>
-                      {dataUser.date_of_birth === null
-                        ? "Chưa có"
-                        : formatDate(dataUser.date_of_birth)}
+                      {dataUser.date_of_birth
+                        ? formatDate(dataUser.date_of_birth)
+                        : "Chưa có"}
                     </p>
                   </div>
                 </BoxInfor>

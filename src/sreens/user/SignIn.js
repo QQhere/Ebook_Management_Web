@@ -86,7 +86,6 @@ const SignIn = () => {
   let logInState = useSelector(state => state.logIn);
   const logInmessage = logInState.message;
   const logInstatus = logInState.status;
-
   let signUpState = useSelector(state => state.signUp);
   const signUpmessage = signUpState.message;
   const signUpstatus = signUpState.status;
