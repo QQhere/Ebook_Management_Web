@@ -34,21 +34,21 @@ const Header = () => {
                     </div>
                     <div style={{ display: showSubNav ? 'block' : 'none' }}>
                         <ul id="subnav">
-                            <li><a href="/account_management">
+                            <li><Link to="/account_management">
                                 <div>
                                     <i class="fa-solid fa-user"></i>
                                 </div>
-                                Quản lý tài khoản</a></li>
-                            <li><a href="/library">
+                                Quản lý tài khoản</Link></li>
+                            <li><Link to="/library">
                                 <div>
                                     <i class="fa-solid fa-bookmark"></i>
                                 </div>
-                                Thư viện cá nhân</a></li>
-                            <li><a href="transaction_history">
+                                Thư viện cá nhân</Link></li>
+                            <li><Link to="/transaction_history">
                                 <div>
                                     <i class="fa-solid fa-cart-shopping"></i>
                                 </div>
-                                Lịch sử giao dịch</a></li>
+                                Lịch sử giao dịch</Link></li>
                             <li><a onClick={logout} >
                                 <div>
                                     <i class="fa-solid fa-right-from-bracket"></i>
@@ -64,15 +64,14 @@ const Header = () => {
                     <Link className='btn icon' to='/search'>
                         <i class="fa-solid fa-magnifying-glass iconColor"></i>
                     </Link>
-                    <button className='button'>
-                        <Link to={{
-                            pathname: "/signin",
-                            state: { myProp: false }
-                        }}>
-                            Đăng nhập
-                        </Link>
-                    </button>
-                    <button className='btn'><Link to="/signup">Đăng ký</Link></button>
+
+                    <Link to="/signin_signup">
+                        <button className='button btnLink'>Đăng nhập</button>
+                    </Link>
+                    <Link to="/signin_signup">
+                        <button className='btn btnLink'>Đăng ký</button>
+                    </Link>
+
                 </div>
             )
         }

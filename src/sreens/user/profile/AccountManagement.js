@@ -3,6 +3,7 @@ import { styled } from "styled-components";
 import Colors from "../../../constants/Color";
 import Avatar from "../../../components/common/Avatar";
 import { getUserDetails, updateUserDetails } from "../../../services/api/User";
+import { useSelector } from "react-redux";
 
 const ChageAvatar = () => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -51,6 +52,8 @@ const AccountManagement = () => {
   const [oldPassword, setOldPassword] = useState("");
   const [password, setPassword] = useState("");
   const [retypePassword, setRetypePassword] = useState("");
+  const data = useSelector(state => state.logIn);
+  console.log(data);
 
   const handleChange = (event) => {
     setDate(event.target.value);

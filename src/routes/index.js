@@ -15,12 +15,7 @@ export const routes = [
         element: Homepage,
     },
     {
-        path: '/signin',
-        element: SignIn,
-        isHiddenHeader: true,
-    },
-    {
-        path: '/signup',
+        path: '/signin_signup',
         element: SignIn,
         isHiddenHeader: true,
     },
