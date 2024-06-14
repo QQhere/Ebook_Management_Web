@@ -83,38 +83,48 @@ const SignIn = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  let logInState = useSelector(state => state.logIn);
+  const logInState = useSelector((state) => state.logIn);
   const logInmessage = logInState.message;
   const logInstatus = logInState.status;
-  let signUpState = useSelector(state => state.signUp);
+  const signUpState = useSelector(state => state.signUp);
   const signUpmessage = signUpState.message;
-  const signUpstatus = signUpState.status;
+  const signUpstatus = signUpState.status; 
+  const [hasAttemptedLogin, setHasAttemptedLogin] = useState(false);
 
   const handleMove = () => {
     setMove(!move);
   };
 
-const handleLogIn = async () => {
-  console.log("Sign in");
-    try {
-      await dispatch(logInSl({ phoneNumber, password }));
+  useEffect(() => {
+    if (hasAttemptedLogin && logInstatus && logInstatus !== 'INITIAL_VALUE') {
       if (logInstatus === "OK") {
         alert(logInstatus + "! " + logInmessage);
         navigate(-1);
       }
-      else if (logInstatus) {
+      else {
         alert(logInstatus + "! " + logInmessage + "\nTry again!");
       }
+    }
+  }, [hasAttemptedLogin, logInstatus, logInmessage]);
+
+const handleLogIn = async () => {
+  console.log("Sign in");
+  setHasAttemptedLogin(true);
+    try {
+      await dispatch(logInSl({ phoneNumber, password }));
+      // if (logInstatus === "OK") {
+      //   alert(logInstatus + "! " + logInmessage);
+      //   navigate(-1);
+      // }
+      // else if (logInstatus) {
+      //   alert(logInstatus + "! " + logInmessage + "\nTry again!");
+      // }
     } catch (err) {
       const message = err.message;
       alert(message + "\nTry again!");
       console.log(err);
     }
   };
-
-  useEffect(() => {
-    
-  }, [logInState, signUpState]);
 
   const handleSignUp = async () => {
     try {

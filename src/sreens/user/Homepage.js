@@ -47,8 +47,6 @@ const Homepage = () => {
   const [bookFollow, setBookFollow] = useState([]);
   const [bookFee, setBookFee] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const data = useSelector(state => state.logIn);
-  console.log(data);
 
   const fetchBookByType = async (type) => {
     const response = await getAllBookByType(type, 1, 5);

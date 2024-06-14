@@ -52,8 +52,6 @@ const AccountManagement = () => {
   const [oldPassword, setOldPassword] = useState("");
   const [password, setPassword] = useState("");
   const [retypePassword, setRetypePassword] = useState("");
-  const data = useSelector(state => state.logIn);
-  console.log(data);
 
   const handleChange = (event) => {
     setDate(event.target.value);
