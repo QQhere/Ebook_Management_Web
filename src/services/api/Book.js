@@ -32,3 +32,18 @@ export const getAllBookByUser = async (token, userId) => {
     throw error;
   }
 };
+
+export const getAllBookByType = async (type, page, limit) => {
+  try {
+    const response = await fetchData(`api/v1/book/all/${type}/${page}/${limit}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    });
+
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
