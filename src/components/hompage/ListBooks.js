@@ -11,15 +11,15 @@ const ListBooks = (props) => {
     return (
         <div className="list">
             {props.children}
-            {Data.map((item, index) => {
+            {props.data?.map((item, index) => {
                 return (
                     <StyledBox>
                         <Book
                             key={item.id}
-                            src={item.src}
-                            type={item.type}
+                            src={item.image ? item.image : "https://i.docln.net/lightnovel/covers/s12096-4622c0c2-0e3d-455f-8200-58b2fc537cb4-m.jpg"}
+                            type={item.type_of_book}
                         ></Book>
-                        <p className='textBold'>{item.title} - {item.author}</p>
+                        <p className='textBold'>{item.title}</p>
                     </StyledBox>             
                 );
             })}
