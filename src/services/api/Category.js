@@ -12,7 +12,6 @@ export const createCategory = async (token, data) => {
         name: data.name,
       }),
     });
-    console.log(response);
     return response;
   } catch (error) {
     throw error;
@@ -32,7 +31,6 @@ export const putCategory = async (token, data) => {
         descryption: data.descryption,
       }),
     });
-    console.log(response);
     return response;
   } catch (error) {
     throw error;
@@ -48,7 +46,6 @@ export const deleteCategory = async (token, categoryId) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(response);
     return response;
   } catch (error) {
     throw error;
@@ -66,7 +63,6 @@ export const getCategoryById = async (categoryId) => {
         },
       }
     );
-    console.log(response);
     return response;
   } catch (error) {
     throw error;
@@ -81,7 +77,6 @@ export const getAllCategory = async () => {
         "Content-Type": "application/json",
       },
     });
-    console.log(response);
     return response;
   } catch (error) {
     throw error;

@@ -25,12 +25,20 @@ const StyledType = styled.div`
 `;
 
 const Book = (props) => {
+    const getTypeBook = (type) => {
+        switch(type) {
+            case "Free": return "Miễn phí";
+            case "Fee": return "Trả phí";
+            case "Follow": return "Theo dõi";
+        }
+    }
+
     return (
         <a href='/overview'>
             <div className='boxRelative'>
                 <StyledImage src={props.src}></StyledImage>
                 <StyledType className='textBold'>
-                  {props.type}
+                  {getTypeBook(props.type)}
                 </StyledType>
             </div>           
         </a>

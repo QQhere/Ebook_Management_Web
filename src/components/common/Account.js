@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import Colors from '../../constants/Color';
 
 const Account = (props) => {
-    console.log(props)
     return (
         <a href='/inforAccount'>
             <Container>

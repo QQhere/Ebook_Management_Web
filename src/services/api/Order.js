@@ -15,7 +15,6 @@ export const createOrder = async (token, data) => {
                 book_ids: data.book_ids,
             }),
         });
-        console.log(response);
         return response;
     } catch (error) {
         throw error;
@@ -30,7 +29,6 @@ export const updateOrder = async (token, orderId, data) => {
                 "Authorization": `Bearer ${token}`,
             },
         });
-        console.log(response);
         return response;
     } catch (error) {
         throw error;
@@ -45,7 +43,6 @@ export const getOrderById = async (token, orderId) => {
                 "Authorization": `Bearer ${token}`,
             },
         });
-        console.log(response);
         return response;
     } catch (error) {
         throw error;
@@ -60,7 +57,6 @@ export const getAllOrderByUser = async (token, userId, page) => {
                 "Authorization": `Bearer ${token}`,
             },
         });
-        console.log(response);
         return response;
     } catch (error) {
         throw error;

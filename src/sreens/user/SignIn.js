@@ -92,7 +92,7 @@ const SignIn = () => {
   const signUpstatus = signUpState.status;
 
   const handleMove = () => {
-    setMove(false);
+    setMove(!move);
   };
 
 const handleLogIn = async () => {
@@ -118,7 +118,6 @@ const handleLogIn = async () => {
   }, [logInState, signUpState]);
 
   const handleSignUp = async () => {
-    console.log("Sign up");
     try {
       await dispatch(signUpSl({fullName, phoneNumber, password, confirmPassword}));
       if (signUpstatus === "CREATED") {
@@ -129,7 +128,6 @@ const handleLogIn = async () => {
     } catch (error) {
       const message = error.message;
       alert(message + "\nTry again!");
-      console.log(error);
     }
   };
 

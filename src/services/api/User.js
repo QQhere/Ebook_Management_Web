@@ -12,7 +12,6 @@ export const logIn = async (phoneNumber, password) => {
         password: password,
       }),
     });
-    console.log(response);
     return response;
   } catch (error) {
     throw error;
@@ -69,7 +68,6 @@ export const updateUserDetails = async (token, data, userId) => {
       },
       body: JSON.stringify(data),
     });
-    console.log(response)
     return response;
   } catch (error) {
     throw error;

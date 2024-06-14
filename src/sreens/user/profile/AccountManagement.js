@@ -83,9 +83,9 @@ const AccountManagement = () => {
   };
 
   const changeInformation = async () => {
-    const response = await updateUserDetails("eyJhbGciOiJIUzI1NiJ9.eyJwaG9uZU51bWJlciI6IjAzODU0Mjc2NTYiLCJzdWIiOiIwMzg1NDI3NjU2IiwiZXhwIjoxNzIwODg0MTE1fQ.Qh8jbUkaCk2uU00h9wMB9ypYRdDuEk6JjeUV3LzyRmE", {
+    const response = await updateUserDetails("eyJhbGciOiJIUzI1NiJ9.eyJwaG9uZU51bWJlciI6IjAzODU0Mjc2NTYiLCJzdWIiOiIwMzg1NDI3NjU2IiwiZXhwIjoxNzIwOTM4MzEyfQ.zCGjF2t_PZnLxVJQHW9NgS4n3Gyw2Uhy9mWpQ2ViJCQ", {
       fullname: fullname,
-      date_of_birth: new Date(date).toLocaleDateString('en-GB'),
+      date_of_birth: date
     }, 1);
 
     if (response.status === "OK") {
@@ -221,6 +221,19 @@ const AccountManagement = () => {
     );
   }
 
+  function formatDate(dateString) {
+    // Tạo đối tượng Date từ chuỗi ngày tháng
+    const date = new Date(dateString);
+    
+    // Lấy các thành phần ngày, tháng, năm
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    
+    // Trả về chuỗi định dạng dd-mm-yyyy
+    return `${day}-${month}-${year}`;
+  }
+
   function renderContent() {
     return (
       <div>
@@ -262,7 +275,7 @@ const AccountManagement = () => {
                   <div className="profile">
                     <p className="textSmokyGrey">Họ và tên:</p>
                     <p>
-                      {dataUser.fullname == null
+                      {dataUser.fullname === null
                         ? "Chưa có"
                         : dataUser.fullname}
                     </p>
@@ -272,9 +285,9 @@ const AccountManagement = () => {
                   <div className="profile">
                     <p className="textSmokyGrey">Ngày sinh:</p>
                     <p>
-                      {dataUser.date_of_birth == null
+                      {dataUser.date_of_birth === null
                         ? "Chưa có"
-                        : dataUser.date_of_birth}
+                        : formatDate(dataUser.date_of_birth)}
                     </p>
                   </div>
                 </BoxInfor>
