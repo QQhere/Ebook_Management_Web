@@ -15,7 +15,6 @@ export const createComment = async (token, data) => {
         user_id: data.user_id,
       }),
     });
-    console.log(response);
     return response;
   } catch (error) {
     throw error;
@@ -31,7 +30,6 @@ export const getCommentById = async (token, commentId) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(response);
     return response;
   } catch (error) {
     throw error;
@@ -54,7 +52,6 @@ export const updateComment = async (token, commentId, data) => {
         user_id: data.user_id,
       }),
     });
-    console.log(response);
     return response;
   } catch (error) {
     throw error;
@@ -70,7 +67,6 @@ export const deleteComment = async (token, commentId) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(response);
     return response;
   } catch (error) {
     throw error;

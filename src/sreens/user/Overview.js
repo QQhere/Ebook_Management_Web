@@ -97,7 +97,6 @@ const Categories = ({categories}) => {
     return (
         <List>
             {categories.map((item, index) => {
-                console.log(item);
                 return (
                     <Category>{item.name}</Category>          
                 );

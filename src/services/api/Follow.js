@@ -13,7 +13,6 @@ export const createFollow = async (token, data) => {
                 userId: data.userId,
             }),
         });
-        console.log(response);
         return response;
     } catch (error) {
         throw error;
@@ -28,7 +27,6 @@ export const getAllFollow = async (token, userId) => {
                 "Authorization": `Bearer ${token}`,
             },
         });
-        console.log(response);
         return response;
     } catch (error) {
         throw error;
@@ -43,7 +41,6 @@ export const deleteFollow = async (token, followId) => {
                 "Authorization": `Bearer ${token}`,
             },
         });
-        console.log(response);
         return response;
     } catch (error) {
         throw error;
@@ -58,7 +55,6 @@ export const getFollowById = async (token, followId) => {
                 "Authorization": `Bearer ${token}`,
             },
         });
-        console.log(response);
         return response;
     } catch (error) {
         throw error;

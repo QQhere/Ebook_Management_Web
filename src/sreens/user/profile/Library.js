@@ -15,7 +15,6 @@ const Library = () => {
         "eyJhbGciOiJIUzI1NiJ9.eyJwaG9uZU51bWJlciI6IjAzODU0Mjc2NTYiLCJzdWIiOiIwMzg1NDI3NjU2IiwiZXhwIjoxNzIwODgxMDAxfQ.nxe1jUKhB5VcEdrWm8WDk1qQaBFruhbkRMz82DiwJi0",
         1
       );
-      console.log(response.data);
       setData(response.data);
     };
     fetchData();

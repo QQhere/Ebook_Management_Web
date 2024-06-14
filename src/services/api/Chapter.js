@@ -16,7 +16,6 @@ export const createChapter = async (token, data) => {
 
             }),
         });
-        console.log(response);
         return response;
     } catch (error) {
         throw error;
@@ -31,7 +30,6 @@ export const getChapterById = async (token, chapterId) => {
                 "Authorization": `Bearer ${token}`,
             },
         });
-        console.log(response);
         return response;
     } catch (error) {
         throw error;
@@ -54,7 +52,6 @@ export const updateChapter = async (token, chapterId, data) => {
 
             }),
         });
-        console.log(response);
         return response;
     } catch (error) {
         throw error;
@@ -69,7 +66,6 @@ export const deleteChapter = async (token, chapterId) => {
                 "Authorization": `Bearer ${token}`,
             },
         });
-        console.log(response);
         return response;
     } catch (error) {
         throw error;
@@ -85,7 +81,6 @@ export const getAllChapterByBook = async (token, bookId) => {
                 "book_id": bookId.toString(),
             },
         });
-        console.log(response);
         return response;
     } catch (error) {
         throw error;

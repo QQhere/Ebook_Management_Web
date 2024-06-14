@@ -15,7 +15,6 @@ export const createRating = async (token, data) => {
                 user_id: data.user_id,
             }),
         });
-        console.log(response);
         return response;
     } catch (error) {
         throw error;
@@ -34,7 +33,6 @@ export const updateRating = async (token, ratingId, data) => {
                 score: data.score,
             }),
         });
-        console.log(response);
         return response;
     } catch (error) {
         throw error;
@@ -49,7 +47,6 @@ export const deleteRating = async (token, ratingId) => {
                 "Authorization": `Bearer ${token}`,
             },
         });
-        console.log(response);
         return response;
     } catch (error) {
         throw error;
@@ -61,7 +58,6 @@ export const getAllRatingByBookId = async (bookId) => {
         const response = await fetchData(`api/v1/rating/all/${bookId}`, {
             method: "GET",
         });
-        console.log(response);
         return response;
     } catch (error) {
         throw error;

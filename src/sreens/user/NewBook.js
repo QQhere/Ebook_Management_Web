@@ -108,14 +108,16 @@ const NewBook = () => {
     const [price, setPrice] = useState(0);
     const [categoryIds, setcategoryIds] = useState([]);
 
+    const navigate = useNavigate();
+
     const addBook = async (book) => {
-        const response = await createBook('eyJhbGciOiJIUzI1NiJ9.eyJwaG9uZU51bWJlciI6IjAzODU0Mjc2NTYiLCJzdWIiOiIwMzg1NDI3NjU2IiwiZXhwIjoxNzIwODgxMDAxfQ.nxe1jUKhB5VcEdrWm8WDk1qQaBFruhbkRMz82DiwJi0'
+        const response = await createBook('eyJhbGciOiJIUzI1NiJ9.eyJwaG9uZU51bWJlciI6IjAzODU0Mjc2NTYiLCJzdWIiOiIwMzg1NDI3NjU2IiwiZXhwIjoxNzIwOTM4MzEyfQ.zCGjF2t_PZnLxVJQHW9NgS4n3Gyw2Uhy9mWpQ2ViJCQ'
             , book, 1);
 
         return response;
     }
 
-    const handleAddBook = () => {
+    const handleAddBook = async () => {
         const book = {
             title: title,
             summary: summary,
@@ -128,8 +130,15 @@ const NewBook = () => {
             price: price,
             categoryIds: categoryIds,
         };
-        console.log(book);
-        addBook(book);
+        const response = await addBook(book);
+        console.log(response)
+
+        if (response.status === "CREATED") {
+            alert("Thêm sách thành công");
+            navigate(-1);
+        } else {
+            alert("Thêm sách thất bại");
+        }
         // done
     };
 

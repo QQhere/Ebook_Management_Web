@@ -81,7 +81,7 @@ const SignIn = (props) => {
   const navigate = useNavigate();
 
   const handleMove = () => {
-    setMove(false);
+    setMove(!move);
   };
 
   const handleLoginIn = async () => {
@@ -100,27 +100,24 @@ const SignIn = (props) => {
     } catch (error) {
       const message = error.message;
       alert(message + "\nTry again!");
-      console.log(error);
     }
   };
 
   const handleSignUp = async () => {
-    console.log("Sign up");
     try {
       const response = await signUp(fullName, phoneNumber, password, confirmPassword);
       const message = response.message;
       const status = response.status;
       const data = response.data;
 
-      if (status === "OK") {
+      if (status === "CREATED") {
         alert(status + "! " + message);
-        navigate(-1);
+        handleMove();
       }
       else alert(status + "! " + message + "\nTry again!");
     } catch (error) {
       const message = error.message;
       alert(message + "\nTry again!");
-      console.log(error);
     }
   };
 
