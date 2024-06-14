@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import { useNavigate } from "react-router-dom";
 import InputLogin from "../../components/common/InputLogin";
@@ -6,6 +6,9 @@ import Colors from "../../constants/Color";
 import "../../components/styles/main.css";
 import { logIn } from "../../services/api/User";
 import { signUp } from "../../services/api/User";
+import { useDispatch, useSelector } from "react-redux";
+import { logInSl } from "../../redux/slices/logInSlice";
+import { signUpSl } from "../../redux/slices/signUpSlice";
 
 const StyledView = styled.div`
   display: grid;
@@ -72,51 +75,57 @@ const StyledBox2 = styled.div`
   margin: 10px;
 `;
 
-const SignIn = (props) => {
-  const [move, setMove] = useState(props.state);
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [password, setPassword] = useState("");
+const SignIn = () => {
+  const [move, setMove] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [password, setPassword] = useState('');
   const [fullName, setFullName] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  let logInState = useSelector(state => state.logIn);
+  const logInmessage = logInState.message;
+  const logInstatus = logInState.status;
+
+  let signUpState = useSelector(state => state.signUp);
+  const signUpmessage = signUpState.message;
+  const signUpstatus = signUpState.status;
 
   const handleMove = () => {
     setMove(false);
   };
 
-  const handleLoginIn = async () => {
+const handleLogIn = async () => {
+  console.log("Sign in");
     try {
-      const response = await logIn(phoneNumber, password);
-      const message = response.message;
-      const status = response.status;
-      const data = response.data;
-
-      if (status === "OK") {
-        alert(status + "! " + message);
+      await dispatch(logInSl({ phoneNumber, password }));
+      if (logInstatus === "OK") {
+        alert(logInstatus + "! " + logInmessage);
         navigate(-1);
       }
-      else alert(status + "! " + message + "\nTry again!");
-
-    } catch (error) {
-      const message = error.message;
+      else if (logInstatus) {
+        alert(logInstatus + "! " + logInmessage + "\nTry again!");
+      }
+    } catch (err) {
+      const message = err.message;
       alert(message + "\nTry again!");
-      console.log(error);
+      console.log(err);
     }
   };
+
+  useEffect(() => {
+    
+  }, [logInState, signUpState]);
 
   const handleSignUp = async () => {
     console.log("Sign up");
     try {
-      const response = await signUp(fullName, phoneNumber, password, confirmPassword);
-      const message = response.message;
-      const status = response.status;
-      const data = response.data;
-
-      if (status === "OK") {
-        alert(status + "! " + message);
-        navigate(-1);
+      await dispatch(signUpSl({fullName, phoneNumber, password, confirmPassword}));
+      if (signUpstatus === "CREATED") {
+        alert(signUpstatus + "! " + signUpmessage + "\nLog in now");
+        handleReset();
       }
-      else alert(status + "! " + message + "\nTry again!");
+      else alert(signUpstatus + "! " + signUpmessage + "\nTry again!");
     } catch (error) {
       const message = error.message;
       alert(message + "\nTry again!");
@@ -131,7 +140,7 @@ const SignIn = (props) => {
     setPassword("");
     setConfirmPassword("");
   };
-  
+
   return (
     <StyledView>
       <StyledBox>
@@ -151,7 +160,11 @@ const SignIn = (props) => {
             text="Số điện thoại"
             setValue={setPhoneNumber}
           ></InputLogin>
-          <InputLogin text="Mật khẩu" setValue={setPassword}></InputLogin>
+          <InputLogin
+            text="Mật khẩu"
+            type="password"
+            setValue={setPassword}
+          ></InputLogin>
           <StyledBox2>
             <StyledMiniBox>
               <input type="checkbox" id="checkbox" />
@@ -161,7 +174,7 @@ const SignIn = (props) => {
               Quên mật khẩu
             </a>
           </StyledBox2>
-          <StyledButton className="button" onClick={handleLoginIn}>
+          <StyledButton className="button" onClick={handleLogIn}>
             Đăng nhập
           </StyledButton>
           <p style={{ marginTop: "20px" }}>
@@ -192,24 +205,26 @@ const SignIn = (props) => {
           <p style={{ fontSize: "13px", marginBottom: "20px" }}>
             Tạo tài khoản để khám phá nhiều hơn
           </p>
-          <InputLogin 
-            text="Họ và tên" 
+          <InputLogin
+            text="Họ và tên"
             setValue={setFullName}
           ></InputLogin>
           <InputLogin
             text="Số điện thoại"
             setValue={setPhoneNumber}
           ></InputLogin>
-          <InputLogin 
-            text="Mật khẩu" 
+          <InputLogin
+            text="Mật khẩu"
+            type="password"
             setValue={setPassword}
           ></InputLogin>
           <InputLogin
             text="Nhập lại mật khẩu"
+            type="password"
             setValue={setConfirmPassword}
           ></InputLogin>
-          <StyledButton 
-            style={{ margin: "10px" }} 
+          <StyledButton
+            style={{ margin: "10px" }}
             className="button"
             onClick={handleSignUp}
           >
