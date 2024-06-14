@@ -4,27 +4,51 @@ import Colors from "../../../constants/Color";
 import Avatar from "../../../components/common/Avatar";
 import ListBooks from "../../../components/search/ListBooks";
 import { getAllBookByUser } from "../../../services/api/Book";
+import { getUserDetails } from "../../../services/api/User";
 
 const Library = () => {
-  const [data, setData] = useState([]);
+  const [dataUser, setDataUser] = useState([]);
+
+  const [publishedBooks, setPublishedBooks] = useState([]);
+  const [followingBooks, setFollowingBooks] = useState([]);
+  const [purchasedBooks, setPurchasedBooks] = useState([]);
+
+  const fetchDataBook = async (token, userId) => {
+    // const response = await getAllBookByUser(localStorage.getItem('token'), localStorage.getItem('userId'));
+    const response = await getAllBookByUser(token, userId);
+    setPublishedBooks([]);
+    setFollowingBooks([]);
+    setPurchasedBooks([]);
+    response.data.map((item) => {
+      if (item.status === "follow") {
+        setFollowingBooks((followingBooks) => [...followingBooks, item]);
+      } else if (item.status === "Fee") {
+        setPurchasedBooks((purchasedBooks) => [...purchasedBooks, item]);
+      } else {
+        setPublishedBooks((publishedBooks) => [...publishedBooks, item]);
+      }
+    });
+  };
+
+  const fetchDataUser = async (token) => {
+    const response = await getUserDetails(token);
+    setDataUser(response.data);
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      // const response = await getAllBookByUser(localStorage.getItem('token'), localStorage.getItem('userId'));
-      const response = await getAllBookByUser(
-        "eyJhbGciOiJIUzI1NiJ9.eyJwaG9uZU51bWJlciI6IjAzODU0Mjc2NTYiLCJzdWIiOiIwMzg1NDI3NjU2IiwiZXhwIjoxNzIwODgxMDAxfQ.nxe1jUKhB5VcEdrWm8WDk1qQaBFruhbkRMz82DiwJi0",
-        1
-      );
-      setData(response.data);
-    };
-    fetchData();
+    const token =
+      "eyJhbGciOiJIUzI1NiJ9.eyJwaG9uZU51bWJlciI6IjAzODU0Mjc2NTYiLCJzdWIiOiIwMzg1NDI3NjU2IiwiZXhwIjoxNzIwODgxMDAxfQ.nxe1jUKhB5VcEdrWm8WDk1qQaBFruhbkRMz82DiwJi0";
+    fetchDataUser(token);
+    fetchDataBook(token, 1);
   }, []);
 
   return (
     <Box className="body">
       <Col1>
         <BoxAvatar>
-          <p style={{ fontSize: "26px" }}>Quỳnh Phạm</p>
+          <p style={{ fontSize: "26px" }}>
+            {dataUser.fullname === null ? "" : dataUser.fullname}
+          </p>
           <Avatar></Avatar>
           <ButtonEditAvatar className="button">
             Thay ảnh <i class="fa-regular fa-pen-to-square"></i>
@@ -58,13 +82,13 @@ const Library = () => {
         </BoxNav>
 
         <BoxCenter>
-          <H1>5</H1>
+          <H1>{publishedBooks.length}</H1>
           <p>Sách đã đăng</p>
         </BoxCenter>
         <BoxApp className="flex">
           <BoxCenter>
             <H1>10</H1>
-            <p>Đang thẽo dõi</p>
+            <p>Đang theo dõi</p>
           </BoxCenter>
 
           <BoxCenter>
@@ -87,8 +111,9 @@ const Library = () => {
             </p>
           </a>
         </BoxOption>
+
         <div id="library">
-          <ListBooks></ListBooks>
+          <ListBooks data={publishedBooks}></ListBooks>
         </div>
       </Col2>
     </Box>
