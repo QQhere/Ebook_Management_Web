@@ -24,9 +24,9 @@ const Header = () => {
         if (isSignIn) {
             return (
                 <div id="headerUser">
-                    <a className='btn icon' href='/search'>
+                    <Link className='btn icon' to='/search'>
                         <i class="fa-solid fa-magnifying-glass link"></i>
-                    </a>
+                    </Link>
                     <div onClick={handleClick} style={{ cursor: 'pointer' }}>
                         <Box> <Avatar id='avatar'></Avatar> </Box>
                         <h4 style={{ color: '#FAFCFC' }}>Quỳnh Phạm</h4>
@@ -34,17 +34,17 @@ const Header = () => {
                     </div>
                     <div style={{ display: showSubNav ? 'block' : 'none' }}>
                         <ul id="subnav">
-                            <li><Link to="/account_management">
+                            <li><Link to="/account_management" onClick={handleClick}>
                                 <div>
                                     <i class="fa-solid fa-user"></i>
                                 </div>
                                 Quản lý tài khoản</Link></li>
-                            <li><Link to="/library">
+                            <li><Link to="/library" onClick={handleClick}>
                                 <div>
                                     <i class="fa-solid fa-bookmark"></i>
                                 </div>
                                 Thư viện cá nhân</Link></li>
-                            <li><Link to="/transaction_history">
+                            <li><Link to="/transaction_history" onClick={handleClick}>
                                 <div>
                                     <i class="fa-solid fa-cart-shopping"></i>
                                 </div>
@@ -80,12 +80,12 @@ const Header = () => {
     return (
         <div id='header'>
             <div id='headerCommon'>
-                <a href="/"><img src='/assets/Elogo.svg' alt='logo'></img></a>
+                <Link to="/"><img src='/assets/Elogo.svg' alt='logo'></img></Link>
 
                 <ul id="nav">
-                    <li><a href="/#freeBooks">Sách miễn phí</a></li>
-                    <li><a href="/#followBooks">Sách theo dõi</a></li>
-                    <li><a href="/#paidBooks">Sách trả phí</a></li>
+                    <li><Link to="/#freeBooks">Sách miễn phí</Link></li>
+                    <li><Link to="/#followBooks">Sách theo dõi</Link></li>
+                    <li><Link to="/#paidBooks">Sách trả phí</Link></li>
                 </ul>
             </div>
             {showHeader()}

@@ -5,6 +5,7 @@ import ListBooks from "../../components/hompage/ListBooks";
 import "../../components/styles/StyledHeader.css";
 import { getAllBookByType } from "../../services/api/Book";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const StyledSlider = styled.div`
   position: relative;
@@ -107,9 +108,9 @@ const Homepage = () => {
           <StyledBox>
             <StyledBoxTitle>
               <h3>Sách miễn phí</h3>
-              <a className="link" href="/search">
+              <Link className="link" to="/search">
                 Xem thêm <i class="fa-solid fa-angles-right"></i>
-              </a>
+              </Link>
             </StyledBoxTitle>
 
             <StyledBoxList id="freeBooks">
@@ -118,9 +119,9 @@ const Homepage = () => {
 
             <StyledBoxTitle>
               <h3>Sách theo dõi</h3>
-              <a className="link" href="/search">
+              <Link className="link" to="/search">
                 Xem thêm <i class="fa-solid fa-angles-right"></i>
-              </a>
+              </Link>
             </StyledBoxTitle>
             <StyledBoxList id="followBooks">
               <ListBooks data={bookFollow}></ListBooks>
@@ -128,9 +129,9 @@ const Homepage = () => {
 
             <StyledBoxTitle>
               <h3>Sách trả phí</h3>
-              <a className="link" href="/search">
+              <Link className="link" to="/search">
                 Xem thêm <i class="fa-solid fa-angles-right"></i>
-              </a>
+              </Link>
             </StyledBoxTitle>
             <StyledBoxList id="paidBooks">
               <ListBooks data={bookFee}></ListBooks>

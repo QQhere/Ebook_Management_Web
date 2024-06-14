@@ -6,6 +6,7 @@ import '../../components/styles/StyledHeader.css';
 import Comment from '../../components/common/Comment';
 import TabletOfContents from '../../components/common/TabletOfContents';
 import { DataBook } from '../../dataBook';
+import { Link } from 'react-router-dom';
 
 const BoxLinks = styled.div`
     width: 100%;
@@ -135,9 +136,9 @@ const Overview = () => {
     return (
             <div className='body'>
                 <BoxLinks>
-                    <a className='nav' href='#'>Trang chủ</a>
+                    <Link className='nav' to='/'>Trang chủ</Link>
                     <i class="fa-solid fa-angle-right navIcon"></i>
-                    <a className='nav' href='#'>{data.title}</a>
+                    <Link className='nav' to='#'>{data.title}</Link>
                 </BoxLinks>
                 <Box>
                     <Col1>

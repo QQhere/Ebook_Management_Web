@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import InputLogin from "../../components/common/InputLogin";
 import Colors from "../../constants/Color";
 import "../../components/styles/main.css";
@@ -167,9 +167,9 @@ const handleLogIn = async () => {
               <input type="checkbox" id="checkbox" />
               <label for="checkbox">Lưu tài khoản</label>
             </StyledMiniBox>
-            <a className="link" href="">
+            <Link className="link" href="">
               Quên mật khẩu
-            </a>
+            </Link>
           </StyledBox2>
           <StyledButton className="button" onClick={handleLogIn}>
             Đăng nhập
@@ -235,9 +235,9 @@ const handleLogIn = async () => {
           </p>
           <p style={{ marginTop: "20px" }}>
             Quay lại{" "}
-            <a className="link" href="/">
+            <Link className="link" href="/">
               Trang chủ
-            </a>
+            </Link>
           </p>
         </StyleFlex>
       </StyledBox>
