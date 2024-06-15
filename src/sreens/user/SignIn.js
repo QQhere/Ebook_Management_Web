@@ -76,7 +76,7 @@ const StyledBox2 = styled.div`
 `;
 
 const SignIn = () => {
-  const [move, setMove] = useState(false);
+  const [move, setMove] = useState(true);
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
   const [fullName, setFullName] = useState("");
@@ -122,7 +122,6 @@ const handleLogIn = async () => {
     } catch (err) {
       const message = err.message;
       alert(message + "\nTry again!");
-      console.log(err);
     }
   };
 

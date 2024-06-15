@@ -4,6 +4,7 @@ import Colors from "../../constants/Color";
 import { useNavigate } from "react-router";
 import { getAllCategory } from "../../services/api/Category";
 import { createBook } from "../../services/api/Book";
+import { useSelector } from "react-redux";
 
 const CategoryComponent = (props) => {
   const [allCategory, setAllCategory] = useState([]);
@@ -106,13 +107,16 @@ const NewBook = () => {
   const [price, setPrice] = useState(0);
   const [categoryIds, setcategoryIds] = useState([]);
 
+  const stateAccount = useSelector((state) => state.logIn);
+  console.log(stateAccount);
+
   const navigate = useNavigate();
 
   const addBook = async (book) => {
     const response = await createBook(
-      "eyJhbGciOiJIUzI1NiJ9.eyJwaG9uZU51bWJlciI6IjAzODU0Mjc2NTYiLCJzdWIiOiIwMzg1NDI3NjU2IiwiZXhwIjoxNzIwOTM4MzEyfQ.zCGjF2t_PZnLxVJQHW9NgS4n3Gyw2Uhy9mWpQ2ViJCQ",
+      stateAccount.data.token,
       book,
-      1
+      stateAccount.data.userId
     );
 
     return response;

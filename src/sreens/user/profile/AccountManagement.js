@@ -48,10 +48,11 @@ const AccountManagement = () => {
   const [isUnHidden, setIsUnHidden] = useState(false);
   const [dataUser, setDataUser] = useState({});
   const [date, setDate] = useState("2000-01-01");
-  const [fullname, setFullname] = useState(dataUser.fullname ? dataUser.fullname  : "Chưa có");
+  const [fullname, setFullname] = useState("");
   const [oldPassword, setOldPassword] = useState("");
   const [password, setPassword] = useState("");
   const [retypePassword, setRetypePassword] = useState("");
+  const stateAccount = useSelector((state) => state.logIn);
 
   const handleChange = (event) => {
     setDate(event.target.value);
@@ -70,7 +71,7 @@ const AccountManagement = () => {
     }
 
     const response = await updateUserDetails(
-      "eyJhbGciOiJIUzI1NiJ9.eyJwaG9uZU51bWJlciI6IjAzODU0Mjc2NTYiLCJzdWIiOiIwMzg1NDI3NjU2IiwiZXhwIjoxNzIwODgyOTM1fQ.CoUXf6jCIA40fQxU6c1hiK1kWw8GaAP9K_PU8KVgINY",
+      stateAccount.data.token,
       {
         password: password,
         retype_password: retypePassword,
@@ -85,10 +86,14 @@ const AccountManagement = () => {
   };
 
   const changeInformation = async () => {
-    const response = await updateUserDetails("eyJhbGciOiJIUzI1NiJ9.eyJwaG9uZU51bWJlciI6IjAzODU0Mjc2NTYiLCJzdWIiOiIwMzg1NDI3NjU2IiwiZXhwIjoxNzIwOTM4MzEyfQ.zCGjF2t_PZnLxVJQHW9NgS4n3Gyw2Uhy9mWpQ2ViJCQ", {
-      fullname: fullname,
-      date_of_birth: date
-    }, 1);
+    const response = await updateUserDetails(
+      stateAccount.data.token,
+      {
+        fullname: fullname,
+        date_of_birth: date,
+      },
+      1
+    );
 
     if (response.status === "OK") {
       alert("Cập nhật thông tin thành công");
@@ -99,10 +104,10 @@ const AccountManagement = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await getUserDetails(
-        "eyJhbGciOiJIUzI1NiJ9.eyJwaG9uZU51bWJlciI6IjAzODU0Mjc2NTYiLCJzdWIiOiIwMzg1NDI3NjU2IiwiZXhwIjoxNzIwODgxMDAxfQ.nxe1jUKhB5VcEdrWm8WDk1qQaBFruhbkRMz82DiwJi0"
-      );
+      const response = await getUserDetails(stateAccount.data.token);
       setDataUser(response.data);
+      setFullname(response.data?.fullname);
+      setDate(new Date(response.data.date_of_birth).toISOString().split('T')[0]);
     };
 
     fetchData();
@@ -182,7 +187,7 @@ const AccountManagement = () => {
                 <Collection
                   type="text"
                   className="collection"
-                  value={fullname}
+                  value={fullname ? fullname : "Chưa có"}
                   onChange={(e) => setFullname(e.target.value)}
                 ></Collection>
               </BoxFlex>
@@ -220,16 +225,13 @@ const AccountManagement = () => {
   }
 
   function formatDate(dateString) {
-    // Tạo đối tượng Date từ chuỗi ngày tháng
     const date = new Date(dateString);
-    
-    // Lấy các thành phần ngày, tháng, năm
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
+
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
     const year = date.getFullYear();
-    
-    // Trả về chuỗi định dạng dd-mm-yyyy
-    return `${day}-${month}-${year}`;
+
+    return `${day}/${month}/${year}`;
   }
 
   function renderContent() {
@@ -272,11 +274,7 @@ const AccountManagement = () => {
                 <BoxInfor className="bgGrey boxInfor">
                   <div className="profile">
                     <p className="textSmokyGrey">Họ và tên:</p>
-                    <p>
-                      {dataUser.fullname
-                        ? dataUser.fullname
-                        : "Chưa có"}
-                    </p>
+                    <p>{dataUser.fullname ? dataUser.fullname : "Chưa có"}</p>
                   </div>
                 </BoxInfor>
                 <BoxInfor className="bgGrey boxInfor">
@@ -313,7 +311,7 @@ const AccountManagement = () => {
     <Box className="body">
       <Col1>
         <BoxAvatar>
-          <p style={{ fontSize: "26px" }}>{dataUser.fullname}</p>
+          <p style={{ fontSize: "26px" }}>{dataUser.fullname ? dataUser.fullName : ""}</p>
           <Avatar></Avatar>
           <ButtonEditAvatar className="button">
             Thay ảnh <i class="fa-regular fa-pen-to-square"></i>
