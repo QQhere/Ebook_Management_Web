@@ -7,8 +7,8 @@ import "../../components/styles/main.css";
 import { logIn } from "../../services/api/User";
 import { signUp } from "../../services/api/User";
 import { useDispatch, useSelector } from "react-redux";
-import { logInSl } from "../../redux/slices/logInSlice";
-import { signUpSl } from "../../redux/slices/signUpSlice";
+
+import { saveLoginInfor } from "../../redux/actions";
 
 const StyledView = styled.div`
   display: grid;
@@ -83,55 +83,56 @@ const SignIn = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const logInState = useSelector((state) => state.logIn);
-  const logInmessage = logInState.message;
-  const logInstatus = logInState.status;
-  const signUpState = useSelector(state => state.signUp);
-  const signUpmessage = signUpState.message;
-  const signUpstatus = signUpState.status; 
-  const [hasAttemptedLogin, setHasAttemptedLogin] = useState(false);
+  const authState = useSelector((state) => state.auth);
 
   const handleMove = () => {
     setMove(!move);
   };
 
   useEffect(() => {
-    if (hasAttemptedLogin && logInstatus && logInstatus !== 'INITIAL_VALUE') {
-      if (logInstatus === "OK") {
-        alert(logInstatus + "! " + logInmessage);
-        navigate(-1);
-      }
-      else {
-        alert(logInstatus + "! " + logInmessage + "\nTry again!");
-      }
+    console.log("authState: ", authState);
+    if (authState.token != "") {
+      navigate(-1);
     }
-  }, [hasAttemptedLogin, logInstatus, logInmessage]);
+  }, []);
 
 const handleLogIn = async () => {
-  setHasAttemptedLogin(true);
-    try {
-      await dispatch(logInSl({ phoneNumber, password }));
-      // if (logInstatus === "OK") {
-      //   alert(logInstatus + "! " + logInmessage);
-      //   navigate(-1);
-      // }
-      // else if (logInstatus) {
-      //   alert(logInstatus + "! " + logInmessage + "\nTry again!");
-      // }
-    } catch (err) {
-      const message = err.message;
-      alert(message + "\nTry again!");
+  try {
+    const res = await logIn(phoneNumber, password);
+    console.log(res);
+    if (res.status == "OK") {
+      alert("Đăng nhập thành công!");
+      dispatch(saveLoginInfor(res.data));
+      const data = localStorage.getItem("persistantState");
+      console.log("data: ", data);
+      navigate(-1);
+    } else if (res.status === 400) {
+      alert("Thông tin đăng nhập sai!");
+    } else {
+      alert("Đăng nhập thất bại, lỗi: " + (res.message ? res.message : "Không xác định"));
     }
-  };
+    // if (logInstatus === "OK") {
+    //   alert(logInstatus + "! " + logInmessage);
+    //   navigate(-1);
+    // }
+    // else if (logInstatus) {
+    //   alert(logInstatus + "! " + logInmessage + "\nTry again!");
+    // }
+  } catch (err) {
+    const message = err.message;
+    alert(message + "\nTry again!");
+  }
+};
 
   const handleSignUp = async () => {
     try {
-      await dispatch(signUpSl({fullName, phoneNumber, password, confirmPassword}));
-      if (signUpstatus === "CREATED") {
-        alert(signUpstatus + "! " + signUpmessage + "\nLog in now");
-        handleReset();
-      }
-      else alert(signUpstatus + "! " + signUpmessage + "\nTry again!");
+      // await dispatch(signUpSl({fullName, phoneNumber, password, confirmPassword}));
+      // if (signUpstatus === "CREATED") {
+      //   alert(signUpstatus + "! " + signUpmessage + "\nLog in now");
+      //   handleReset();
+      // }
+      // else alert(signUpstatus + "! " + signUpmessage + "\nTry again!");
+      alert("Đăng ký thành công!");
     } catch (error) {
       const message = error.message;
       alert(message + "\nTry again!");
