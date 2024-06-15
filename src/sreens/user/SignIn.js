@@ -90,7 +90,6 @@ const SignIn = () => {
   };
 
   useEffect(() => {
-    console.log("authState: ", authState);
     if (authState.token != "") {
       navigate(-1);
     }
@@ -99,12 +98,10 @@ const SignIn = () => {
 const handleLogIn = async () => {
   try {
     const res = await logIn(phoneNumber, password);
-    console.log(res);
     if (res.status == "OK") {
       alert("Đăng nhập thành công!");
       dispatch(saveLoginInfor(res.data));
-      const data = localStorage.getItem("persistantState");
-      console.log("data: ", data);
+      navigate(-1);
     } else if (res.status === 400) {
       alert("Thông tin đăng nhập sai!");
     } else {

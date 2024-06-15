@@ -1,5 +1,5 @@
-import rootReducers from './index'
-import { configureStore } from '@reduxjs/toolkit';
+import rootReducers from "./index";
+import { configureStore } from "@reduxjs/toolkit";
 
 function saveToLocalStorage(state) {
   try {
@@ -26,9 +26,10 @@ const store = configureStore({
   reducer: rootReducers,
   preloadedState: loadFromLocalStorage(),
 });
+
 store.subscribe(() => {
   console.log("store subscribe: ", store.getState());
-  saveToLocalStorage(store.getState())
+  saveToLocalStorage(store.getState());
 });
 
 export default store;

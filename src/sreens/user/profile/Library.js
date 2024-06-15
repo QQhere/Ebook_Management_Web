@@ -6,9 +6,11 @@ import ListBooks from "../../../components/search/ListBooks";
 import { getAllBookByUser } from "../../../services/api/Book";
 import { getUserDetails } from "../../../services/api/User";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Library = () => {
   const [dataUser, setDataUser] = useState([]);
+  const stateAccount = useSelector((state) => state.auth);
 
   const [publishedBooks, setPublishedBooks] = useState([]);
   const [followingBooks, setFollowingBooks] = useState([]);
@@ -20,7 +22,7 @@ const Library = () => {
     setPublishedBooks([]);
     setFollowingBooks([]);
     setPurchasedBooks([]);
-    response.data.map((item) => {
+    response.data?.map((item) => {
       if (item.status === "follow") {
         setFollowingBooks((followingBooks) => [...followingBooks, item]);
       } else if (item.status === "Fee") {
@@ -37,10 +39,10 @@ const Library = () => {
   };
 
   useEffect(() => {
-    const token =
-      "eyJhbGciOiJIUzI1NiJ9.eyJwaG9uZU51bWJlciI6IjAzODU0Mjc2NTYiLCJzdWIiOiIwMzg1NDI3NjU2IiwiZXhwIjoxNzIwODgxMDAxfQ.nxe1jUKhB5VcEdrWm8WDk1qQaBFruhbkRMz82DiwJi0";
+    const token = stateAccount.token;
+    console.log(stateAccount)
     fetchDataUser(token);
-    fetchDataBook(token, 1);
+    fetchDataBook(token, stateAccount.userId);
   }, []);
 
   return (

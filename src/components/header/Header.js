@@ -4,7 +4,8 @@ import "../styles/StyledHeader.css";
 import { styled } from "styled-components";
 import Avatar from "../common/Avatar";
 import { routes } from "../../routes";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../redux/actions";
 
 const Box = styled.div`
   height: 35px;
@@ -15,20 +16,25 @@ const Header = () => {
   const [showSubNav, setShowSubNav] = useState(false);
   const [isSignIn, setIsSignIn] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const stateAccount = useSelector((state) => state.auth);
 
   const handleClick = () => {
     setShowSubNav(!showSubNav);
   };
 
-  const logout = () => {
+  const handleLogOut = () => {
     setIsSignIn(false);
+    dispatch(logout());
+    localStorage.removeItem("persistantState");
     navigate(routes[0].path);
   };
 
   useEffect(() => {
     if (stateAccount.token) {
       setIsSignIn(true);
+    } else {
+      setIsSignIn(false);
     }
   }, [stateAccount]);
 
@@ -74,7 +80,7 @@ const Header = () => {
                 </Link>
               </li>
               <li>
-                <a onClick={logout}>
+                <a onClick={handleLogOut}>
                   <div>
                     <i class="fa-solid fa-right-from-bracket"></i>
                   </div>
