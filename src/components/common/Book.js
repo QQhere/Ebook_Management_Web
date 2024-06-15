@@ -3,27 +3,6 @@ import { styled } from "styled-components";
 import Colors from "../../constants/Color";
 import { Link } from "react-router-dom";
 
-const StyledImage = styled.div`
-  width: 100%;
-  padding-top: 160%;
-  border-radius: 20px;
-  background-image: url(${(props) => props.src});
-  background-size: cover;
-  background-position: center;
-`;
-
-const StyledType = styled.div`
-  position: absolute;
-  display: flex;
-  right: 0;
-  border-radius: 0 20px 0 20px;
-  background-color: ${Colors.green};
-  justify-content: center;
-  align-items: center;
-  padding: 10px 20px;
-  text-transform: uppercase;
-`;
-
 const Book = (props) => {
   const getTypeBook = (type) => {
     switch (type) {
@@ -47,3 +26,24 @@ const Book = (props) => {
 };
 
 export default Book;
+
+const StyledImage = styled.div`
+  width: 100%;
+  padding-top: 160%;
+  border-radius: 20px;
+  background-image: url(${(props) => props.src});
+  background-size: cover;
+  background-position: center;
+`;
+
+const StyledType = styled.div`
+  position: absolute;
+  display: flex;
+  right: 0;
+  border-radius: 0 20px 0 20px;
+  background-color: ${Colors.green};
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  text-transform: uppercase;
+`;

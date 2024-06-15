@@ -3,6 +3,32 @@ import { styled } from 'styled-components';
 import Colors from '../../constants/Color';
 import Avatar from './Avatar';
 
+const Comment = (props) => {
+    return (
+        <Box>
+            <StyledComment>
+                <Line>
+                    <div className='inline'>
+                        <BoxAvatar>
+                            <Avatar></Avatar>
+                        </BoxAvatar>
+                        <p style={{fontWeight: '500'}}>Hà Na Na</p>
+                    </div>
+                    <p>1 tháng trước</p>
+                </Line>
+
+                <Box>
+                    <Content>Truyện chưa hoàn ạ{props.haha}</Content>
+                </Box>
+                        
+            </StyledComment>
+            
+        </Box>
+    );
+};
+
+export default Comment;
+
 
 const Box = styled.div`
     display: flex;
@@ -53,29 +79,3 @@ const Content = styled.p`
     align-items: center;
     text-align: justify;
 `;
-
-const Comment = (props) => {
-    return (
-        <Box>
-            <StyledComment>
-                <Line>
-                    <div className='inline'>
-                        <BoxAvatar>
-                            <Avatar></Avatar>
-                        </BoxAvatar>
-                        <p style={{fontWeight: '500'}}>Hà Na Na</p>
-                    </div>
-                    <p>1 tháng trước</p>
-                </Line>
-
-                <Box>
-                    <Content>Truyện chưa hoàn ạ{props.haha}</Content>
-                </Box>
-                        
-            </StyledComment>
-            
-        </Box>
-    );
-};
-
-export default Comment;

@@ -3,17 +3,6 @@ import { styled } from 'styled-components';
 import Transaction from '../common/Transaction';
 import { TransactionData } from '../../transactionData';
 
-const StyledBox = styled.div`
-    width: 100%;
-`;
-
-const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    width: 100%;
-`;
-
 const ListTransaction = (props) => {
     return (
         <Container>
@@ -40,3 +29,14 @@ const ListTransaction = (props) => {
 };
 
 export default ListTransaction;
+
+const StyledBox = styled.div`
+    width: 100%;
+`;
+
+const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+`;

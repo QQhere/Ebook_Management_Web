@@ -2,32 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import Colors from '../../constants/Color';
 
-const StyledChapter = styled.div`
-    display: flex;
-    width: 100%;
-    background-color: ${Colors.white};
-    padding: 10px 20px;
-    border-radius: 10px;
-    justify-content: space-between;
-    gap: 20px;
-`;
-
-const P = styled.p`
-    color: ${Colors.black};
-`;
-
-const List = styled.div`
-    display: flex;
-    gap: 10px;
-    justify-content: space-between;
-    align-items: center;
-`;
-
-const BoxIcon = styled.div`
-    display: flex;
-    gap: 10px;
-`;
-
 const Chapter = ({data, type}) => {
     const renderContent = () => {
         switch(type) {
@@ -58,3 +32,29 @@ const Chapter = ({data, type}) => {
 };
 
 export default Chapter;
+
+const StyledChapter = styled.div`
+    display: flex;
+    width: 100%;
+    background-color: ${Colors.white};
+    padding: 10px 20px;
+    border-radius: 10px;
+    justify-content: space-between;
+    gap: 20px;
+`;
+
+const P = styled.p`
+    color: ${Colors.black};
+`;
+
+const List = styled.div`
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+`;
+
+const BoxIcon = styled.div`
+    display: flex;
+    gap: 10px;
+`;

@@ -77,6 +77,7 @@ const Overview = () => {
                         <div>
                             {/* <Categories categories={categories}></Categories> */}
                             {/* <P><Span>Tác giả: </Span> {data.author}</P> */}
+                            <P><Span>Người đăng: </Span>Người đăng ở đây</P>
                             {/* <P><Span>Tình trạng: </Span> {data.status}</P> */}
                             {/* <P><Span>Cập nhật gần nhất: </Span>{time_dmy(data.updated_at)}</P> */}
                             {/* <P><Span>Số chương: </Span> {data.chapters.length}</P> */}

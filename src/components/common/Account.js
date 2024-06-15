@@ -1,15 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 import Colors from '../../constants/Color';
+import { Link } from 'react-router-dom';
 
 const Account = (props) => {
     return (
-        <a href='/inforAccount'>
+        <Link to='/:accountId/inforAccount'>
             <Container>
                 <BoxAvatar imgSrc={props.avatar}></BoxAvatar>
                 <UserName>{props.user_name}</UserName>
             </Container>
-        </a> 
+        </Link> 
     );
 };
 

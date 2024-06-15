@@ -63,7 +63,7 @@ const ChageThumbnail = () => {
         <>
             <Thumbnail id="myDiv"></Thumbnail>
             <input type="file" id="myFile" accept="image/*" style={{ display: 'none' }} onChange={handleFileChange} />
-            <ButtonThumbnail className='button' onClick={handleClick}>Tải lên ảnh</ButtonThumbnail>
+            <Button className='button' onClick={handleClick}>Tải lên ảnh</Button>
         </>
     );
 }
@@ -92,74 +92,157 @@ const listChapter = [
 ]
 
 const EditBook = () => {
+    const [addNewChapter, setAddNewChapter] = useState(false);
+    const newChapter = () => {
+        setAddNewChapter(!addNewChapter);
+    }
     return (
-        <Box className='body'>
-            <Col1>
-                <ChageThumbnail></ChageThumbnail>
-            </Col1>
+        <div>
 
-            <Col2>
-                <div id="headerCilent" style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '25px' }}>
-                    <button className='button'><a href='/'>Lưu thay đổi</a></button>
-                    <button className='btn'><a href=''></a>Hủy bỏ</button>
-                </div>
-                <div>
-                    <BoxFlex>
-                        <p>Tên sách:</p>
-                        <Collection type='text' className='collection' placeholder='Nhập tên sách'>
-                        </Collection>
-                    </BoxFlex>
+            <Box className='body'>
+                <Col1>
+                    <ChageThumbnail></ChageThumbnail>
+                </Col1>
 
-                    <BoxFlex>
-                        <p>Tác giả:</p>
-                        <Collection type='text' className='collection' placeholder='Nhập tên tác giả'>
-                        </Collection>
-                    </BoxFlex>
-
-                    <BoxFlex>
-                        <p>Tình trạng:</p>
-                        <Selection className='collection'>
-                            <option value="" selected disabled hidden>Chọn tình trạng sách</option>
-                            <option value="1">Miễn phí</option>
-                            <option value="2">Theo dõi</option>
-                            <option value="3">Trả phí</option>
-                        </Selection>
-                    </BoxFlex>
-                    <BoxFlex>
-                        <p>Loại sách:</p>
-                        <Selection className='collection'>
-                            <option value="" selected disabled hidden>Chọn loại sách</option>
-                            <option value="1">Miễn phí</option>
-                            <option value="2">Theo dõi</option>
-                            <option value="3">Trả phí</option>
-                        </Selection>
-                    </BoxFlex>
-                    <CategoryComponent></CategoryComponent>
-                    <div>
-                        <p>Mô tả:</p>
-                        <InputDescription className='collection'></InputDescription>
+                <Col2>
+                    <div id="headerCilent" style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '25px', gap: '20px' }}>
+                        <Button className='button'><a href=''>Lưu thay đổi</a></Button>
+                        <Button className='btn'><a href=''></a>Hủy bỏ</Button>
                     </div>
-                </div>
+                    <div>
+                        <BoxFlex>
+                            <p>Tên sách:</p>
+                            <Collection type='text' className='collection' placeholder='Nhập tên sách'>
+                            </Collection>
+                        </BoxFlex>
 
-                <div>
-                    <BoxContent>
-                        <h3 style={{margin: '0'}}>Mục lục</h3>
-                        <Link to="/new_chapter">
-                            <p className="link">
-                                Thêm mới <i class="fa-solid fa-add"></i>
-                            </p>
-                        </Link>
-                    </BoxContent>
-                    
-                    <TabletOfContents data={listChapter} type='edit'></TabletOfContents>
-                </div>
-            </Col2>
-        </Box>
+                        <BoxFlex>
+                            <p>Tác giả:</p>
+                            <Collection type='text' className='collection' placeholder='Nhập tên tác giả'>
+                            </Collection>
+                        </BoxFlex>
+
+                        <BoxFlex>
+                            <p>Tình trạng:</p>
+                            <Selection className='collection'>
+                                <option value="" selected disabled hidden>Chọn tình trạng sách</option>
+                                <option value="1">Miễn phí</option>
+                                <option value="2">Theo dõi</option>
+                                <option value="3">Trả phí</option>
+                            </Selection>
+                        </BoxFlex>
+                        <BoxFlex>
+                            <p>Loại sách:</p>
+                            <Selection className='collection'>
+                                <option value="" selected disabled hidden>Chọn loại sách</option>
+                                <option value="1">Miễn phí</option>
+                                <option value="2">Theo dõi</option>
+                                <option value="3">Trả phí</option>
+                            </Selection>
+                        </BoxFlex>
+                        <CategoryComponent></CategoryComponent>
+                        <div>
+                            <p>Mô tả:</p>
+                            <InputDescription className='collection'></InputDescription>
+                        </div>
+                    </div>
+
+                    <div>
+                        <BoxContent>
+                            <h3 style={{ margin: '0' }}>Mục lục</h3>
+                            <div onClick={newChapter}>
+                                <p className="link">
+                                    Thêm mới <i class="fa-solid fa-add"></i>
+                                </p>
+                            </div>
+                        </BoxContent>
+
+                        <TabletOfContents data={listChapter} type='edit'></TabletOfContents>
+                    </div>
+                </Col2>
+            </Box>
+
+            {addNewChapter ? <div>
+                <Cover onClick={newChapter}></Cover>
+                <BoxAddChapter>
+                    <Header>
+                        <P>Thêm mới chương</P>
+                        <ClosedButton onClick={newChapter}><i class="fa-solid fa-xmark"></i></ClosedButton>
+                    </Header>
+                    <Content>
+                        <BoxFlex>
+                            <p>Tên chương:</p>
+                            <Collection
+                                type="text"
+                                className="collection"
+                                placeholder="Nhập tên chương"
+                            ></Collection>
+                        </BoxFlex>
+                        <Button className='button'>
+                            Tải lên nội dung
+                        </Button>
+                    </Content>
+                </BoxAddChapter>
+            </div> : <div> </div>}
+        </div>
     );
 };
 
 export default EditBook;
 
+const BoxAddChapter = styled.div`
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    background-color: ${Colors.bg_dark};
+    z-index: 1000;
+    border-radius: 20px;   
+`;
+
+const Header = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 40px;
+    border-bottom: 1px solid ${Colors.dark_grey};
+`;
+
+const Content = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin: 30px;
+    justify-content: center;
+    gap: 10px;
+`;
+
+const ClosedButton = styled.button`
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 0 20px 0 0;
+    background-color: transparent;
+    color: ${Colors.white};
+    font-size: 18px;
+`;
+
+const P = styled.p`
+    font-size: 15px;
+    margin-left: 30px;
+`;
+
+const Cover = styled.div`
+    position: fixed;
+    display: flex;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: ${Colors.dark_grey};
+    opacity: 0.7;
+    z-index: 10;
+`;
 
 const Box = styled.div`
     display: flex;
@@ -225,7 +308,7 @@ const Thumbnail = styled.div`
     background-size: cover;
 `;
 
-const ButtonThumbnail = styled.button`
+const Button = styled.button`
     height: 40px;
     padding: 0 20px;
     border-radius: 20px;

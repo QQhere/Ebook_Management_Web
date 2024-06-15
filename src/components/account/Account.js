@@ -2,14 +2,19 @@ import { styled } from 'styled-components'
 import Colors from '../../constants/Color';
 import Avatar from '../common/Avatar';
 import ListBooks from '../search/ListBooks';
+import { useParams } from 'react-router';
 
 const Account = () => {
+    const { accountId } = useParams();
     return (
         <Box className='body'>
             <Col1>
                 <BoxAvatar>
-                    <Avatar></Avatar>
                     <p style={{ fontSize: '26px' }}>Quỳnh Phạm</p>
+                    <Avatar></Avatar>
+                    <Button className="button">
+                        Theo dõi
+                    </Button>
                 </BoxAvatar>
                 <BoxCenter>
                     <H1>5</H1>
@@ -33,9 +38,9 @@ const Account = () => {
                 <BoxTitle>
                     <p className='titleProfile'>Thư viện cá nhân</p>
                 </BoxTitle>
-                
+
                 <BoxOption>
-                    <p className='optionProfile'>Sách đã đăng</p>               
+                    <p className='optionProfile'>Sách đã đăng</p>
                 </BoxOption>
                 <div id='library'>
                     <ListBooks></ListBooks>
@@ -46,6 +51,13 @@ const Account = () => {
 };
 
 export default Account;
+
+const Button = styled.button`
+  height: 40px;
+  padding: 0 20px;
+  border-radius: 20px;
+  border: none;
+`;
 
 const Box = styled.div`
     display: flex;

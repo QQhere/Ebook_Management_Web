@@ -7,14 +7,20 @@ import { getAllBookByUser } from "../../../services/api/Book";
 import { getUserDetails } from "../../../services/api/User";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import ListAccounts from "../../../components/search/ListAccounts";
 
 const Library = () => {
   const [dataUser, setDataUser] = useState([]);
+  const [isShowFollower, setIsShowFollower] = useState(false);
   const stateAccount = useSelector((state) => state.auth);
 
   const [publishedBooks, setPublishedBooks] = useState([]);
   const [followingBooks, setFollowingBooks] = useState([]);
   const [purchasedBooks, setPurchasedBooks] = useState([]);
+
+  const follower = () => {
+    setIsShowFollower(!isShowFollower);
+  }
 
   const fetchDataBook = async (token, userId) => {
     // const response = await getAllBookByUser(localStorage.getItem('token'), localStorage.getItem('userId'));
@@ -46,84 +52,153 @@ const Library = () => {
   }, []);
 
   return (
-    <Box className="body">
-      <Col1>
-        <BoxAvatar>
-          <p style={{ fontSize: "26px" }}>
-            {dataUser.fullname === null ? "" : dataUser.fullname}
-          </p>
-          <Avatar></Avatar>
-          <ButtonEditAvatar className="button">
-            Thay ảnh <i class="fa-regular fa-pen-to-square"></i>
-          </ButtonEditAvatar>
-        </BoxAvatar>
-        <BoxNav>
-          <li>
-            <a href="/account_management" className="colorWhite">
-              <Orther>
-                <i class="fa-solid fa-user"></i>
-              </Orther>
-              Quản lý tài khoản
-            </a>
-          </li>
-          <li>
-            <a href="/library" className="iconColor">
-              <Orther>
-                <i class="fa-solid fa-bookmark"></i>
-              </Orther>
-              Thư viện cá nhân
-            </a>
-          </li>
-          <li>
-            <a href="transaction_history" className="colorWhite">
-              <Orther>
-                <i class="fa-solid fa-cart-shopping"></i>
-              </Orther>
-              Lịch sử giao dịch
-            </a>
-          </li>
-        </BoxNav>
-
-        <BoxCenter>
-          <H1>{publishedBooks.length}</H1>
-          <p>Sách đã đăng</p>
-        </BoxCenter>
-        <BoxApp className="flex">
-          <BoxCenter>
-            <H1>10</H1>
-            <p>Đang theo dõi</p>
-          </BoxCenter>
-
-          <BoxCenter>
-            <H1>0</H1>
-            <p>Người theo dõi</p>
-          </BoxCenter>
-        </BoxApp>
-      </Col1>
-
-      <Col2>
-        <BoxTitle>
-          <p className="titleProfile">Thư viện cá nhân</p>
-        </BoxTitle>
-
-        <BoxOption>
-          <p className="optionProfile">Sách đã đăng</p>
-          <Link to="/new_book">
-            <p className="link">
-              Thêm mới <i class="fa-solid fa-add"></i>
+    <div>
+      <Box className="body">
+        <Col1>
+          <BoxAvatar>
+            <p style={{ fontSize: "26px" }}>
+              {dataUser.fullname === null ? "" : dataUser.fullname}
             </p>
+            <Avatar></Avatar>
+            <ButtonEditAvatar className="button">
+              Thay ảnh <i class="fa-regular fa-pen-to-square"></i>
+            </ButtonEditAvatar>
+          </BoxAvatar>
+          <BoxNav>
+            <li>
+              <a href="/account_management" className="colorWhite">
+                <Orther>
+                  <i class="fa-solid fa-user"></i>
+                </Orther>
+                Quản lý tài khoản
+              </a>
+            </li>
+            <li>
+              <a href="/library" className="iconColor">
+                <Orther>
+                  <i class="fa-solid fa-bookmark"></i>
+                </Orther>
+                Thư viện cá nhân
+              </a>
+            </li>
+            <li>
+              <a href="transaction_history" className="colorWhite">
+                <Orther>
+                  <i class="fa-solid fa-cart-shopping"></i>
+                </Orther>
+                Lịch sử giao dịch
+              </a>
+            </li>
+          </BoxNav>
+          <Link to='/library'>
+            <BoxCenter>
+              <H1>{publishedBooks.length}</H1>
+              <p>Sách đã đăng</p>
+            </BoxCenter>
           </Link>
-        </BoxOption>
 
-        <div id="library">
-          <ListBooks data={publishedBooks}></ListBooks>
-        </div>
-      </Col2>
-    </Box>
+          <BoxApp className="flex">
+            <BoxCenter onClick={follower}>
+              <H1>10</H1>
+              <p>Đang theo dõi</p>
+            </BoxCenter>
+
+            <BoxCenter>
+              <H1>0</H1>
+              <p>Người theo dõi</p>
+            </BoxCenter>
+          </BoxApp>
+        </Col1>
+
+        <Col2>
+          <BoxTitle>
+            <p className="titleProfile">Thư viện cá nhân</p>
+          </BoxTitle>
+
+          <BoxOption>
+            <p className="optionProfile">Sách đã đăng</p>
+            <Link to="/new_book">
+              <p className="link">
+                Thêm mới <i class="fa-solid fa-add"></i>
+              </p>
+            </Link>
+          </BoxOption>
+
+          <div id="library">
+            <ListBooks data={publishedBooks}></ListBooks>
+          </div>
+        </Col2>
+      </Box>
+
+      {isShowFollower ? <div>
+        <Cover onClick={follower}></Cover>
+        <BoxContent>
+          <Header>
+            <P>Danh sách đang theo dõi</P>
+            <ClosedButton onClick={follower}><i class="fa-solid fa-xmark"></i></ClosedButton>
+          </Header>
+          <Content>
+            <ListAccounts></ListAccounts>
+          </Content>
+        </BoxContent>
+      </div> : <div> </div>}
+    </div>
+
   );
 };
 
 export default Library;
+
+const BoxContent = styled.div`
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    height: 600px;
+    background-color: ${Colors.bg_dark};
+    z-index: 1000;
+    border-radius: 20px;   
+`;
+
+const Header = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 40px;
+    border-bottom: 1px solid ${Colors.dark_grey};
+`;
+
+const ClosedButton = styled.button`
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 0 20px 0 0;
+    background-color: transparent;
+    color: ${Colors.white};
+    font-size: 18px;
+`;
+
+const P = styled.p`
+    font-size: 15px;
+    margin-left: 30px;
+`;
+
+const Content = styled.div`
+    margin: 30px;
+`;
+
+const Cover = styled.div`
+    position: fixed;
+    display: flex;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: ${Colors.dark_grey};
+    opacity: 0.7;
+    z-index: 10;
+`;
 
 const Box = styled.div`
   display: flex;
@@ -234,6 +309,7 @@ const BoxCenter = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 20px;
+  color: ${Colors.white};
 `;
 
 const BoxTitle = styled.div`
