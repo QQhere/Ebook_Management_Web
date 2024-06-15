@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 import { getAllCategory } from "../../services/api/Category";
 import { createBook } from "../../services/api/Book";
 import { useSelector } from "react-redux";
+import {uploadImage} from "../../services/api/UploadImage";
 
 const CategoryComponent = (props) => {
   const [allCategory, setAllCategory] = useState([]);
@@ -50,7 +51,7 @@ const CategoryComponent = (props) => {
           <option value="" selected disabled hidden>
             Chọn thể loại sách
           </option>
-          {allCategory.map((item) => {
+          {allCategory.map((item, index) => {
             return <option value={item.id}>{item.name}</option>;
           })}
         </Selection>
@@ -59,11 +60,18 @@ const CategoryComponent = (props) => {
   );
 };
 
-const ChageThumbnail = () => {
+const ChageThumbnail = (props) => {
   const [selectedFile, setSelectedFile] = useState(null);
-
-  const handleFileChange = (event) => {
-    setSelectedFile(URL.createObjectURL(event.target.files[0]));
+  const [uploadedUrl, setUploadedUrl] = useState("");
+  
+  const handleFileChange = async (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setSelectedFile(URL.createObjectURL(file));
+      const url = await uploadImage(file);
+      setUploadedUrl(url);
+      props.setImage(url);
+    }
   };
 
   const handleClick = () => {
@@ -72,11 +80,16 @@ const ChageThumbnail = () => {
 
   useEffect(() => {
     if (selectedFile) {
-      document.getElementById(
-        "myDiv"
-      ).style.backgroundImage = `url(${selectedFile})`;
+      document.getElementById("myDiv").style.backgroundImage = `url(${selectedFile})`;
     }
   }, [selectedFile]);
+
+  useEffect(() => {
+    if (uploadedUrl) {
+      console.log("Uploaded Image URL:", uploadedUrl);
+      // Thực hiện các hành động khác với URL của ảnh đã tải lên
+    }
+  }, [uploadedUrl]);
 
   return (
     <>
@@ -108,15 +121,15 @@ const NewBook = () => {
   const [categoryIds, setcategoryIds] = useState([]);
 
   const stateAccount = useSelector((state) => state.logIn);
-  console.log(stateAccount);
 
   const navigate = useNavigate();
 
   const addBook = async (book) => {
     const response = await createBook(
-      stateAccount.data.token,
+      // stateAccount.data.token,
+      "eyJhbGciOiJIUzI1NiJ9.eyJwaG9uZU51bWJlciI6IjAzODU0Mjc2NTYiLCJzdWIiOiIwMzg1NDI3NjU2IiwiZXhwIjoxNzIxMDQxMzE0fQ.tnNT8zbc-q3n6FOvejFu3OEfkFznvk2KepcgBXVOMs0",
       book,
-      stateAccount.data.userId
+     1
     );
 
     return response;
@@ -135,6 +148,7 @@ const NewBook = () => {
       price: price,
       categoryIds: categoryIds,
     };
+    
     const response = await addBook(book);
 
     if (response.status === "CREATED") {
@@ -153,7 +167,7 @@ const NewBook = () => {
   return (
     <Box className="body">
       <Col1>
-        <ChageThumbnail></ChageThumbnail>
+        <ChageThumbnail setImage={setImage}></ChageThumbnail>
       </Col1>
 
       <Col2>

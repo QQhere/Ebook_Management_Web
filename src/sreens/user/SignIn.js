@@ -108,7 +108,6 @@ const SignIn = () => {
   }, [hasAttemptedLogin, logInstatus, logInmessage]);
 
 const handleLogIn = async () => {
-  console.log("Sign in");
   setHasAttemptedLogin(true);
     try {
       await dispatch(logInSl({ phoneNumber, password }));

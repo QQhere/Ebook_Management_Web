@@ -127,8 +127,8 @@ const Search = () => {
   };
 
   const fetchSearchUser = async () => {
-    const response = await searchUser(
-      keyword !== null || keyword !== "" ? keyword : null,
+    const response = await searchUser( 
+      keyword !== null ? keyword : null,
       page,
       size
     );
@@ -279,7 +279,15 @@ const Search = () => {
             placeholder="Tìm theo tên sách, tên tài khoản"
             onChange={(event) => setKeyword(event.target.value)}
           ></SearchBox>
-          <ButtonSearch className="button" onClick={handleSearch}>
+          <ButtonSearch
+            className="button"
+            onClick={() => {
+              handleSearch();
+              setPageSearch(1);
+              setPage(1);
+              setPageUser(1);
+            }}
+          >
             Tìm kiếm
           </ButtonSearch>
         </BoxFlex>

@@ -76,7 +76,7 @@ export const updateUserDetails = async (token, data, userId) => {
 
 export const searchUser = async (keyword, page, size) => {
   try {
-    const response = await fetchData(`api/v1/user/search/${keyword}/${page}/${size}`,
+    const response = await fetchData(`api/v1/user/search/a${keyword}/${page}/${size}`,
       {
         method: "GET",
         headers: {
