@@ -23,7 +23,6 @@ const { signUpSuccess } = SignUpSlice.actions;
 
 export const signUpSl = ({fullName, phoneNumber, password, confirmPassword}) => async dispatch => {
     const response = await signUp(fullName, phoneNumber, password, confirmPassword);
-    console.log(response);
     dispatch(signUpSuccess(response));
 }
 

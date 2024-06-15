@@ -47,6 +47,7 @@ const Homepage = () => {
   const [bookFollow, setBookFollow] = useState([]);
   const [bookFee, setBookFee] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const data = useSelector(state => state.logIn);
 
   const fetchBookByType = async (type) => {
     const response = await getAllBookByType(type, 1, 5);
@@ -84,7 +85,6 @@ const Homepage = () => {
         setBookFree(freeData);
         setBookFollow(followData);
         setBookFee(feeData);
-        console.log(freeData, followData, feeData);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {

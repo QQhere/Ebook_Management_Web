@@ -6,6 +6,7 @@ const BASE_URL = API_CONFIG.API_BASE_URL;
 // endpoint la router, options bao gom method, header, body
 export const fetchData = async (endpoint, options = {}) => {
   try {
+    console.log('fetching:', `${BASE_URL}/${endpoint}`)
     const response = await fetch(`${BASE_URL}/${endpoint}`, options);
     // tach json tu response
     const json = await response.json();
