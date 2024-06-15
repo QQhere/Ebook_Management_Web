@@ -12,6 +12,8 @@ const Book = (props) => {
         return "Trả phí";
       case "Follow":
         return "Theo dõi";
+      default:
+        return "Riêng tư";
     }
   };
 

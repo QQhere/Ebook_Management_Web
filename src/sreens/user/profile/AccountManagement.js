@@ -6,29 +6,34 @@ import { getUserDetails, updateUserDetails } from "../../../services/api/User";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import ListAccounts from "../../../components/search/ListAccounts";
+import { uploadImage } from "../../../services/api/UploadImage";
 
-const ChageAvatar = () => {
-  const [selectedFile, setSelectedFile] = useState(null);
+const ChangeAvatar = (props) => {
+  const [avatar, setAvatar] = useState(props.avatar);
+  const stateAccount = useSelector((state) => state.auth);
 
-  const handleFileChange = (event) => {
-    setSelectedFile(URL.createObjectURL(event.target.files[0]));
+  const handleFileChange = async (event) => {
+    const url = await uploadImage(event.target.files[0]);
+    const response = await updateUserDetails(
+      stateAccount.token,
+      { link_avatar: url },
+      stateAccount.userId
+    );
+    if (response.status === "OK") {
+      setAvatar(url);
+      alert("Cập nhật ảnh đại diện thành công");
+    } else {
+      alert("Cập nhật ảnh đại diện thất bại");
+    }
   };
 
   const handleClick = () => {
     document.getElementById("myFile").click();
   };
 
-  useEffect(() => {
-    if (selectedFile) {
-      document.getElementById(
-        "myavt"
-      ).style.backgroundImage = `url(${selectedFile})`;
-    }
-  }, [selectedFile]);
-
   return (
     <>
-      <Avatar id="myDiv"></Avatar>
+      <Avatar id="myDiv" avatar={avatar}></Avatar>
       <input
         type="file"
         id="myFile"
@@ -56,6 +61,7 @@ const AccountManagement = () => {
   const [retypePassword, setRetypePassword] = useState("");
   const [isShowFollower, setIsShowFollower] = useState(false);
   const stateAccount = useSelector((state) => state.auth);
+  const [isLoading, setIsLoading] = useState(false);
 
   const follower = () => {
     setIsShowFollower(!isShowFollower);
@@ -109,16 +115,21 @@ const AccountManagement = () => {
     }
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await getUserDetails(stateAccount.token);
-      if (response.status === "OK") {
-        setDataUser(response.data);
-        setFullname(response.data?.fullname);
-        setDate(new Date(response.data.date_of_birth).toISOString().split('T')[0]);
-      }
-    };
+  const fetchData = async () => {
+    setIsLoading(true);
+    const response = await getUserDetails(stateAccount.token);
 
+    if (response.status === "OK") {
+      setDataUser(response.data);
+      setFullname(response.data?.fullname);
+      setDate(
+        new Date(response.data.date_of_birth).toISOString().split("T")[0]
+      );
+    }
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
     fetchData();
   }, [reload]);
 
@@ -316,16 +327,21 @@ const AccountManagement = () => {
       </div>
     );
   }
+
   return (
     <div>
       <Box className="body">
         <Col1>
           <BoxAvatar>
-            <p style={{ fontSize: "26px" }}>{dataUser.fullname ? dataUser.fullName : ""}</p>
-            <Avatar></Avatar>
-            <ButtonEditAvatar className="button">
-              Thay ảnh <i class="fa-regular fa-pen-to-square"></i>
-            </ButtonEditAvatar>
+            <p style={{ fontSize: "26px" }}>
+              {dataUser.fullname ? dataUser.fullname : ""}
+            </p>
+            {isLoading == false && (
+              <ChangeAvatar
+                avatar={dataUser.link_avatar}
+                isLoading={isLoading}
+              ></ChangeAvatar>
+            )}
           </BoxAvatar>
           <BoxNav>
             <li>

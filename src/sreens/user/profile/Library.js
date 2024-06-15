@@ -46,7 +46,6 @@ const Library = () => {
 
   useEffect(() => {
     const token = stateAccount.token;
-    console.log(stateAccount)
     fetchDataUser(token);
     fetchDataBook(token, stateAccount.userId);
   }, []);

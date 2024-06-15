@@ -58,7 +58,6 @@ const Overview = () => {
     useEffect(() => {
         fetchDataBook();
     }, []);
-    console.log(data)
     
     const { time_dmy } = require('../../function/time');
     return (
