@@ -7,73 +7,7 @@ import "../../components/styles/main.css";
 import { logIn } from "../../services/api/User";
 import { signUp } from "../../services/api/User";
 import { useDispatch, useSelector } from "react-redux";
-
 import { saveLoginInfor } from "../../redux/actions";
-
-const StyledView = styled.div`
-  display: grid;
-  grid-template-columns: 50% 50%;
-  height: 100vh;
-  background-color: ${Colors.white};
-  color: ${Colors.black};
-`;
-
-const StyledBoxImage = styled.div`
-  position: fixed;
-  height: 100vh;
-  width: 50%;
-  transform: translateX(${(props) => (props.move ? "100%" : "0")});
-  transition: 1s;
-`;
-
-const StyledImage = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-`;
-
-const StyledBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
-const StyleFlex = styled.div`
-  position: fixed;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-`;
-
-const P1 = styled.p`
-  margin-bottom: 9px;
-  color: ${Colors.nude};
-  font-size: 32px;
-  font-weight: 600;
-  letter-spacing: 1.6px;
-`;
-
-const StyledMiniBox = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
-
-const StyledButton = styled.button`
-  width: 384px;
-  height: 48px;
-  border: none;
-  border-radius: 10px;
-`;
-
-const StyledBox2 = styled.div`
-  display: flex;
-  width: 384px;
-  justify-content: space-between;
-  margin: 10px;
-`;
 
 const SignIn = () => {
   const [move, setMove] = useState(true);
@@ -248,3 +182,67 @@ const handleLogIn = async () => {
 };
 
 export default SignIn;
+const StyledView = styled.div`
+  display: grid;
+  grid-template-columns: 50% 50%;
+  height: 100vh;
+  background-color: ${Colors.white};
+  color: ${Colors.black};
+`;
+
+const StyledBoxImage = styled.div`
+  position: fixed;
+  height: 100vh;
+  width: 50%;
+  transform: translateX(${(props) => (props.move ? "100%" : "0")});
+  transition: 1s;
+`;
+
+const StyledImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
+
+const StyledBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const StyleFlex = styled.div`
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+`;
+
+const P1 = styled.p`
+  margin-bottom: 9px;
+  color: ${Colors.nude};
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: 1.6px;
+`;
+
+const StyledMiniBox = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+const StyledButton = styled.button`
+  width: 384px;
+  height: 48px;
+  border: none;
+  border-radius: 10px;
+`;
+
+const StyledBox2 = styled.div`
+  display: flex;
+  width: 384px;
+  justify-content: space-between;
+  margin: 10px;
+`;

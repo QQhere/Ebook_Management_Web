@@ -4,6 +4,63 @@ import Colors from '../../../constants/Color';
 import Avatar from '../../../components/common/Avatar';
 import ListTransaction from '../../../components/transaction/ListTransaction';
 
+const TransactionHistory = () => {
+    return (
+        <Box className='body'>
+            <Col1>
+                <BoxAvatar>
+                    <p style={{ fontSize: '26px' }}>Quỳnh Phạm</p>
+                    <Avatar></Avatar>
+                    <ButtonEditAvatar className='button'>Thay ảnh <i class="fa-regular fa-pen-to-square"></i></ButtonEditAvatar>
+                </BoxAvatar>
+                <BoxNav>
+                    <li><a href="/account_management" className='colorWhite'>
+                        <Orther>
+                            <i class="fa-solid fa-user"></i>
+                        </Orther>
+                        Quản lý tài khoản</a></li>
+                    <li><a href="/library" className='colorWhite'>
+                        <Orther>
+                            <i class="fa-solid fa-bookmark"></i>
+                        </Orther>
+                        Thư viện cá nhân</a></li>
+                    <li><a href="transaction_history" className='iconColor'>
+                        <Orther>
+                            <i class="fa-solid fa-cart-shopping"></i>
+                        </Orther>
+                        Lịch sử giao dịch</a></li>
+                </BoxNav>
+
+                <BoxCenter>
+                    <H1>5</H1>
+                    <p>Sách đã đăng</p>
+                </BoxCenter>
+                <BoxApp className='flex'>
+                    <BoxCenter>
+                        <H1>10</H1>
+                        <p>Đang thẽo dõi</p>
+                    </BoxCenter>
+
+                    <BoxCenter>
+                        <H1>0</H1>
+                        <p>Người theo dõi</p>
+                    </BoxCenter>
+                </BoxApp>
+
+            </Col1>
+
+            <Col2>
+                <BoxOption>
+                    <p className='titleProfile'>Lịch sử giao dịch</p>    
+                </BoxOption>
+                <ListTransaction></ListTransaction>
+            </Col2>
+        </Box>
+    );
+};
+
+export default TransactionHistory;
+
 const Box = styled.div`
     display: flex;
 `;
@@ -120,61 +177,3 @@ const BoxTitle = styled.div`
     align-items: center ;
     justify-content: space-between;
 `;
-
-const TransactionHistory = () => {
-    return (
-        <Box className='body'>
-            <Col1>
-                <BoxAvatar>
-                    <p style={{ fontSize: '26px' }}>Quỳnh Phạm</p>
-                    <Avatar></Avatar>
-                    <ButtonEditAvatar className='button'>Thay ảnh <i class="fa-regular fa-pen-to-square"></i></ButtonEditAvatar>
-                </BoxAvatar>
-                <BoxNav>
-                    <li><a href="/account_management" className='colorWhite'>
-                        <Orther>
-                            <i class="fa-solid fa-user"></i>
-                        </Orther>
-                        Quản lý tài khoản</a></li>
-                    <li><a href="/library" className='colorWhite'>
-                        <Orther>
-                            <i class="fa-solid fa-bookmark"></i>
-                        </Orther>
-                        Thư viện cá nhân</a></li>
-                    <li><a href="transaction_history" className='iconColor'>
-                        <Orther>
-                            <i class="fa-solid fa-cart-shopping"></i>
-                        </Orther>
-                        Lịch sử giao dịch</a></li>
-                </BoxNav>
-
-                <BoxCenter>
-                    <H1>5</H1>
-                    <p>Sách đã đăng</p>
-                </BoxCenter>
-                <BoxApp className='flex'>
-                    <BoxCenter>
-                        <H1>10</H1>
-                        <p>Đang thẽo dõi</p>
-                    </BoxCenter>
-
-                    <BoxCenter>
-                        <H1>0</H1>
-                        <p>Người theo dõi</p>
-                    </BoxCenter>
-                </BoxApp>
-
-            </Col1>
-
-            <Col2>
-                <BoxOption>
-                    <p className='titleProfile'>Lịch sử giao dịch</p>    
-                </BoxOption>
-                <ListTransaction></ListTransaction>
-            </Col2>
-        </Box>
-    );
-};
-
-export default TransactionHistory;
-

@@ -3,6 +3,16 @@ import { styled } from "styled-components";
 import Colors from '../../constants/Color';
 import '../styles/main.css';
 
+const InputLoginNext = ({text}) => {
+    return (
+        <div>
+            <StyledInput type="text" placeholder={text} />
+        </div>
+    );
+};
+
+export default InputLoginNext;
+
 const StyledInput = styled.input`
     position: relative;
     display: flex;
@@ -14,13 +24,3 @@ const StyledInput = styled.input`
     border: 1px solid ${Colors.green_button};
     border-radius: 10px;
 `;
-
-const InputLoginNext = ({text}) => {
-    return (
-        <div>
-            <StyledInput type="text" placeholder={text} />
-        </div>
-    );
-};
-
-export default InputLoginNext;

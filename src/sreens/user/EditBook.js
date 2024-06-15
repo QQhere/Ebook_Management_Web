@@ -4,104 +4,6 @@ import Colors from '../../constants/Color';
 import TabletOfContents from '../../components/common/TabletOfContents';
 import { Link } from 'react-router-dom';
 
-const Box = styled.div`
-    display: flex;
-`;
-
-const Col1 = styled.div`
-    display: flex;
-    width: 260px;
-    margin: 20px;
-    flex-shrink: 0;
-    gap: 10px;
-    align-items: center;
-    flex-direction: column;
-`;
-
-const Col2 = styled.div`
-    flex-grow: 1;
-    padding: 0px 0 20px 40px;
-    margin: 20px;
-    border-left: 1px solid ${Colors.bg_dark};
-`;
-
-const BoxFlex = styled.div`
-    display: flex;
-    width: 100%;
-    align-items: center;
-    padding-bottom: 15px;
-    gap: 12px;
-`;
-
-const BoxContent = styled.div`
-    display: flex;
-    width: 100%;
-    align-items: center;
-    padding-bottom: 15px;
-    gap: 12px;
-    justify-content: space-between;
-    margin: 20px 0;
-`;
-
-const Selection = styled.select`
-    flex: 1;
-    height: 35px;
-    padding: 0 5px;
-    border-radius: 5px;
-`;
-
-const Collection = styled.input`
-    flex: 1;
-    height: 35px;
-    padding: 0 10px;
-    border-radius: 5px;
-`;
-
-const Thumbnail = styled.div`
-    height: 430px;
-    width: 250px;
-    margin: 10px 0;
-    border-radius: 10px;
-    border: 2px solid ${Colors.bg_dark};
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-`;
-
-const ButtonThumbnail = styled.button`
-    height: 40px;
-    padding: 0 20px;
-    border-radius: 20px;
-    border: none;
-    font-size: 15px;
-`;
-
-const Category = styled.div`
-    display: flex;
-    padding: 5px 10px;
-    background-color: ${Colors.white};
-    border-radius: 20px;
-    font-size: 12px;
-    color: ${Colors.black};
-`;
-
-const List = styled.div`
-    display: flex;
-    gap: 10px;
-    color: ${Colors.yellow};
-`;
-
-const InputDescription = styled.textarea`
-    flex: 1;
-    height: 300px;
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    font-size: 17px;
-    font-family: Arial, Helvetica, sans-serif;
-`;
-
 const Categories = ({ categories }) => {
     return (
         <List>
@@ -257,3 +159,102 @@ const EditBook = () => {
 };
 
 export default EditBook;
+
+
+const Box = styled.div`
+    display: flex;
+`;
+
+const Col1 = styled.div`
+    display: flex;
+    width: 260px;
+    margin: 20px;
+    flex-shrink: 0;
+    gap: 10px;
+    align-items: center;
+    flex-direction: column;
+`;
+
+const Col2 = styled.div`
+    flex-grow: 1;
+    padding: 0px 0 20px 40px;
+    margin: 20px;
+    border-left: 1px solid ${Colors.bg_dark};
+`;
+
+const BoxFlex = styled.div`
+    display: flex;
+    width: 100%;
+    align-items: center;
+    padding-bottom: 15px;
+    gap: 12px;
+`;
+
+const BoxContent = styled.div`
+    display: flex;
+    width: 100%;
+    align-items: center;
+    padding-bottom: 15px;
+    gap: 12px;
+    justify-content: space-between;
+    margin: 20px 0;
+`;
+
+const Selection = styled.select`
+    flex: 1;
+    height: 35px;
+    padding: 0 5px;
+    border-radius: 5px;
+`;
+
+const Collection = styled.input`
+    flex: 1;
+    height: 35px;
+    padding: 0 10px;
+    border-radius: 5px;
+`;
+
+const Thumbnail = styled.div`
+    height: 430px;
+    width: 250px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: 2px solid ${Colors.bg_dark};
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+`;
+
+const ButtonThumbnail = styled.button`
+    height: 40px;
+    padding: 0 20px;
+    border-radius: 20px;
+    border: none;
+    font-size: 15px;
+`;
+
+const Category = styled.div`
+    display: flex;
+    padding: 5px 10px;
+    background-color: ${Colors.white};
+    border-radius: 20px;
+    font-size: 12px;
+    color: ${Colors.black};
+`;
+
+const List = styled.div`
+    display: flex;
+    gap: 10px;
+    color: ${Colors.yellow};
+`;
+
+const InputDescription = styled.textarea`
+    flex: 1;
+    height: 300px;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    font-size: 17px;
+    font-family: Arial, Helvetica, sans-serif;
+`;

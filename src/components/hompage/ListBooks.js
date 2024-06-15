@@ -3,10 +3,6 @@ import { Data } from '../../data';
 import Book from '../common/Book';
 import { styled } from 'styled-components';
 
-const StyledBox = styled.div`
-    width: 208px;
-`;
-
 const ListBooks = (props) => {
     return (
         <div className="list">
@@ -28,3 +24,7 @@ const ListBooks = (props) => {
 };
 
 export default ListBooks;
+
+const StyledBox = styled.div`
+    width: 208px;
+`;

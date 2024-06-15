@@ -2,45 +2,10 @@ import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import Colors from "../../constants/Color";
 import ListBooks from "../../components/hompage/ListBooks";
-import "../../components/styles/StyledHeader.css";
 import { getAllBookByType } from "../../services/api/Book";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-
-const StyledSlider = styled.div`
-  position: relative;
-  height: 470px;
-  width: 100%;
-  background-image: url(/assets/images/anhbia.png);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-`;
-
-const StyledBox = styled.div`
-  background-color: ${Colors.black};
-  padding: 20px 90px 90px 90px;
-  justify-content: center;
-  align-items: center;
-`;
-
-const StyledBoxList = styled.div`
-  display: flex;
-`;
-
-const StyledBoxTitle = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-top: 70px;
-`;
-
-const Shadow = styled.div`
-  position: absolute;
-  height: 7.5rem;
-  width: 100%;
-  background: linear-gradient(180deg, rgba(18, 18, 20, 0), ${Colors.black});
-  bottom: 0;
-`;
+import "../../components/styles/StyledHeader.css";
 
 const Homepage = () => {
   const [bookFree, setBookFree] = useState([]);
@@ -144,3 +109,38 @@ const Homepage = () => {
 };
 
 export default Homepage;
+
+const StyledSlider = styled.div`
+  position: relative;
+  height: 470px;
+  width: 100%;
+  background-image: url(/assets/images/anhbia.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+`;
+
+const StyledBox = styled.div`
+  background-color: ${Colors.black};
+  padding: 20px 90px 90px 90px;
+  justify-content: center;
+  align-items: center;
+`;
+
+const StyledBoxList = styled.div`
+  display: flex;
+`;
+
+const StyledBoxTitle = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 70px;
+`;
+
+const Shadow = styled.div`
+  position: absolute;
+  height: 7.5rem;
+  width: 100%;
+  background: linear-gradient(180deg, rgba(18, 18, 20, 0), ${Colors.black});
+  bottom: 0;
+`;

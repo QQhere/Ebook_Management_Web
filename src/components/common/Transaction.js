@@ -2,6 +2,30 @@ import React from 'react';
 import { styled } from 'styled-components';
 import Colors from '../../constants/Color';
 
+const Transaction = (props) => {
+    return (
+        <Container>
+            <Box>
+                <StyledImage src={props.src}></StyledImage>
+                <List>
+                    <p>Mã đơn hàng: <Span className='textBold'>{props.code}</Span></p>
+                    <p>Tên sách: <span>{props.title}</span></p>
+                    <p>Tác giả: <span >{props.author}</span></p>
+                    <p>Tài khoản: <span >{props.account}</span></p>
+                </List>
+            </Box>
+            <List style={{textAlign: 'right'}}>
+                <p>Thành tiền: <span style={{color: '#F2C49B', fontWeight: 'bold'}}>{props.money} đ</span></p>
+                <p>Hình thức thanh toán: <span>{props.payments}</span></p>
+                <p>Trạng thái giao dịch: <span style={{color: '#73D99F'}}>{props.state}</span></p>
+                <p>Thời gian: <span >{props.time}</span></p>
+            </List>
+        </Container>
+    );
+};
+
+export default Transaction;
+
 const Container = styled.div`
     width: 100%;
     display: flex;
@@ -35,27 +59,3 @@ const List = styled.div`
 const Span = styled.span`
     text-transform: uppercase;
 `;
-
-const Transaction = (props) => {
-    return (
-        <Container>
-            <Box>
-                <StyledImage src={props.src}></StyledImage>
-                <List>
-                    <p>Mã đơn hàng: <Span className='textBold'>{props.code}</Span></p>
-                    <p>Tên sách: <span>{props.title}</span></p>
-                    <p>Tác giả: <span >{props.author}</span></p>
-                    <p>Tài khoản: <span >{props.account}</span></p>
-                </List>
-            </Box>
-            <List style={{textAlign: 'right'}}>
-                <p>Thành tiền: <span style={{color: '#F2C49B', fontWeight: 'bold'}}>{props.money} đ</span></p>
-                <p>Hình thức thanh toán: <span>{props.payments}</span></p>
-                <p>Trạng thái giao dịch: <span style={{color: '#73D99F'}}>{props.state}</span></p>
-                <p>Thời gian: <span >{props.time}</span></p>
-            </List>
-        </Container>
-    );
-};
-
-export default Transaction;

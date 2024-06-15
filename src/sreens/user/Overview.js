@@ -9,8 +9,6 @@ import { DataBook } from '../../dataBook';
 import { Link, useParams } from 'react-router-dom';
 import { getBookById } from '../../services/api/Book';
 
-
-
 const Categories = ({categories}) => {
     return (
         <List>

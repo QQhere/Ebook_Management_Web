@@ -7,11 +7,6 @@ import { routes } from "../../routes";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/actions";
 
-const Box = styled.div`
-  height: 35px;
-  width: 35px;
-`;
-
 const Header = () => {
   const [showSubNav, setShowSubNav] = useState(false);
   const [isSignIn, setIsSignIn] = useState(false);
@@ -56,7 +51,7 @@ const Header = () => {
           <div style={{ display: showSubNav ? "block" : "none" }}>
             <ul id="subnav">
               <li>
-                <Link to="/account_management">
+                <Link to="/account_management" onClick={handleClick}>
                   <div>
                     <i class="fa-solid fa-user"></i>
                   </div>
@@ -64,7 +59,7 @@ const Header = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/library">
+                <Link to="/library" onClick={handleClick}>
                   <div>
                     <i class="fa-solid fa-bookmark"></i>
                   </div>
@@ -72,7 +67,7 @@ const Header = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/transaction_history">
+                <Link to="/transaction_history" onClick={handleClick}>
                   <div>
                     <i class="fa-solid fa-cart-shopping"></i>
                   </div>
@@ -131,3 +126,8 @@ const Header = () => {
 };
 
 export default Header;
+
+const Box = styled.div`
+  height: 35px;
+  width: 35px;
+`;

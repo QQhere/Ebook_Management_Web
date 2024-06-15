@@ -3,6 +3,50 @@ import Colors from '../../constants/Color';
 import Avatar from '../common/Avatar';
 import ListBooks from '../search/ListBooks';
 
+const Account = () => {
+    return (
+        <Box className='body'>
+            <Col1>
+                <BoxAvatar>
+                    <Avatar></Avatar>
+                    <p style={{ fontSize: '26px' }}>Quỳnh Phạm</p>
+                </BoxAvatar>
+                <BoxCenter>
+                    <H1>5</H1>
+                    <p>Sách đã đăng</p>
+                </BoxCenter>
+                <BoxApp className='flex'>
+                    <BoxCenter>
+                        <H1>10</H1>
+                        <p>Đang thẽo dõi</p>
+                    </BoxCenter>
+
+                    <BoxCenter>
+                        <H1>0</H1>
+                        <p>Người theo dõi</p>
+                    </BoxCenter>
+                </BoxApp>
+
+            </Col1>
+
+            <Col2>
+                <BoxTitle>
+                    <p className='titleProfile'>Thư viện cá nhân</p>
+                </BoxTitle>
+                
+                <BoxOption>
+                    <p className='optionProfile'>Sách đã đăng</p>               
+                </BoxOption>
+                <div id='library'>
+                    <ListBooks></ListBooks>
+                </div>
+            </Col2>
+        </Box>
+    );
+};
+
+export default Account;
+
 const Box = styled.div`
     display: flex;
 `;
@@ -61,47 +105,3 @@ const BoxTitle = styled.div`
     align-items: center ;
     justify-content: space-between;
 `;
-
-const Account = () => {
-    return (
-        <Box className='body'>
-            <Col1>
-                <BoxAvatar>
-                    <Avatar></Avatar>
-                    <p style={{ fontSize: '26px' }}>Quỳnh Phạm</p>
-                </BoxAvatar>
-                <BoxCenter>
-                    <H1>5</H1>
-                    <p>Sách đã đăng</p>
-                </BoxCenter>
-                <BoxApp className='flex'>
-                    <BoxCenter>
-                        <H1>10</H1>
-                        <p>Đang thẽo dõi</p>
-                    </BoxCenter>
-
-                    <BoxCenter>
-                        <H1>0</H1>
-                        <p>Người theo dõi</p>
-                    </BoxCenter>
-                </BoxApp>
-
-            </Col1>
-
-            <Col2>
-                <BoxTitle>
-                    <p className='titleProfile'>Thư viện cá nhân</p>
-                </BoxTitle>
-                
-                <BoxOption>
-                    <p className='optionProfile'>Sách đã đăng</p>               
-                </BoxOption>
-                <div id='library'>
-                    <ListBooks></ListBooks>
-                </div>
-            </Col2>
-        </Box>
-    );
-};
-
-export default Account;
