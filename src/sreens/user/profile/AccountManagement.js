@@ -71,7 +71,7 @@ const AccountManagement = () => {
     }
 
     const response = await updateUserDetails(
-      stateAccount.data.token,
+      stateAccount.token,
       {
         password: password,
         retype_password: retypePassword,
@@ -87,7 +87,7 @@ const AccountManagement = () => {
 
   const changeInformation = async () => {
     const response = await updateUserDetails(
-      stateAccount.data.token,
+      stateAccount.token,
       {
         fullname: fullname,
         date_of_birth: date,
@@ -104,7 +104,7 @@ const AccountManagement = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await getUserDetails(stateAccount.data.token);
+      const response = await getUserDetails(stateAccount.token);
       if (response.status === "OK") {
         setDataUser(response.data);
         setFullname(response.data?.fullname);
