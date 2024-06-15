@@ -10,7 +10,7 @@ const ListBooks = (props) => {
     return (
         <div className="list1">
             {props.children}
-            {props.data.map((item, index) => {
+            {props.data?.map((item, index) => {
                 return (
                     <StyledBox>
                         <Book

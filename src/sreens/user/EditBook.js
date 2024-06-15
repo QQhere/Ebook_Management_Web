@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { styled } from 'styled-components'
 import Colors from '../../constants/Color';
 import TabletOfContents from '../../components/common/TabletOfContents';
+import { Link } from 'react-router-dom';
 
 const Box = styled.div`
     display: flex;
@@ -30,6 +31,16 @@ const BoxFlex = styled.div`
     align-items: center;
     padding-bottom: 15px;
     gap: 12px;
+`;
+
+const BoxContent = styled.div`
+    display: flex;
+    width: 100%;
+    align-items: center;
+    padding-bottom: 15px;
+    gap: 12px;
+    justify-content: space-between;
+    margin: 20px 0;
 `;
 
 const Selection = styled.select`
@@ -229,7 +240,15 @@ const EditBook = () => {
                 </div>
 
                 <div>
-                    <h3>Mục lục</h3>
+                    <BoxContent>
+                        <h3 style={{margin: '0'}}>Mục lục</h3>
+                        <Link to="/new_chapter">
+                            <p className="link">
+                                Thêm mới <i class="fa-solid fa-add"></i>
+                            </p>
+                        </Link>
+                    </BoxContent>
+                    
                     <TabletOfContents data={listChapter} type='edit'></TabletOfContents>
                 </div>
             </Col2>

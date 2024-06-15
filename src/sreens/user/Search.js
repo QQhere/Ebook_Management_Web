@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { styled } from 'styled-components'
 import Colors from '../../constants/Color';
-import ListBooks from '../../components/search/ListBooks'
+import ListBooks from '../../components/search/ListBooks';
 import ListAccounts from '../../components/search/ListAccounts';
 
 const Box = styled.div`
@@ -37,14 +37,14 @@ const BoxFlex = styled.div`
     width: 100%;
     align-items: center;
     padding-bottom: 15px;
-    gap: 12px;
+    justify-content: space-between;
 `;
 
 const Selection = styled.select`
-    flex: 1;
     height: 30px;
     padding: 0 5px;
     border-radius: 5px;
+    width: 200px;
 `;
 
 const SearchBox = styled.input`
@@ -81,16 +81,25 @@ const BoxSelect = styled.div`
     margin-top: 20px;
 `;
 
+const BoxContent = styled.div`
+    display: flex;
+    width: 100%;
+    align-items: center;
+    padding-bottom: 15px;
+    gap: 30px; 
+    border-bottom: 1px solid ${Colors.bg_dark};
+`;
+
 const Search = () => {
     const [activeElement, setActiveElement] = useState('book');
 
     function renderContent() {
         return (
             <div>
-                <BoxFlex style={{gap: '30px', borderBottom: '1px solid #343434'}}>
+                <BoxContent>
                     <p id="book" className={activeElement === 'book' ? 'optionProfile cursor iconColor' : 'optionProfile cursor'} onClick={() => setActiveElement('book')}>Sách</p>
                     <p id="account" className={activeElement === 'account' ? 'optionProfile cursor iconColor' : 'optionProfile cursor'} onClick={() => setActiveElement('account')}>Tài khoản</p>
-                </BoxFlex>
+                </BoxContent>
                 {activeElement === 'book' && <div>
                     <div style={{margin: '20px 0'}}>
                         <ListBooks></ListBooks>
@@ -113,8 +122,8 @@ const Search = () => {
                 </BoxH1>
                 <div>
                     <BoxFlex>
-                        <p>Tình trạng:</p>
-                        <Selection className='collection'>
+                        <label for="progress">Tình trạng:</label>
+                        <Selection name='progress' id='progress' className='collection'>
                             <option value="" selected disabled hidden>Chọn tình trạng sách</option>
                             <option value="1">Đang tiến hành</option>
                             <option value="2">Đã hoàn thành</option>
@@ -123,8 +132,8 @@ const Search = () => {
                     </BoxFlex>
 
                     <BoxFlex>
-                        <p>Loại sách:</p>
-                        <Selection className='collection'>
+                        <label for="classify">Loại sách:</label>
+                        <Selection name='classify' id='classify' className='collection'>
                             <option value="" selected disabled hidden>Chọn loại sách</option>
                             <option value="1">Miễn phí</option>
                             <option value="2">Theo dõi</option>
@@ -133,8 +142,8 @@ const Search = () => {
                     </BoxFlex>
 
                     <BoxFlex>
-                        <p>Phân loại:</p>
-                        <Selection className='collection'>
+                        <label for='categoris'>Phân loại:</label>
+                        <Selection name='categoris' id='categoris' className='collection'>
                             <option value="" selected disabled hidden>Thể loại sách</option>
                             <option value="1">Miễn phí</option>
                             <option value="2">Theo dõi</option>

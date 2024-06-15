@@ -23,20 +23,24 @@ const List = styled.div`
     align-items: center;
 `;
 
+const BoxIcon = styled.div`
+    display: flex;
+    gap: 10px;
+`;
 
 const Chapter = ({data, type}) => {
     const renderContent = () => {
         switch(type) {
             case 'overview':
-                return <div>
+                return <BoxIcon>
                     <i class="fa-solid fa-comment iconColor"></i>
-                </div>;
+                </BoxIcon>;
             case 'edit':
-                return <div>
+                return <BoxIcon>
                     <div><i class="fa-regular fa-pen-to-square iconColor"></i></div>
                     <div><i class="fa-solid fa-trash-can iconRed"></i></div>
                     <div><i class="fa-regular fa-eye iconColor"></i></div>
-                </div>;
+                </BoxIcon>;
             case 'show':
                 return <div></div>;
             default:

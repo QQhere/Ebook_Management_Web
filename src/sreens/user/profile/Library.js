@@ -5,6 +5,7 @@ import Avatar from "../../../components/common/Avatar";
 import ListBooks from "../../../components/search/ListBooks";
 import { getAllBookByUser } from "../../../services/api/Book";
 import { getUserDetails } from "../../../services/api/User";
+import { Link } from "react-router-dom";
 
 const Library = () => {
   const [dataUser, setDataUser] = useState([]);
@@ -105,11 +106,11 @@ const Library = () => {
 
         <BoxOption>
           <p className="optionProfile">Sách đã đăng</p>
-          <a href="/new_book">
+          <Link to="/new_book">
             <p className="link">
               Thêm mới <i class="fa-solid fa-add"></i>
             </p>
-          </a>
+          </Link>
         </BoxOption>
 
         <div id="library">
