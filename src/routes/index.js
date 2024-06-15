@@ -46,7 +46,7 @@ export const routes = [
         element: Overview,
     },
     {
-        path: '/inforAccount',
+        path: '/:accountId/inforAccount',
         element: Account,
     },
     {
