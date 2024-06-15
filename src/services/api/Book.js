@@ -17,6 +17,22 @@ export const createBook = async (token, data, userId) => {
   }
 };
 
+export const getBookById = async (bookId) => {
+  try {
+    const response = await fetchData(`api/v1/book/${bookId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    return response;
+  } catch (error) {
+    throw error;
+  }
+
+}
+
 export const getAllBookByUser = async (token, userId) => {
   try {
     const response = await fetchData(`api/v1/book/all/${userId}`, {

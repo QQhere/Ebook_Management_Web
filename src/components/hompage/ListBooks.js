@@ -15,7 +15,7 @@ const ListBooks = (props) => {
                 return (
                     <StyledBox>
                         <Book
-                            key={item.id}
+                            id={item.id}
                             src={item.image ? item.image : "https://i.docln.net/lightnovel/covers/s12096-4622c0c2-0e3d-455f-8200-58b2fc537cb4-m.jpg"}
                             type={item.type_of_book}
                         ></Book>

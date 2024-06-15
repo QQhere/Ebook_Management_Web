@@ -8,7 +8,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {routes.map((route) => {
+        {routes?.map((route) => {
           const Page = route.element;
           const Layout = route.isHiddenHeader ? Fragment : Header;
           return (

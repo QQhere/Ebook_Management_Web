@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/StyledHeader.css";
 import { styled } from "styled-components";
 import Avatar from "../common/Avatar";
 import { routes } from "../../routes";
+import { useSelector } from "react-redux";
 
 const Box = styled.div`
   height: 35px;
@@ -12,8 +13,9 @@ const Box = styled.div`
 
 const Header = () => {
   const [showSubNav, setShowSubNav] = useState(false);
-  const [isSignIn, setIsSignIn] = useState(true);
+  const [isSignIn, setIsSignIn] = useState(false);
   const navigate = useNavigate();
+  const stateAccount = useSelector((state) => state.auth);
 
   const handleClick = () => {
     setShowSubNav(!showSubNav);
@@ -23,6 +25,12 @@ const Header = () => {
     setIsSignIn(false);
     navigate(routes[0].path);
   };
+
+  useEffect(() => {
+    if (stateAccount.token) {
+      setIsSignIn(true);
+    }
+  }, [stateAccount]);
 
   function showHeader() {
     if (isSignIn) {

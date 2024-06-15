@@ -105,19 +105,11 @@ const handleLogIn = async () => {
       dispatch(saveLoginInfor(res.data));
       const data = localStorage.getItem("persistantState");
       console.log("data: ", data);
-      navigate(-1);
     } else if (res.status === 400) {
       alert("Thông tin đăng nhập sai!");
     } else {
       alert("Đăng nhập thất bại, lỗi: " + (res.message ? res.message : "Không xác định"));
     }
-    // if (logInstatus === "OK") {
-    //   alert(logInstatus + "! " + logInmessage);
-    //   navigate(-1);
-    // }
-    // else if (logInstatus) {
-    //   alert(logInstatus + "! " + logInmessage + "\nTry again!");
-    // }
   } catch (err) {
     const message = err.message;
     alert(message + "\nTry again!");

@@ -5,7 +5,7 @@ const TabletOfContents = (props) => {
     const data = props.data;
     return (
         <div className="listcolumn">
-            {data.map((item, index) => {
+            {data?.map((item, index) => {
                 return (
                     <Chapter data={item.name} type={props.type}></Chapter>
                 );

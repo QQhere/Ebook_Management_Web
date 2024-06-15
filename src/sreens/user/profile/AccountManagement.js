@@ -52,7 +52,7 @@ const AccountManagement = () => {
   const [oldPassword, setOldPassword] = useState("");
   const [password, setPassword] = useState("");
   const [retypePassword, setRetypePassword] = useState("");
-  const stateAccount = useSelector((state) => state.logIn);
+  const stateAccount = useSelector((state) => state.auth);
 
   const handleChange = (event) => {
     setDate(event.target.value);

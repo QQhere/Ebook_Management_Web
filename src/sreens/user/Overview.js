@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { styled } from 'styled-components'
 import Book from '../../components/common/Book';
 import Colors from '../../constants/Color';
@@ -6,7 +6,119 @@ import '../../components/styles/StyledHeader.css';
 import Comment from '../../components/common/Comment';
 import TabletOfContents from '../../components/common/TabletOfContents';
 import { DataBook } from '../../dataBook';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { getBookById } from '../../services/api/Book';
+
+
+
+const Categories = ({categories}) => {
+    return (
+        <List>
+            {categories.map((item, index) => {
+                return (
+                    <Category>{item.name}</Category>          
+                );
+            })}
+        </List>
+    );
+}
+
+
+function renderStars(rating) {
+    let fullStars = Math.floor(rating);
+    let emptyStars = 5 - fullStars;
+    let stars = [];
+
+    for (let i = 0; i < fullStars; i++) {
+        stars.push(<i class="fas fa-star"></i>); // Thẻ icon ngôi sao tô màu vàng
+    }
+
+    for (let i = 0; i < emptyStars; i++) {
+        stars.push(<i class="far fa-star"></i>); // Thẻ icon ngôi sao không tô màu
+    }
+
+    return stars;
+}
+
+const Rating = ({rating}) => {
+    return (
+        <List>{renderStars(rating)}</List>
+    );
+}
+
+const Overview = () => {
+    const [data, setData] = useState({});
+    const { bookId } = useParams();
+
+    const fetchDataBook = async () => {
+        const response = await getBookById(bookId);
+        if (response.status === "OK") {
+            setData(response.data);
+        }
+    }
+
+    useEffect(() => {
+        fetchDataBook();
+    }, []);
+    console.log(data)
+    
+    const { time_dmy } = require('../../function/time');
+    return (
+            <div className='body'>
+                <BoxLinks>
+                    <Link className='nav' to='/'>Trang chủ</Link>
+                    <i class="fa-solid fa-angle-right navIcon"></i>
+                    <Link className='nav' to='#'>{data.title}</Link>
+                </BoxLinks>
+                <Box>
+                    <Col1>
+                        <Book type={data.type_of_book} src={data.image}></Book>
+                    </Col1>
+                    <Col2>
+                        <h3>{data.title}</h3>
+                        <div>
+                            {/* <Categories categories={categories}></Categories> */}
+                            {/* <P><Span>Tác giả: </Span> {data.author}</P> */}
+                            {/* <P><Span>Tình trạng: </Span> {data.status}</P> */}
+                            {/* <P><Span>Cập nhật gần nhất: </Span>{time_dmy(data.updated_at)}</P> */}
+                            {/* <P><Span>Số chương: </Span> {data.chapters.length}</P> */}
+                            <P><Span>Đánh giá: </Span> <Rating rating='4.3'></Rating> 4.3</P>
+                            {/* <P><Span>Lượt đọc: </Span> {data.number_reads}</P>  */}
+                            <StyledBox>
+                                <StyledButton className='button'><i class="fa-solid fa-book-open"></i> Đọc sách</StyledButton>
+                                <i class="fa-regular fa-star iconColor btn icon"></i>
+                                <i class="fa-regular fa-comments iconColor btn icon"></i>
+                                <i class="fa-regular fa-share-from-square iconColor btn icon"></i>
+                            </StyledBox>
+                            <Span>Mô tả:</Span>
+                            <P>{data.summary}</P>
+                        </div>
+                        
+
+                        <TextTitle>Mục lục</TextTitle>
+                        <div>
+                            <TabletOfContents data={data.chapters} type='overview'></TabletOfContents>
+                            <BoxSelect>
+                                <select>
+                                    <option value="1">Trang 1</option>
+                                    <option value="2">Trang 2</option>
+                                    <option value="3">Trang 3</option>
+                                    <option value="4">Trang 4</option>
+                                </select>
+
+                                <StyledBoxSelect className="button">Đến</StyledBoxSelect>
+                            </BoxSelect>     
+                        </div>
+                    </Col2>
+                </Box>
+                <TextTitle>Bình luận</TextTitle>
+                <Comment haha='hhh'></Comment>
+                <Comment haha='jjj'></Comment>
+            </div>
+    );
+};
+
+export default Overview;
 
 const BoxLinks = styled.div`
     width: 100%;
@@ -93,99 +205,3 @@ const StyledBoxSelect = styled.button`
     padding: 0 10px;
     font-size: 14px;
 `;
-
-const Categories = ({categories}) => {
-    return (
-        <List>
-            {categories.map((item, index) => {
-                return (
-                    <Category>{item.name}</Category>          
-                );
-            })}
-        </List>
-    );
-}
-
-
-function renderStars(rating) {
-    let fullStars = Math.floor(rating);
-    let emptyStars = 5 - fullStars;
-    let stars = [];
-
-    for (let i = 0; i < fullStars; i++) {
-        stars.push(<i class="fas fa-star"></i>); // Thẻ icon ngôi sao tô màu vàng
-    }
-
-    for (let i = 0; i < emptyStars; i++) {
-        stars.push(<i class="far fa-star"></i>); // Thẻ icon ngôi sao không tô màu
-    }
-
-    return stars;
-}
-
-const Rating = ({rating}) => {
-    return (
-        <List>{renderStars(rating)}</List>
-    );
-}
-
-const Overview = () => {
-    const data = DataBook.data;
-    const categories = data.categories;
-    const { time_dmy } = require('../../function/time');
-    return (
-            <div className='body'>
-                <BoxLinks>
-                    <Link className='nav' to='/'>Trang chủ</Link>
-                    <i class="fa-solid fa-angle-right navIcon"></i>
-                    <Link className='nav' to='#'>{data.title}</Link>
-                </BoxLinks>
-                <Box>
-                    <Col1>
-                        <Book type={data.type_of_book} src={data.image}></Book>
-                    </Col1>
-                    <Col2>
-                        <h3>{data.title}</h3>
-                        <div>
-                            <Categories categories={categories}></Categories>
-                            <P><Span>Tác giả: </Span> {data.authors.map(author => author.name).join(', ')}</P>
-                            <P><Span>Tình trạng: </Span> {data.status}</P>
-                            <P><Span>Cập nhật gần nhất: </Span>{time_dmy(data.updated_at)}</P>
-                            <P><Span>Số chương: </Span> {data.chapters.length}</P>
-                            <P><Span>Đánh giá: </Span> <Rating rating='4.3'></Rating> 4.3</P>
-                            <P><Span>Lượt đọc: </Span> {data.number_reads}</P> 
-                            <StyledBox>
-                                <StyledButton className='button'><i class="fa-solid fa-book-open"></i> Đọc sách</StyledButton>
-                                <i class="fa-regular fa-star iconColor btn icon"></i>
-                                <i class="fa-regular fa-comments iconColor btn icon"></i>
-                                <i class="fa-regular fa-share-from-square iconColor btn icon"></i>
-                            </StyledBox>
-                            <Span>Mô tả:</Span>
-                            <P>{data.summary}</P>
-                        </div>
-                        
-
-                        <TextTitle>Mục lục</TextTitle>
-                        <div>
-                            <TabletOfContents data={data.chapters} type='overview'></TabletOfContents>
-                            <BoxSelect>
-                                <select>
-                                    <option value="1">Trang 1</option>
-                                    <option value="2">Trang 2</option>
-                                    <option value="3">Trang 3</option>
-                                    <option value="4">Trang 4</option>
-                                </select>
-
-                                <StyledBoxSelect className="button">Đến</StyledBoxSelect>
-                            </BoxSelect>     
-                        </div>
-                    </Col2>
-                </Box>
-                <TextTitle>Bình luận</TextTitle>
-                <Comment haha='hhh'></Comment>
-                <Comment haha='jjj'></Comment>
-            </div>
-    );
-};
-
-export default Overview;
