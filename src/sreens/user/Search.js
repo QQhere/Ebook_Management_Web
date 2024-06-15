@@ -5,6 +5,8 @@ import ListBooks from "../../components/search/ListBooks";
 import ListAccounts from "../../components/search/ListAccounts";
 import { getAllCategory } from "../../services/api/Category";
 import { searchBook } from "../../services/api/Book";
+import { act } from "react";
+import { searchUser } from "../../services/api/User";
 
 const Box = styled.div`
   display: flex;
@@ -87,13 +89,21 @@ const Search = () => {
   const [activeElement, setActiveElement] = useState("book");
   const [allCategory, setAllCategory] = useState([]);
   const [dataSearchBook, setDataSearchBook] = useState([]);
+  const [dataSearchUser, setDataSearchUser] = useState([]);
+  const [dataSearch, setDataSearch] = useState([]);
 
-  const [status, setStatus] = useState("");
-  const [type, setType] = useState("");
-  const [keyword, setKeyword] = useState("");
+  const [status, setStatus] = useState(null);
+  const [type, setType] = useState(null);
+  const [keyword, setKeyword] = useState(null);
   const [selectCategory, setSelectCategory] = useState([]);
   const [page, setPage] = useState(1);
-  const [size, setSize] = useState(1);
+  const [size, setSize] = useState(3);
+  const [mark, setMark] = useState(0);
+
+  const [pageUser, setPageUser] = useState(1);
+  const [markUser, setMarkUser] = useState(0);
+
+  const [pageSearch, setPageSearch] = useState(1);
 
   const fetchAllCategory = async () => {
     const response = await getAllCategory();
@@ -112,14 +122,35 @@ const Search = () => {
     const response = await searchBook(data, page, size);
     if (response.status === "OK") {
       setDataSearchBook(response.data);
+      setDataSearch(response.data);
+    }
+  };
+
+  const fetchSearchUser = async () => {
+    const response = await searchUser(
+      keyword !== null || keyword !== "" ? keyword : null,
+      page,
+      size
+    );
+    if (response.status === "OK") {
+      setDataSearchUser(response.data);
+      setDataSearch(response.data);
     }
   };
 
   const handleSearch = () => {
     if (activeElement === "book") {
+      setMark(mark + 1);
       fetchSearchBook();
+    } else {
+      setMarkUser(markUser + 1);
+      fetchSearchUser();
     }
   };
+
+  useEffect(() => {
+    handleSearch();
+  }, [page]);
 
   useEffect(() => {
     fetchAllCategory();
@@ -136,7 +167,11 @@ const Search = () => {
                 ? "optionProfile cursor iconColor"
                 : "optionProfile cursor"
             }
-            onClick={() => setActiveElement("book")}
+            onClick={() => {
+              setActiveElement("book");
+              setDataSearch(dataSearchBook);
+              setPageSearch(page);
+            }}
           >
             Sách
           </p>
@@ -147,7 +182,11 @@ const Search = () => {
                 ? "optionProfile cursor iconColor"
                 : "optionProfile cursor"
             }
-            onClick={() => setActiveElement("account")}
+            onClick={() => {
+              setActiveElement("account");
+              setDataSearch(dataSearchUser);
+              setPageSearch(pageUser);
+            }}
           >
             Tài khoản
           </p>
@@ -162,7 +201,7 @@ const Search = () => {
         {activeElement === "account" && (
           <div>
             <div style={{ margin: "20px 0" }}>
-              <ListAccounts></ListAccounts>
+              <ListAccounts data={dataSearchUser.content}></ListAccounts>
             </div>
           </div>
         )}
@@ -245,31 +284,31 @@ const Search = () => {
           </ButtonSearch>
         </BoxFlex>
         {renderContent()}
-        <BoxSelect
-          onChange={(event) => {
-            setPage(event.target.value);
-            handleSearch();
-          }}
-        >
-          <select style={{ height: "100%" }}>
-            {Array.from({ length: dataSearchBook.totalPages }, (_, index) => (
-              <option value={index + 1}>Trang {index + 1}</option>
-            ))}
-          </select>
+        {((activeElement === "book" && mark > 0) ||
+          (activeElement === "account" && markUser > 0)) && (
+          <BoxSelect
+            onChange={(event) => {
+              activeElement === "book"
+                ? setPage(event.target.value)
+                : setPageUser(event.target.value);
+            }}
+          >
+            <select style={{ height: "100%" }}>
+              {Array.from({ length: dataSearch.totalPages }, (_, index) => (
+                <option value={index + 1}>Trang {index + 1}</option>
+              ))}
+            </select>
 
-          <p>{`Hiển thị ${
-            dataSearchBook.numberOfElements
-              ? dataSearchBook.numberOfElements
-              : 0
-          } kết quả từ ${(page-1) * size + 1}-${
-            (page-1) * size +
-            (dataSearchBook.numberOfElements
-              ? dataSearchBook.numberOfElements
-              : 0)
-          } trên tổng số ${
-            dataSearchBook.totalElements ? dataSearchBook.totalElements : 0
-          } kết quả`}</p>
-        </BoxSelect>
+            <p>{`Hiển thị ${
+              dataSearch.numberOfElements ? dataSearch.numberOfElements : 0
+            } kết quả từ ${(pageSearch - 1) * size + 1}-${
+              (pageSearch - 1) * size +
+              (dataSearch.numberOfElements ? dataSearch.numberOfElements : 0)
+            } trên tổng số ${
+              dataSearch.totalElements ? dataSearch.totalElements : 0
+            } kết quả`}</p>
+          </BoxSelect>
+        )}
       </Col2>
     </Box>
   );

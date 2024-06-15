@@ -105,9 +105,11 @@ const AccountManagement = () => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await getUserDetails(stateAccount.data.token);
-      setDataUser(response.data);
-      setFullname(response.data?.fullname);
-      setDate(new Date(response.data.date_of_birth).toISOString().split('T')[0]);
+      if (response.status === "OK") {
+        setDataUser(response.data);
+        setFullname(response.data?.fullname);
+        setDate(new Date(response.data.date_of_birth).toISOString().split('T')[0]);
+      }
     };
 
     fetchData();
