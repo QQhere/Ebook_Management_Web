@@ -40,7 +40,6 @@ const Library = () => {
 
   useEffect(() => {
     const token = stateAccount.token;
-    console.log(stateAccount)
     fetchDataUser(token);
     fetchDataBook(token, stateAccount.userId);
   }, []);
@@ -52,10 +51,7 @@ const Library = () => {
           <p style={{ fontSize: "26px" }}>
             {dataUser.fullname === null ? "" : dataUser.fullname}
           </p>
-          <Avatar></Avatar>
-          <ButtonEditAvatar className="button">
-            Thay ảnh <i class="fa-regular fa-pen-to-square"></i>
-          </ButtonEditAvatar>
+          <Avatar avatar={dataUser.link_avatar}></Avatar>
         </BoxAvatar>
         <BoxNav>
           <li>

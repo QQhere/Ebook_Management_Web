@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 import { getAllCategory } from "../../services/api/Category";
 import { createBook } from "../../services/api/Book";
 import { useSelector } from "react-redux";
-import {uploadImage} from "../../services/api/UploadImage";
+import { uploadImage } from "../../services/api/UploadImage";
 
 const CategoryComponent = (props) => {
   const [allCategory, setAllCategory] = useState([]);
@@ -62,14 +62,12 @@ const CategoryComponent = (props) => {
 
 const ChageThumbnail = (props) => {
   const [selectedFile, setSelectedFile] = useState(null);
-  const [uploadedUrl, setUploadedUrl] = useState("");
-  
+
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
       setSelectedFile(URL.createObjectURL(file));
       const url = await uploadImage(file);
-      setUploadedUrl(url);
       props.setImage(url);
     }
   };
@@ -80,16 +78,11 @@ const ChageThumbnail = (props) => {
 
   useEffect(() => {
     if (selectedFile) {
-      document.getElementById("myDiv").style.backgroundImage = `url(${selectedFile})`;
+      document.getElementById(
+        "myDiv"
+      ).style.backgroundImage = `url(${selectedFile})`;
     }
   }, [selectedFile]);
-
-  useEffect(() => {
-    if (uploadedUrl) {
-      console.log("Uploaded Image URL:", uploadedUrl);
-      // Thực hiện các hành động khác với URL của ảnh đã tải lên
-    }
-  }, [uploadedUrl]);
 
   return (
     <>
@@ -120,16 +113,16 @@ const NewBook = () => {
   const [price, setPrice] = useState(0);
   const [categoryIds, setcategoryIds] = useState([]);
 
-  const stateAccount = useSelector((state) => state.logIn);
+  const stateAccount = useSelector((state) => state.auth);
 
   const navigate = useNavigate();
 
   const addBook = async (book) => {
     const response = await createBook(
       // stateAccount.data.token,
-      "eyJhbGciOiJIUzI1NiJ9.eyJwaG9uZU51bWJlciI6IjAzODU0Mjc2NTYiLCJzdWIiOiIwMzg1NDI3NjU2IiwiZXhwIjoxNzIxMDQxMzE0fQ.tnNT8zbc-q3n6FOvejFu3OEfkFznvk2KepcgBXVOMs0",
+      stateAccount.token,
       book,
-     1
+      stateAccount.userId
     );
 
     return response;
@@ -148,7 +141,7 @@ const NewBook = () => {
       price: price,
       categoryIds: categoryIds,
     };
-    
+
     const response = await addBook(book);
 
     if (response.status === "CREATED") {
