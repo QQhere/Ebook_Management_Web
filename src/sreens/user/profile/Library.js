@@ -23,19 +23,18 @@ const Library = () => {
   }
 
   const fetchDataBook = async (token, userId) => {
-    // const response = await getAllBookByUser(localStorage.getItem('token'), localStorage.getItem('userId'));
     const response = await getAllBookByUser(token, userId);
     setPublishedBooks([]);
     setFollowingBooks([]);
     setPurchasedBooks([]);
     response.data?.map((item) => {
-      if (item.status === "follow") {
-        setFollowingBooks((followingBooks) => [...followingBooks, item]);
-      } else if (item.status === "Fee") {
-        setPurchasedBooks((purchasedBooks) => [...purchasedBooks, item]);
-      } else {
+      // if (item.type_of_book === "Follow") {
+      //   setFollowingBooks((followingBooks) => [...followingBooks, item]);
+      // } else if (item.type_of_book === "Fee") {
+      //   setPurchasedBooks((purchasedBooks) => [...purchasedBooks, item]);
+      // } else {
         setPublishedBooks((publishedBooks) => [...publishedBooks, item]);
-      }
+      // }
     });
   };
 
@@ -86,24 +85,6 @@ const Library = () => {
               </a>
             </li>
           </BoxNav>
-          <Link to='/library'>
-            <BoxCenter>
-              <H1>{publishedBooks.length}</H1>
-              <p>Sách đã đăng</p>
-            </BoxCenter>
-          </Link>
-
-          <BoxApp className="flex">
-            <BoxCenter onClick={follower}>
-              <H1>10</H1>
-              <p>Đang theo dõi</p>
-            </BoxCenter>
-
-            <BoxCenter>
-              <H1>0</H1>
-              <p>Người theo dõi</p>
-            </BoxCenter>
-          </BoxApp>
         </Col1>
 
         <Col2>
@@ -112,7 +93,7 @@ const Library = () => {
           </BoxTitle>
 
           <BoxOption>
-            <p className="optionProfile">Sách đã đăng</p>
+            <p className="optionProfile">{`Đã đăng ${publishedBooks.length} sách`}</p>
             <Link to="/new_book">
               <p className="link">
                 Thêm mới <i class="fa-solid fa-add"></i>

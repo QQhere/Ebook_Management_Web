@@ -42,7 +42,7 @@ const Account = () => {
                     </Button>
                 </BoxAvatar>
                 <BoxCenter>
-                    <H1>5</H1>
+                    <H1>{listBooks.length}</H1>
                     <p>Sách đã đăng</p>
                 </BoxCenter>
                 <BoxApp className='flex'>

@@ -11,7 +11,7 @@ const ListBooks = (props) => {
                     <StyledBox>
                         <Book
                             id={item.id}
-                            src={item.image === "" ? "https://i.docln.net/lightnovel/covers/s12096-4622c0c2-0e3d-455f-8200-58b2fc537cb4-m.jpg" : item.image}
+                            src={item.image === "" ? "/assets/images/ImageDefault.jpg" : item.image}
                             type={item.type_of_book}
                         ></Book>
                         <p className='textBold'>{item.title}</p>

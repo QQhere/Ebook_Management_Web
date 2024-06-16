@@ -88,7 +88,7 @@ const Overview = () => {
               {data.painter}
             </P>
             <P>
-              <Span>Người đăng: </Span> <Link to={`/${owner.id}/inforAccount`} style={{ color: '#FAFCFC' }}>{owner.fullname}</Link>
+              <Span>Người đăng: </Span> <Link to={`/${owner.id}/inforAccount`}>{owner.fullname}</Link>
             </P>
             <P>
               <Span>Tình trạng: </Span>{" "}
@@ -117,7 +117,6 @@ const Overview = () => {
               </Link> : null}
               <i class="fa-regular fa-star iconColor btn icon"></i>
               <i class="fa-regular fa-comments iconColor btn icon"></i>
-              <i class="fa-regular fa-share-from-square iconColor btn icon"></i>
             </StyledBox>
             <Span>Mô tả:</Span>
             <P>{data.summary}</P>

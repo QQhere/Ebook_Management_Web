@@ -202,7 +202,7 @@ const Search = () => {
         <BoxFlex>
           <SearchBox
             type="text"
-            placeholder="Tìm theo tên sách, tên tài khoản"
+            placeholder="Tìm theo tên sách, tên tác giả, tên họa sĩ hoặc tên tài khoản"
             onChange={(event) => setKeyword(event.target.value)}
           ></SearchBox>
           <ButtonSearch

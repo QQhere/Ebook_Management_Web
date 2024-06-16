@@ -62,24 +62,6 @@ const TransactionHistory = () => {
               </a>
             </li>
           </BoxNav>
-          <Link to="/library">
-            <BoxCenter>
-              <H1>5</H1>
-              <p>Sách đã đăng</p>
-            </BoxCenter>
-          </Link>
-
-          <BoxApp className="flex">
-            <BoxCenter onClick={follower}>
-              <H1>10</H1>
-              <p>Đang thẽo dõi</p>
-            </BoxCenter>
-
-            <BoxCenter>
-              <H1>0</H1>
-              <p>Người theo dõi</p>
-            </BoxCenter>
-          </BoxApp>
         </Col1>
 
         <Col2>

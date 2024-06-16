@@ -369,12 +369,6 @@ const AccountManagement = () => {
               </a>
             </li>
           </BoxNav>
-          <Link to='/library'>
-            <BoxCenter>
-              <H1>5</H1>
-              <p>Sách đã đăng</p>
-            </BoxCenter>
-          </Link>
           <BoxApp className="flex">
             <BoxCenter onClick={follower}>
               <H1>10</H1>
