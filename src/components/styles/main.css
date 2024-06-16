@@ -103,15 +103,15 @@
     display: flex;
     gap: 70px;
     flex-wrap: wrap;
-    justify-content: space-around
+    justify-content: flex-start
 }
 
 .list1 {
     display: flex;
-    gap: 25px;
+    gap: 30px;
     font-size: 20px;
     flex-wrap: wrap;
-    justify-content: space-around
+    justify-content: flex-start
 }
 
 .listcolumn {

@@ -133,6 +133,10 @@ const AccountManagement = () => {
     fetchData();
   }, [reload]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   function renderChangePassword() {
     return (
       <div>

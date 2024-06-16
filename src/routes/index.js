@@ -8,7 +8,7 @@ import Library from '../sreens/user/profile/Library';
 import TransactionHistory from '../sreens/user/profile/TransactionHistory';
 import NewBook from '../sreens/user/NewBook';
 import Overview from '../sreens/user/Overview';
-import Account from '../components/account/Account';
+import Account from '../sreens/user/Account';
 import Reading from '../sreens/user/Reading';
 
 export const routes = [

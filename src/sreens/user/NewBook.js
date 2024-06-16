@@ -117,6 +117,10 @@ const NewBook = () => {
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const addBook = async (book) => {
     const response = await createBook(
       // stateAccount.data.token,

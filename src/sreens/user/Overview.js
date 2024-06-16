@@ -45,6 +45,10 @@ const Overview = () => {
   const { bookId } = useParams();
   const isPublisher = true;
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const fetchDataBook = async () => {
     const response = await getBookById(bookId);
     if (response.status === "OK") {
@@ -108,12 +112,10 @@ const Overview = () => {
               <StyledButton className="button">
                 <i class="fa-solid fa-book-open"></i> Đọc sách
               </StyledButton>
-              {isPublisher ? <Link to={{
-                pathname: `/${data.id}/editBook`,
-                state: { isPermission: true }
-              }}> <StyledButton className="btn">
-                Chỉnh sửa sách
-              </StyledButton>           
+              {isPublisher ? <Link to={`/${data.id}/editBook`}>
+                <StyledButton className="btn">
+                  Chỉnh sửa sách
+                </StyledButton>
               </Link> : null}
               <i class="fa-regular fa-star iconColor btn icon"></i>
               <i class="fa-regular fa-comments iconColor btn icon"></i>

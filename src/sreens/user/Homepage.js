@@ -14,6 +14,10 @@ const Homepage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const data = useSelector(state => state.logIn);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const fetchBookByType = async (type) => {
     const response = await getAllBookByType(type, 1, 5);
     if (response.status === "OK") {

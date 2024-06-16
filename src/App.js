@@ -7,6 +7,7 @@ import { Fragment } from 'react';
 function App() {
   return (
     <BrowserRouter>
+      
       <Routes>
         {routes?.map((route) => {
           const Page = route.element;

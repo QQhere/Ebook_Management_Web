@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { styled } from 'styled-components'
 import Colors from '../../constants/Color';
 import '../../components/styles/reading.css';
@@ -14,7 +14,7 @@ const Reading = ({ data }) => {
     const [showSellect, setShowSellect] = useState(false);
     const [iconColorC, setIconColorC] = useState(false);
     const [iconColorD, setIconColorD] = useState(false);
-    const { bookId, chapterId} = useParams();
+    const { bookId, chapterId } = useParams();
 
     const DivBody = styled.div`
         background-color: ${BgColor};
@@ -24,6 +24,10 @@ const Reading = ({ data }) => {
         font-size: ${FontSize}px;
         font-family: ${FontFamily};
     `;
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     const changeColors = (newBgColor, newTextColor, newBorderColor) => {
         setBgColor(newBgColor);
@@ -60,13 +64,13 @@ const Reading = ({ data }) => {
         return (
             <div className='list2'>
                 <div class="toggle toggleBlack"
-                    style={{borderColor: BorderColor}}
+                    style={{ borderColor: BorderColor }}
                     onClick={() => changeColors(Colors.black, Colors.white, Colors.green_more)}></div>
-                <div class="toggle toggleGrey"  
-                    style={{borderColor: BorderColor}}
+                <div class="toggle toggleGrey"
+                    style={{ borderColor: BorderColor }}
                     onClick={() => changeColors(Colors.bg_dark, Colors.white, Colors.green_more)}></div>
-                <div class="toggle toggleWhite" 
-                    style={{borderColor: BorderColor}}
+                <div class="toggle toggleWhite"
+                    style={{ borderColor: BorderColor }}
                     onClick={() => changeColors(Colors.white, Colors.black, Colors.green_more)}></div>
             </div>
         );
@@ -117,7 +121,7 @@ const Reading = ({ data }) => {
                     <li><a href='/chuong1'>Chương 1: Cuộc gọi lúc nửa đêm</a></li>
                 </ul>
             </div>
-            
+
             <div id='select' class="fixed sidebar" style={{ display: showSellect ? 'block' : 'none' }}>
                 <div>
                     <p className='title'>Nền</p>
@@ -132,11 +136,11 @@ const Reading = ({ data }) => {
                 </div>
                 <div>
                     <ul id="fontOptions" className='menu'>
-                        <li style={{fontFamily: 'Segoe UI'}} onClick={() => changeFont('Segoe UI')}>Segoe UI</li>
-                        <li style={{fontFamily: 'Arial'}} onClick={() => changeFont('Arial')}>Arial</li>
-                        <li style={{fontFamily: 'Times New Roman'}} onClick={() => changeFont('Times New Roman')}>Times New Roman</li>
-                        <li style={{fontFamily: 'Courier New'}} onClick={() => changeFont('Courier New')}>Belgrano</li>
-                        <li style={{fontFamily: 'Verdana'}} onClick={() => changeFont('Verdana')}>Verdana</li>
+                        <li style={{ fontFamily: 'Segoe UI' }} onClick={() => changeFont('Segoe UI')}>Segoe UI</li>
+                        <li style={{ fontFamily: 'Arial' }} onClick={() => changeFont('Arial')}>Arial</li>
+                        <li style={{ fontFamily: 'Times New Roman' }} onClick={() => changeFont('Times New Roman')}>Times New Roman</li>
+                        <li style={{ fontFamily: 'Courier New' }} onClick={() => changeFont('Courier New')}>Belgrano</li>
+                        <li style={{ fontFamily: 'Verdana' }} onClick={() => changeFont('Verdana')}>Verdana</li>
                     </ul>
                 </div>
             </div>

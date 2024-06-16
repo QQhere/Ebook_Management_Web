@@ -1,7 +1,7 @@
 import { styled } from 'styled-components'
 import Colors from '../../constants/Color';
-import Avatar from '../common/Avatar';
-import ListBooks from '../search/ListBooks';
+import Avatar from '../../components/common/Avatar';
+import ListBooks from '../../components/search/ListBooks';
 import { useParams } from 'react-router';
 import { useEffect, useState } from 'react';
 import { getUserById } from '../../services/api/User';
@@ -11,7 +11,11 @@ const Account = () => {
     const { accountId } = useParams();
     const [dataUser, setDataUser] = useState({});
     const [listBooks, setListBooks] = useState([]);
-    
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     const fetchAccount = async () => {
         const response = await getUserById(accountId);
         if (response.status === "OK") {
@@ -24,7 +28,7 @@ const Account = () => {
         if (response.status === "OK") {
             setListBooks(response.data);
         }
-      };
+    };
 
     useEffect(() => {
         fetchAccount();
@@ -97,7 +101,7 @@ const Col1 = styled.div`
 const Col2 = styled.div`
     flex-grow: 1;
     padding: 15px 0 20px 40px;
-    margin: 40px 20px;
+    margin: 40px 5px 40px 20px;
     border-left: 1px solid ${Colors.bg_dark};
 `;
 

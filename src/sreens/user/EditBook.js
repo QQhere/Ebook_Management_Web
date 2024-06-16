@@ -91,11 +91,13 @@ const listChapter = [
     },
 ]
 
-const EditBook = (props) => {
+const EditBook = () => {
     const [addNewChapter, setAddNewChapter] = useState(false);
     const navigate = useNavigate();
-    const { isPermission } = props;
-    console.log(props, isPermission);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+      }, []);
 
     const newChapter = () => {
         setAddNewChapter(!addNewChapter);
