@@ -3,9 +3,10 @@ import styled from 'styled-components';
 import Colors from '../../constants/Color';
 import { Link } from 'react-router-dom';
 
-const Account = (props) => {
+const Account = (props) => { 
+    
     return (
-        <Link to='/:accountId/inforAccount'>
+        <Link to={`/${props.id}/inforAccount`}>
             <Container>
                 <BoxAvatar imgSrc={props.avatar}></BoxAvatar>
                 <UserName>{props.user_name}</UserName>

@@ -41,22 +41,24 @@ const Search = () => {
       keyword: keyword,
       category: selectCategory,
     };
-    const response = await searchBook(data, page, size);
+    const response = await searchBook(data, pageSearch, size);
     if (response.status === "OK") {
       setDataSearchBook(response.data);
       setDataSearch(response.data);
+      setMark(mark + 1);
     }
   };
 
   const fetchSearchUser = async () => {
     const response = await searchUser( 
       keyword !== null ? keyword : null,
-      page,
+      pageSearch,
       size
     );
     if (response.status === "OK") {
       setDataSearchUser(response.data);
       setDataSearch(response.data);
+      setMarkUser(markUser + 1);
     }
   };
 
@@ -72,10 +74,12 @@ const Search = () => {
 
   useEffect(() => {
     handleSearch();
-  }, [page]);
+  }, [page, status, type, selectCategory]);
 
   useEffect(() => {
     fetchAllCategory();
+    fetchSearchBook();
+    fetchSearchUser();
   }, []);
 
   function renderContent() {

@@ -6,9 +6,11 @@ import Avatar from "../common/Avatar";
 import { routes } from "../../routes";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/actions";
+import { getUserDetails } from "../../services/api/User";
 
 const Header = () => {
   const [showSubNav, setShowSubNav] = useState(false);
+  const [dataUser, setDataUser] = useState({});
   const [isSignIn, setIsSignIn] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -25,12 +27,20 @@ const Header = () => {
     navigate(routes[0].path);
   };
 
+  const fetchDataUser = async () => {
+    const response = await getUserDetails(stateAccount.token);
+    if (response.status === "OK") {
+      setDataUser(response.data);
+    }
+  }
+
   useEffect(() => {
     if (stateAccount.token) {
       setIsSignIn(true);
     } else {
       setIsSignIn(false);
     }
+    fetchDataUser();
   }, [stateAccount]);
 
   function showHeader() {
@@ -43,9 +53,9 @@ const Header = () => {
           <div onClick={handleClick} style={{ cursor: "pointer" }}>
             <Box>
               {" "}
-              <Avatar id="avatar"></Avatar>{" "}
+              <Avatar id="avatar" avatar={dataUser.link_avatar} ></Avatar>{" "}
             </Box>
-            <h4 style={{ color: "#FAFCFC" }}>Quỳnh Phạm</h4>
+            <h4 style={{ color: "#FAFCFC" }}>{dataUser.fullname}</h4>
             <i class="fa-solid fa-sort-down" style={{ color: "#ffffff" }}></i>
           </div>
           <div style={{ display: showSubNav ? "block" : "none" }}>

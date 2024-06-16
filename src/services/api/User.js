@@ -89,6 +89,20 @@ export const searchUser = async (keyword, page, size) => {
   }
 }
 
+export const getUserByUBId = async (userBookId) => {
+  try {
+    const response = await fetchData(`api/v1/user/udId=${userBookId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
+
 export const getUserById = async (userId) => {
   try {
     const response = await fetchData(`api/v1/user/${userId}`, {
