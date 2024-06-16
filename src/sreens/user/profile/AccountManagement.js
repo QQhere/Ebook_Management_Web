@@ -56,7 +56,7 @@ const AccountManagement = () => {
   const [dataUser, setDataUser] = useState({});
   const [date, setDate] = useState("2000-01-01");
   const [fullname, setFullname] = useState("");
-  const [oldPassword, setOldPassword] = useState("");
+  const [oldPassword, setOldPassword] = useState("123456");
   const [password, setPassword] = useState("");
   const [retypePassword, setRetypePassword] = useState("");
   const [isShowFollower, setIsShowFollower] = useState(false);
@@ -139,7 +139,7 @@ const AccountManagement = () => {
         {isVisible ? (
           <>
             <div>
-              <BoxOrther>
+              {/* <BoxOrther>
                 <p>Mật khẩu hiện tại:</p>
                 <InputPassword
                   type="text"
@@ -147,7 +147,7 @@ const AccountManagement = () => {
                   className="bgTransparent boxInfor"
                   onChange={(e) => setOldPassword(e.target.value)}
                 />
-              </BoxOrther>
+              </BoxOrther> */}
               <BoxOrther>
                 <p>Mật khẩu mới:</p>
                 <InputPassword

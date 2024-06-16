@@ -8,6 +8,7 @@ import TabletOfContents from "../../components/common/TabletOfContents";
 import { Link, useParams } from "react-router-dom";
 import { getBookById } from "../../services/api/Book";
 import { getUserByUBId } from "../../services/api/User";
+import { useSelector } from "react-redux";
 
 const Categories = ({ categories }) => {
   return (
@@ -43,7 +44,7 @@ const Overview = () => {
   const [data, setData] = useState({});
   const [owner, setOwner] = useState("");
   const { bookId } = useParams();
-  const isPublisher = true;
+  const stateAccount = useSelector((state) => state.auth);
 
   const fetchDataBook = async () => {
     const response = await getBookById(bookId);
@@ -108,7 +109,7 @@ const Overview = () => {
               <StyledButton className="button">
                 <i class="fa-solid fa-book-open"></i> Đọc sách
               </StyledButton>
-              {isPublisher ? <Link to={{
+              {stateAccount.userId === owner.id ? <Link to={{
                 pathname: `/${data.id}/editBook`,
                 state: { isPermission: true }
               }}> <StyledButton className="btn">
