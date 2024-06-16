@@ -20,6 +20,7 @@ const CategoryComponent = (props) => {
       </List>
     );
   };
+  
   const handleSelectionChange = (event) => {
     const selectedValue = event.target.value;
     if (categoryIds.includes(selectedValue)) {

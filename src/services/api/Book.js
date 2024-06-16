@@ -17,12 +17,30 @@ export const createBook = async (token, data, userId) => {
   }
 };
 
-export const getBookById = async (bookId) => {
+export const updateBook = async (token, data, bookId) => {
   try {
     const response = await fetchData(`api/v1/book/${bookId}`, {
-      method: "GET",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    });
+
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const deleteBook = async (token, bookId) => {
+  try {
+    const response = await fetchData(`api/v1/book/${bookId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
       },
     });
 
@@ -30,7 +48,21 @@ export const getBookById = async (bookId) => {
   } catch (error) {
     throw error;
   }
+}
 
+export const getBookById = async (bookId) => {
+  try {
+    const response = await fetchData(`api/v1/book/${bookId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    });
+
+    return response;
+  } catch (error) {
+    throw error;
+  }
 }
 
 export const getAllBookByUser = async (token, userId) => {

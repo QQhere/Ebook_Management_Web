@@ -44,7 +44,7 @@ const Overview = () => {
   const [data, setData] = useState({});
   const [owner, setOwner] = useState("");
   const { bookId } = useParams();
-  const isPublisher = true;
+  const stateAccount = useSelector((state) => state.auth);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -113,7 +113,7 @@ const Overview = () => {
               <StyledButton className="button">
                 <i class="fa-solid fa-book-open"></i> Đọc sách
               </StyledButton>
-              {isPublisher ? <Link to={{
+              {stateAccount.userId == owner.id ? <Link to={{
                 pathname: `/${data.id}/editBook`,
                 state: { isPermission: true }
               }}> <StyledButton className="btn">

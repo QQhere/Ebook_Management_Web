@@ -6,7 +6,7 @@ export const createFollow = async (token, data) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        "Authorization": `Bearer ${token}`,
       },
       body: JSON.stringify({
         following: data.following,
@@ -19,12 +19,12 @@ export const createFollow = async (token, data) => {
   }
 };
 
-export const getAllFollow = async (token, userId) => {
+export const getAllFollow = async (userId, type) => {
   try {
-    const response = await fetchData(`api/v1/follow/all/userId/${userId}`, {
+    const response = await fetchData(`api/v1/follow/all/${type}/${userId}`, {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
       },
     });
     return response;
@@ -38,7 +38,8 @@ export const deleteFollow = async (token, followId) => {
     const response = await fetchData(`api/v1/follow/${followId}`, {
       method: "DELETE",
       headers: {
-        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
       },
     });
     return response;
@@ -61,17 +62,15 @@ export const getFollowById = async (token, followId) => {
   }
 };
 
-export const getAllFollowByTwoUser = async (following, userId) => {
+export const getFollowByTwoUser = async (token, following, userId) => {
   try {
-    const response = await fetchData(
-      `api/v1/follow/${following}/${userId}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await fetchData(`api/v1/follow/${following}/${userId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+    });
     return response;
   } catch (error) {
     throw error;
