@@ -5,7 +5,6 @@ import Colors from "../../constants/Color";
 import "../../components/styles/StyledHeader.css";
 import Comment from "../../components/common/Comment";
 import TabletOfContents from "../../components/common/TabletOfContents";
-import { DataBook } from "../../dataBook";
 import { Link, useParams } from "react-router-dom";
 import { getBookById } from "../../services/api/Book";
 import { getUserByUBId } from "../../services/api/User";
@@ -62,7 +61,6 @@ const Overview = () => {
   }, []);
 
   const { time_dmy } = require("../../function/time");
-  console.log(owner);
   return (
     <div className="body">
       <BoxLinks>

@@ -91,7 +91,7 @@ export const searchUser = async (keyword, page, size) => {
 
 export const getUserByUBId = async (userBookId) => {
   try {
-    const response = await fetchData(`api/v1/user/udId=${userBookId}`, {
+    const response = await fetchData(`api/v1/user/ubId=${userBookId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
