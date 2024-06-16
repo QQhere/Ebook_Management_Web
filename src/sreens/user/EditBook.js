@@ -91,11 +91,13 @@ const listChapter = [
     },
 ]
 
-const EditBook = (props) => {
+const EditBook = () => {
     const [addNewChapter, setAddNewChapter] = useState(false);
     const navigate = useNavigate();
-    const { isPermission } = props;
-    console.log(props, isPermission);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+      }, []);
 
     const newChapter = () => {
         setAddNewChapter(!addNewChapter);
@@ -111,7 +113,8 @@ const EditBook = (props) => {
                 <Col2>
                     <div id="headerCilent" style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '25px', gap: '20px' }}>
                         <Button className='button'>Lưu thay đổi</Button>
-                        <Button className='btn' onClick={() => navigate(-1)} isEditing='true'>Hủy bỏ</Button>
+                        <Button className='btnRed'>Xóa</Button>
+                        <Button className='btn' onClick={() => navigate(-1)}>Hủy bỏ</Button>
                     </div>
                     <div>
                         <BoxFlex>

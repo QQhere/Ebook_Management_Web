@@ -77,6 +77,10 @@ const Search = () => {
   }, [page, status, type, selectCategory]);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     fetchAllCategory();
     fetchSearchBook();
     fetchSearchUser();
