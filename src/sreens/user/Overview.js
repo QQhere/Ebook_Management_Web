@@ -44,6 +44,7 @@ const Overview = () => {
   const [data, setData] = useState({});
   const [owner, setOwner] = useState("");
   const { bookId } = useParams();
+  const isPublisher = true;
 
   const fetchDataBook = async () => {
     const response = await getBookById(bookId);
@@ -95,8 +96,8 @@ const Overview = () => {
               {data.status === "process"
                 ? "Đang tiến hành"
                 : data.status === "pause"
-                ? "Tạm ngưng"
-                : "Đã hoàn thành"}
+                  ? "Tạm ngưng"
+                  : "Đã hoàn thành"}
             </P>
             <P><Span>Cập nhật gần nhất: </Span>{time_dmy(data.updated_at)}</P>
             {/* <P><Span>Số chương: </Span> {data.chapters.length}</P> */}
@@ -108,6 +109,10 @@ const Overview = () => {
               <StyledButton className="button">
                 <i class="fa-solid fa-book-open"></i> Đọc sách
               </StyledButton>
+              {isPublisher ?
+                <StyledButton className="btn">
+                  Sửa sách
+                </StyledButton> : null}
               <i class="fa-regular fa-star iconColor btn icon"></i>
               <i class="fa-regular fa-comments iconColor btn icon"></i>
               <i class="fa-regular fa-share-from-square iconColor btn icon"></i>
@@ -199,9 +204,10 @@ const Span = styled.span`
 
 const StyledButton = styled.button`
   height: 50px;
-  padding: 0 40px;
+  padding: 0 30px;
   border: none;
   border-radius: 30px;
+  font-size: 16px;
 `;
 
 const StyledBox = styled.div`
