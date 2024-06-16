@@ -19,7 +19,7 @@ const Search = () => {
   const [keyword, setKeyword] = useState(null);
   const [selectCategory, setSelectCategory] = useState([]);
   const [page, setPage] = useState(1);
-  const [size, setSize] = useState(3);
+  const [size, setSize] = useState(5);
   const [mark, setMark] = useState(0);
 
   const [pageUser, setPageUser] = useState(1);

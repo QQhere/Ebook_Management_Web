@@ -8,6 +8,7 @@ import TabletOfContents from "../../components/common/TabletOfContents";
 import { DataBook } from "../../dataBook";
 import { Link, useParams } from "react-router-dom";
 import { getBookById } from "../../services/api/Book";
+import { getUserById } from "../../services/api/User";
 
 const Categories = ({ categories }) => {
   return (
@@ -41,6 +42,7 @@ const Rating = ({ rating }) => {
 
 const Overview = () => {
   const [data, setData] = useState({});
+  const [owner, setOwner] = useState("");
   const { bookId } = useParams();
   const isPublisher = true;
 
@@ -48,6 +50,10 @@ const Overview = () => {
     const response = await getBookById(bookId);
     if (response.status === "OK") {
       setData(response.data);
+      const responseUser = await getUserById(response.data.user_book.find((user) => user.status === 'owner').id);
+      if (responseUser.status === "OK") {
+        setOwner(responseUser.data);
+      }
     }
   };
 
@@ -83,7 +89,7 @@ const Overview = () => {
               {data.painter}
             </P>
             <P>
-              <Span>Người đăng: </Span>Người đăng ở đây
+              <Span>Người đăng: </Span>{owner.fullname}
             </P>
             <P>
               <Span>Tình trạng: </Span>{" "}
