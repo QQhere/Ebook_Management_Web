@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { styled } from 'styled-components'
 import Colors from '../../constants/Color';
 import TabletOfContents from '../../components/common/TabletOfContents';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 
 const Categories = ({ categories }) => {
     return (
@@ -91,8 +91,12 @@ const listChapter = [
     },
 ]
 
-const EditBook = () => {
+const EditBook = (props) => {
     const [addNewChapter, setAddNewChapter] = useState(false);
+    const navigate = useNavigate();
+    const { isPermission } = props;
+    console.log(props, isPermission);
+
     const newChapter = () => {
         setAddNewChapter(!addNewChapter);
     }
@@ -106,8 +110,8 @@ const EditBook = () => {
 
                 <Col2>
                     <div id="headerCilent" style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '25px', gap: '20px' }}>
-                        <Button className='button'><a href=''>Lưu thay đổi</a></Button>
-                        <Button className='btn'><a href=''></a>Hủy bỏ</Button>
+                        <Button className='button'>Lưu thay đổi</Button>
+                        <Button className='btn' onClick={() => navigate(-1)} isEditing='true'>Hủy bỏ</Button>
                     </div>
                     <div>
                         <BoxFlex>

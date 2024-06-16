@@ -50,7 +50,7 @@ export const routes = [
         element: Account,
     },
     {
-        path: '/editBook',
+        path: '/:bookId/editBook',
         element: EditBook,
     },
     {

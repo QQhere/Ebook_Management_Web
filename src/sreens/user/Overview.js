@@ -62,6 +62,7 @@ const Overview = () => {
   }, []);
 
   const { time_dmy } = require("../../function/time");
+  console.log(owner);
   return (
     <div className="body">
       <BoxLinks>
@@ -89,7 +90,7 @@ const Overview = () => {
               {data.painter}
             </P>
             <P>
-              <Span>Người đăng: </Span>{owner.fullname}
+              <Span>Người đăng: </Span> <Link to={`/${owner.id}/inforAccount`} style={{ color: '#FAFCFC' }}>{owner.fullname}</Link>
             </P>
             <P>
               <Span>Tình trạng: </Span>{" "}
@@ -109,10 +110,13 @@ const Overview = () => {
               <StyledButton className="button">
                 <i class="fa-solid fa-book-open"></i> Đọc sách
               </StyledButton>
-              {isPublisher ?
-                <StyledButton className="btn">
-                  Sửa sách
-                </StyledButton> : null}
+              {isPublisher ? <Link to={{
+                pathname: `/${data.id}/editBook`,
+                state: { isPermission: true }
+              }}> <StyledButton className="btn">
+                Chỉnh sửa sách
+              </StyledButton>           
+              </Link> : null}
               <i class="fa-regular fa-star iconColor btn icon"></i>
               <i class="fa-regular fa-comments iconColor btn icon"></i>
               <i class="fa-regular fa-share-from-square iconColor btn icon"></i>
