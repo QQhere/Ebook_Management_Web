@@ -8,7 +8,7 @@ import TabletOfContents from "../../components/common/TabletOfContents";
 import { DataBook } from "../../dataBook";
 import { Link, useParams } from "react-router-dom";
 import { getBookById } from "../../services/api/Book";
-import { getUserById } from "../../services/api/User";
+import { getUserByUBId } from "../../services/api/User";
 
 const Categories = ({ categories }) => {
   return (
@@ -50,7 +50,7 @@ const Overview = () => {
     const response = await getBookById(bookId);
     if (response.status === "OK") {
       setData(response.data);
-      const responseUser = await getUserById(response.data.user_book.find((user) => user.status === 'owner').id);
+      const responseUser = await getUserByUBId(response.data.user_book.find((user) => user.status === 'owner').id);
       if (responseUser.status === "OK") {
         setOwner(responseUser.data);
       }

@@ -79,3 +79,18 @@ export const searchBook = async (searchDTO, page, limit) => {
     throw error;
   }
 }
+
+export const getAllBookByAccount = async (accountId) => {
+  try {
+    const response = await fetchData(`api/v1/book/account/${accountId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    });
+
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}

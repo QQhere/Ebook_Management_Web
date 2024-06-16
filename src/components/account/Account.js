@@ -3,15 +3,40 @@ import Colors from '../../constants/Color';
 import Avatar from '../common/Avatar';
 import ListBooks from '../search/ListBooks';
 import { useParams } from 'react-router';
+import { useEffect, useState } from 'react';
+import { getUserById } from '../../services/api/User';
+import { getAllBookByAccount, getAllBookByUser } from '../../services/api/Book';
 
 const Account = () => {
     const { accountId } = useParams();
+    const [dataUser, setDataUser] = useState({});
+    const [listBooks, setListBooks] = useState([]);
+    
+    const fetchAccount = async () => {
+        const response = await getUserById(accountId);
+        if (response.status === "OK") {
+            setDataUser(response.data);
+        }
+    }
+
+    const fetchDataBook = async (userId) => {
+        const response = await getAllBookByAccount(userId);
+        if (response.status === "OK") {
+            setListBooks(response.data);
+        }
+      };
+
+    useEffect(() => {
+        fetchAccount();
+        fetchDataBook(accountId);
+    }, []);
+
     return (
         <Box className='body'>
             <Col1>
                 <BoxAvatar>
-                    <p style={{ fontSize: '26px' }}>Quỳnh Phạm</p>
-                    <Avatar></Avatar>
+                    <p style={{ fontSize: '26px' }}>{dataUser.fullname}</p>
+                    <Avatar avatar={dataUser.link_avatar}></Avatar>
                     <Button className="button">
                         Theo dõi
                     </Button>
@@ -43,7 +68,7 @@ const Account = () => {
                     <p className='optionProfile'>Sách đã đăng</p>
                 </BoxOption>
                 <div id='library'>
-                    <ListBooks></ListBooks>
+                    <ListBooks data={listBooks}></ListBooks>
                 </div>
             </Col2>
         </Box>
