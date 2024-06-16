@@ -88,3 +88,17 @@ export const searchUser = async (keyword, page, size) => {
     throw error;
   }
 }
+
+export const getUserById = async (userId) => {
+  try {
+    const response = await fetchData(`api/v1/user/${userId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
