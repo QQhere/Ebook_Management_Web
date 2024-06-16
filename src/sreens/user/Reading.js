@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { styled } from 'styled-components'
 import Colors from '../../constants/Color';
 import '../../components/styles/reading.css';
+import { useParams } from 'react-router';
 
 const Reading = ({ data }) => {
     const [BgColor, setBgColor] = useState(Colors.black);
@@ -13,6 +14,7 @@ const Reading = ({ data }) => {
     const [showSellect, setShowSellect] = useState(false);
     const [iconColorC, setIconColorC] = useState(false);
     const [iconColorD, setIconColorD] = useState(false);
+    const { bookId, chapterId} = useParams();
 
     const DivBody = styled.div`
         background-color: ${BgColor};

@@ -9,6 +9,7 @@ import TransactionHistory from '../sreens/user/profile/TransactionHistory';
 import NewBook from '../sreens/user/NewBook';
 import Overview from '../sreens/user/Overview';
 import Account from '../components/account/Account';
+import Reading from '../sreens/user/Reading';
 
 export const routes = [
     {
@@ -51,6 +52,10 @@ export const routes = [
     {
         path: '/editBook',
         element: EditBook,
+    },
+    {
+        path: '/:bookId/:chapterId/reading',
+        element: Reading,
     },
     {
         path: '*',
