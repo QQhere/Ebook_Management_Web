@@ -8,13 +8,7 @@ export const createChapter = async (token, data) => {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`,
             },
-            body: JSON.stringify({
-                name: data.name,
-                original_number: data.original_number,
-                thumbnail: data.thumbnail,
-                book_id: data.book_id,
-
-            }),
+            body: JSON.stringify(data),
         });
         return response;
     } catch (error) {
@@ -27,6 +21,7 @@ export const getChapterById = async (token, chapterId) => {
         const response = await fetchData(`api/v1/chapter/${chapterId}`, {
             method: "GET",
             headers: {
+                "content-type": "application/json",
                 "Authorization": `Bearer ${token}`,
             },
         });
@@ -63,6 +58,7 @@ export const deleteChapter = async (token, chapterId) => {
         const response = await fetchData(`api/v1/chapter/${chapterId}`, {
             method: "DELETE",
             headers: {
+                "content-type": "application/json",
                 "Authorization": `Bearer ${token}`,
             },
         });
@@ -74,11 +70,10 @@ export const deleteChapter = async (token, chapterId) => {
 
 export const getAllChapterByBook = async (token, bookId) => {
     try {
-        const response = await fetchData("api/v1/chapter/all", {
+        const response = await fetchData(`api/v1/chapter/all/${bookId}`, {
             method: "GET",
             headers: {
-                "Authorization": `Bearer ${token}`,
-                "book_id": bookId.toString(),
+                "content-type": "application/json",
             },
         });
         return response;

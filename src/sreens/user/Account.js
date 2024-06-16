@@ -44,7 +44,6 @@ const Account = () => {
       accountId,
       stateAccount.userId
     );
-    console.log(response);
     if (response.status === "OK" && response.data.id !== 0) {
       setStateFollow(true);
     }

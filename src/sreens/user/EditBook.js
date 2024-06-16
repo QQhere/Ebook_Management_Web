@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import { styled } from "styled-components";
 import Colors from "../../constants/Color";
 import TabletOfContents from "../../components/common/TabletOfContents";
-import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { deleteBook, getBookById, updateBook } from "../../services/api/Book";
 import { useSelector } from "react-redux";
-import { uploadImage } from "../../services/api/UploadImage";
+import { uploadFile, uploadImage } from "../../services/api/Upload";
 import { getAllCategory } from "../../services/api/Category";
+import { createChapter, getAllChapterByBook } from "../../services/api/Chapter";
 
 const Categories = (props) => {
   const handleRemove = (id) => {
@@ -30,7 +31,6 @@ const Categories = (props) => {
 const CategoryComponent = (props) => {
   const [categoryIds, setCategoryIds] = useState([]);
   const [allCategory, setAllCategory] = useState([]);
-  console.log(categoryIds);
   const handleSelectionChange = (event) => {
     const selectedValue = event.target.value;
     for (let i = 0; i < categoryIds.length; i++) {
@@ -137,29 +137,6 @@ const ChangeThumbnail = (props) => {
   );
 };
 
-const listChapter = [
-  {
-    index: 1,
-    name: "Chương 1: Cuộc gọi lúc nửa đêm bla blabalancdsvegfffffffffffffffff ffffffff",
-  },
-  {
-    index: 2,
-    name: "Chương 1",
-  },
-  {
-    index: 3,
-    name: "Chương 1",
-  },
-  {
-    index: 4,
-    name: "Chương 1",
-  },
-  {
-    index: 5,
-    name: "Chương 1",
-  },
-];
-
 const EditBook = () => {
   const { bookId } = useParams();
   const [addNewChapter, setAddNewChapter] = useState(false);
@@ -178,6 +155,43 @@ const EditBook = () => {
   const [price, setPrice] = useState();
   const [image, setImage] = useState();
 
+  const [listChapter, setListChapter] = useState([]);
+  const [nameChapter, setNameChapter] = useState();
+  const [file, setFile] = useState(null);
+  const [ordinalNumber, setOrdinalNumber] = useState(1);
+
+  const handleFileChange = (event) => {
+    const selectedFile = event.target.files[0];
+    if (selectedFile) {
+      setFile(selectedFile);
+    }
+  };
+
+  const handleAddChapter = async () => {
+    const urlFile = await uploadFile(file);
+    if (urlFile != null) {
+      const newChapter = {
+        name: nameChapter,
+        original_number: ordinalNumber,
+        thumbnail: urlFile,
+        book_id: bookId,
+      };
+
+      const response = await createChapter(stateAccount.token, newChapter);
+      if (response.status === "CREATED") {
+        alert("Thêm chương thành công");
+        window.location.reload();
+        // setAddNewChapter(false);
+      } else {
+        alert("Thêm chương thất bại");
+      }
+    }
+  };
+
+  const handleUploadClick = () => {
+    document.getElementById("fileInput").click();
+  };
+
   const fetchDataBook = async () => {
     const repsonse = await getBookById(bookId);
     if (repsonse.status === "OK") {
@@ -185,9 +199,17 @@ const EditBook = () => {
     }
   };
 
+  const fetchDataChapter = async () => {
+    const response = await getAllChapterByBook(stateAccount.token, bookId);
+    if (response.status === "OK") {
+      setListChapter(response.data);
+    }
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
-    fetchDataBook(bookId);
+    fetchDataBook();
+    fetchDataChapter();
   }, []);
 
   const handleUpdate = async () => {
@@ -404,9 +426,22 @@ const EditBook = () => {
                   type="text"
                   className="collection"
                   placeholder="Nhập tên chương"
+                  onChange={(e) => setNameChapter(e.target.value)}
                 ></Collection>
+
+                <input
+                  type="file"
+                  id="fileInput"
+                  style={{ display: "none" }}
+                  onChange={handleFileChange}
+                />
               </BoxFlex>
-              <Button className="button">Tải lên nội dung</Button>
+              <Button className="button" onClick={handleUploadClick}>
+                Upload file
+              </Button>
+              <Button className="button" onClick={handleAddChapter}>
+                Tải lên nội dung
+              </Button>
             </Content>
           </BoxAddChapter>
         </div>

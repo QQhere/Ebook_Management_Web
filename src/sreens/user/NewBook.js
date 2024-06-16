@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 import { getAllCategory } from "../../services/api/Category";
 import { createBook } from "../../services/api/Book";
 import { useSelector } from "react-redux";
-import { uploadImage } from "../../services/api/UploadImage";
+import { uploadImage } from "../../services/api/Upload";
 
 const CategoryComponent = (props) => {
   const [allCategory, setAllCategory] = useState([]);

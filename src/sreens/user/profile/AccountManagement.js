@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import Colors from "../../../constants/Color";
 import Avatar from "../../../components/common/Avatar";
-import { getUserDetails, updateUserDetails } from "../../../services/api/User";
+import { getUserById, getUserDetails, updateUserDetails } from "../../../services/api/User";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import ListAccounts from "../../../components/search/ListAccounts";
-import { uploadImage } from "../../../services/api/UploadImage";
+import { uploadImage } from "../../../services/api/Upload";
+import { getAllFollow } from "../../../services/api/Follow";
 
 const ChangeAvatar = (props) => {
   const [avatar, setAvatar] = useState(props.avatar);
@@ -63,6 +64,39 @@ const AccountManagement = () => {
   const stateAccount = useSelector((state) => state.auth);
   const [isLoading, setIsLoading] = useState(false);
 
+  const [followerUser, setFollowerUser] = useState([]);
+  const [following, setFollowing] = useState([]);
+
+  const fetchFollow = async () => {
+    // Clear previous data
+    setFollowerUser([]);
+    setFollowing([]);
+  
+    // Fetch followers
+    const responseFollower = await getAllFollow(stateAccount.userId, "following");
+    if (responseFollower.status === "OK") {
+      setFollowerUser(responseFollower.data);
+    }
+  
+    // Fetch following
+    const responseFollowing = await getAllFollow(stateAccount.userId, "follower");
+    if (responseFollowing.status === "OK") {
+      const followingPromises = responseFollowing.data.map(async (follow) => {
+        const responseUser = await getUserById(follow.following);
+        if (responseUser.status === "OK") {
+          return responseUser.data;
+        }
+        return null;
+      });
+  
+      const followingData = await Promise.all(followingPromises);
+      // Filter out any null values (in case of errors)
+      const validFollowingData = followingData.filter(user => user !== null);
+      setFollowing(validFollowingData);
+    }
+  };
+  
+
   const follower = () => {
     setIsShowFollower(!isShowFollower);
   }
@@ -105,7 +139,7 @@ const AccountManagement = () => {
         fullname: fullname,
         date_of_birth: date,
       },
-      1
+      stateAccount.userId
     );
 
     if (response.status === "OK") {
@@ -131,6 +165,7 @@ const AccountManagement = () => {
 
   useEffect(() => {
     fetchData();
+    fetchFollow();
   }, [reload]);
 
   useEffect(() => {
@@ -375,12 +410,12 @@ const AccountManagement = () => {
           </BoxNav>
           <BoxApp className="flex">
             <BoxCenter onClick={follower}>
-              <H1>10</H1>
-              <p>Đang thẽo dõi</p>
+              <H1>{following.length}</H1>
+              <p>Đang theo dõi</p>
             </BoxCenter>
 
             <BoxCenter>
-              <H1>0</H1>
+              <H1>{followerUser.length}</H1>
               <p>Người theo dõi</p>
             </BoxCenter>
           </BoxApp>
@@ -399,8 +434,8 @@ const AccountManagement = () => {
             <P>Danh sách đang theo dõi</P>
             <ClosedButton onClick={follower}><i class="fa-solid fa-xmark"></i></ClosedButton>
           </Header>
-          <Content>
-            <ListAccounts></ListAccounts>
+          <Content> 
+            <ListAccounts data={following}></ListAccounts>
           </Content>
         </BoxContent>
       </div> : <div> </div>}
@@ -419,7 +454,7 @@ const BoxContent = styled.div`
     height: 600px;
     background-color: ${Colors.bg_dark};
     z-index: 1000;
-    border-radius: 20px;   
+    border-radius: 20px;  
 `;
 
 const Header = styled.div`
@@ -571,6 +606,7 @@ const H1 = styled.p`
 const BoxApp = styled.div`
   justify-content: center;
   gap: 40px;
+  cursor: pointer;
 `;
 
 const BoxCenter = styled.div`

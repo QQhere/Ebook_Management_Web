@@ -9,6 +9,8 @@ import { Link, useParams } from "react-router-dom";
 import { getBookById } from "../../services/api/Book";
 import { getUserByUBId } from "../../services/api/User";
 import { useSelector } from "react-redux";
+import { getAllChapterByBook } from "../../services/api/Chapter";
+import { getAllRatingByBookId } from "../../services/api/Rating";
 
 const Categories = ({ categories }) => {
   return (
@@ -20,7 +22,7 @@ const Categories = ({ categories }) => {
   );
 };
 
-function renderStars(rating) {
+const renderStars = (rating) => {
   let fullStars = Math.floor(rating);
   let emptyStars = 5 - fullStars;
   let stars = [];
@@ -42,28 +44,47 @@ const Rating = ({ rating }) => {
 
 const Overview = () => {
   const [data, setData] = useState({});
+  const [listChapter, setListChapter] = useState([]);
   const [owner, setOwner] = useState("");
   const { bookId } = useParams();
   const stateAccount = useSelector((state) => state.auth);
+  const [allRating, setAllRating] = useState([]);
+
+  console.log(allRating);
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    fetchRating();
+    fetchDataBook();
+    fetchDataChapter();
   }, []);
+
+  const fetchRating = async () => {
+    const response = await getAllRatingByBookId(bookId);
+    if (response.status === "OK") {
+      setAllRating(response.data);
+    }
+  }
 
   const fetchDataBook = async () => {
     const response = await getBookById(bookId);
     if (response.status === "OK") {
       setData(response.data);
-      const responseUser = await getUserByUBId(response.data.user_book.find((user) => user.status === 'owner').id);
+      const responseUser = await getUserByUBId(
+        response.data.user_book.find((user) => user.status === "owner").id
+      );
       if (responseUser.status === "OK") {
         setOwner(responseUser.data);
       }
     }
   };
 
-  useEffect(() => {
-    fetchDataBook();
-  }, []);
+  const fetchDataChapter = async () => {
+    const response = await getAllChapterByBook(stateAccount.token, bookId);
+    if (response.status === "OK") {
+      setListChapter(response.data);
+    }
+  };
 
   const { time_dmy } = require("../../function/time");
   return (
@@ -79,7 +100,11 @@ const Overview = () => {
       </BoxLinks>
       <Box>
         <Col1>
-          <Book type={data.type_of_book} src={data.image} isClickable={false}></Book>
+          <Book
+            type={data.type_of_book}
+            src={data.image}
+            isClickable={false}
+          ></Book>
         </Col1>
         <Col2>
           <h3>{data.title}</h3>
@@ -93,34 +118,50 @@ const Overview = () => {
               {data.painter}
             </P>
             <P>
-              <Span>Người đăng: </Span> <Link to={`/${owner.id}/inforAccount`}>{owner.fullname}</Link>
+              <Span>Người đăng: </Span>{" "}
+              <Link to={`/${owner.id}/inforAccount`}>{owner.fullname}</Link>
             </P>
             <P>
               <Span>Tình trạng: </Span>{" "}
               {data.status === "process"
                 ? "Đang tiến hành"
                 : data.status === "pause"
-                  ? "Tạm ngưng"
-                  : "Đã hoàn thành"}
+                ? "Tạm ngưng"
+                : "Đã hoàn thành"}
             </P>
-            <P><Span>Cập nhật gần nhất: </Span>{time_dmy(data.updated_at)}</P>
-            {/* <P><Span>Số chương: </Span> {data.chapters.length}</P> */}
+            <P>
+              <Span>Cập nhật gần nhất: </Span>
+              {time_dmy(data.updated_at)}
+            </P>
+            <P>
+              <Span>Số chương: </Span> {listChapter.length}
+            </P>
             <P>
               <Span>Đánh giá: </Span> <Rating rating="4.3"></Rating> 4.3
             </P>
-            {/* <P><Span>Lượt đọc: </Span> {data.number_reads}</P>  */}
+            <P>
+              <Span>Lượt đọc: </Span>{" "}
+              {data.number_reads ? data.number_reads : 0}
+            </P>
             <StyledBox>
               <StyledButton className="button">
                 <i class="fa-solid fa-book-open"></i> Đọc sách
               </StyledButton>
-              {stateAccount.userId == owner.id ? <Link to={{
-                pathname: `/${data.id}/editBook`,
-                state: { isPermission: true }
-              }}> <StyledButton className="btn">
-                Chỉnh sửa sách
-              </StyledButton>           
-              </Link> : null}
-              <i class="fa-regular fa-star iconColor btn icon"></i>
+              {stateAccount.userId == owner.id ? (
+                <Link
+                  to={{
+                    pathname: `/${data.id}/editBook`,
+                    state: { isPermission: true },
+                  }}
+                >
+                  {" "}
+                  <StyledButton className="btn">Chỉnh sửa sách</StyledButton>
+                </Link>
+              ) : null}
+              {stateAccount.userId == owner.id ? null : (
+                <i class="fa-regular fa-star iconColor btn icon"></i>
+              )}
+
               <i class="fa-regular fa-comments iconColor btn icon"></i>
             </StyledBox>
             <Span>Mô tả:</Span>
@@ -130,9 +171,10 @@ const Overview = () => {
           <TextTitle>Mục lục</TextTitle>
           <div>
             <TabletOfContents
-              data={data.chapters}
+              data={listChapter}
+              bookId={bookId}
               type="overview"
-            ></TabletOfContents>
+            />
             <BoxSelect>
               <select>
                 <option value="1">Trang 1</option>

@@ -126,3 +126,19 @@ export const getAllBookByAccount = async (accountId) => {
     throw error;
   }
 }
+
+export const updateNumberRead = async (token, bookId) => {
+  try {
+    const response = await fetchData(`api/v1/book/number-read/${bookId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+    });
+    
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}

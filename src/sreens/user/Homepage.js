@@ -29,8 +29,6 @@ const Homepage = () => {
         case "fee":
           setBookFee(response.data);
           break;
-        default:
-          break;
       }
     }
     return response.data;
@@ -71,36 +69,48 @@ const Homepage = () => {
           </StyledSlider>
 
           <StyledBox>
-            <StyledBoxTitle>
-              <h3>Sách miễn phí</h3>
-              <Link className="link" to="/free">
-                Xem thêm <i class="fa-solid fa-angles-right"></i>
-              </Link>
-            </StyledBoxTitle>
+            {bookFree.length === 0 ? null : (
+              <>
+                <StyledBoxTitle>
+                  <h3>Sách miễn phí</h3>
+                  <Link className="link" to="/free">
+                    Xem thêm <i class="fa-solid fa-angles-right"></i>
+                  </Link>
+                </StyledBoxTitle>
 
-            <StyledBoxList id="freeBooks">
-              <ListBooks data={bookFree}></ListBooks>
-            </StyledBoxList>
+                <StyledBoxList id="freeBooks">
+                  <ListBooks data={bookFree}></ListBooks>
+                </StyledBoxList>
+              </>
+            )}
 
-            <StyledBoxTitle>
-              <h3>Sách theo dõi</h3>
-              <Link className="link" to="/follow">
-                Xem thêm <i class="fa-solid fa-angles-right"></i>
-              </Link>
-            </StyledBoxTitle>
-            <StyledBoxList id="followBooks">
-              <ListBooks data={bookFollow}></ListBooks>
-            </StyledBoxList>
+            {bookFollow.length === 0 ? null : (
+              <>
+                <StyledBoxTitle>
+                  <h3>Sách theo dõi</h3>
+                  <Link className="link" to="/follow">
+                    Xem thêm <i class="fa-solid fa-angles-right"></i>
+                  </Link>
+                </StyledBoxTitle>
+                <StyledBoxList id="followBooks">
+                  <ListBooks data={bookFollow}></ListBooks>
+                </StyledBoxList>
+              </>
+            )}
 
-            <StyledBoxTitle>
-              <h3>Sách trả phí</h3>
-              <Link className="link" to="/fee">
-                Xem thêm <i class="fa-solid fa-angles-right"></i>
-              </Link>
-            </StyledBoxTitle>
-            <StyledBoxList id="paidBooks">
-              <ListBooks data={bookFee}></ListBooks>
-            </StyledBoxList>
+            {bookFee.length === 0 ? null : (
+              <>
+                <StyledBoxTitle>
+                  <h3>Sách trả phí</h3>
+                  <Link className="link" to="/fee">
+                    Xem thêm <i class="fa-solid fa-angles-right"></i>
+                  </Link>
+                </StyledBoxTitle>
+                <StyledBoxList id="paidBooks">
+                  <ListBooks data={bookFee}></ListBooks>
+                </StyledBoxList>
+              </>
+            )}
           </StyledBox>
         </div>
       ) : (

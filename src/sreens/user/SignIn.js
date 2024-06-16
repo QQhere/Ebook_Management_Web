@@ -11,8 +11,8 @@ import { saveLoginInfor } from "../../redux/actions";
 
 const SignIn = () => {
   const [move, setMove] = useState(true);
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [password, setPassword] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
@@ -29,33 +29,40 @@ const SignIn = () => {
     }
   }, []);
 
-const handleLogIn = async () => {
-  try {
-    const res = await logIn(phoneNumber, password);
-    if (res.status == "OK") {
-      alert("Đăng nhập thành công!");
-      dispatch(saveLoginInfor(res.data));
-      navigate(-1);
-    } else if (res.status === 400) {
-      alert("Thông tin đăng nhập sai!");
-    } else {
-      alert("Đăng nhập thất bại, lỗi: " + (res.message ? res.message : "Không xác định"));
+  const handleLogIn = async () => {
+    try {
+      const res = await logIn(phoneNumber, password);
+      if (res.status == "OK") {
+        alert("Đăng nhập thành công!");
+        dispatch(saveLoginInfor(res.data));
+        navigate(-1);
+      } else if (res.status === 400) {
+        alert("Thông tin đăng nhập sai!");
+      } else {
+        alert(
+          "Đăng nhập thất bại, lỗi: " +
+            (res.message ? res.message : "Không xác định")
+        );
+      }
+    } catch (err) {
+      const message = err.message;
+      alert(message + "\nTry again!");
     }
-  } catch (err) {
-    const message = err.message;
-    alert(message + "\nTry again!");
-  }
-};
+  };
 
   const handleSignUp = async () => {
     try {
-      // await dispatch(signUpSl({fullName, phoneNumber, password, confirmPassword}));
-      // if (signUpstatus === "CREATED") {
-      //   alert(signUpstatus + "! " + signUpmessage + "\nLog in now");
-      //   handleReset();
-      // }
-      // else alert(signUpstatus + "! " + signUpmessage + "\nTry again!");
-      alert("Đăng ký thành công!");
+      const response = await signUp(
+        fullName,
+        phoneNumber,
+        password,
+        confirmPassword
+      );
+      if (response.status === "CREATED") {
+        alert("Đăng ký thành công!");
+        handleReset();
+      } else
+        alert("Đăng ký thất bại" + "!\n" + response.message + "\nTry again!");
     } catch (error) {
       const message = error.message;
       alert(message + "\nTry again!");
@@ -134,10 +141,7 @@ const handleLogIn = async () => {
           <p style={{ fontSize: "13px", marginBottom: "20px" }}>
             Tạo tài khoản để khám phá nhiều hơn
           </p>
-          <InputLogin
-            text="Họ và tên"
-            setValue={setFullName}
-          ></InputLogin>
+          <InputLogin text="Họ và tên" setValue={setFullName}></InputLogin>
           <InputLogin
             text="Số điện thoại"
             setValue={setPhoneNumber}

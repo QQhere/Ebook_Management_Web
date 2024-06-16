@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import Colors from "../../constants/Color";
 import { getAllBookByType } from "../../services/api/Book";
 import { Link, useParams } from "react-router-dom";
 import "../../components/styles/StyledHeader.css";
-import ListBooks from '../../components/search/ListBooks';
+import ListBooks from "../../components/search/ListBooks";
 
 const BooksOfType = () => {
-  const [bookFree, setBookFree] = useState([]);
-  const [bookFollow, setBookFollow] = useState([]);
-  const [bookFee, setBookFee] = useState([]);
+  const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const { typeOfBook } = useParams();
 
@@ -20,96 +18,42 @@ const BooksOfType = () => {
   const fetchBookByType = async (type) => {
     const response = await getAllBookByType(type, 1, 5);
     if (response.status === "OK") {
-      switch (type) {
-        case "free":
-          setBookFree(response.data);
-          break;
-        case "follow":
-          setBookFollow(response.data);
-          break;
-        case "fee":
-          setBookFee(response.data);
-          break;
-        default:
-          break;
-      }
+      setData(response.data);
     }
-    return response.data;
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setIsLoading(!isLoading); // Đánh dấu là đang tải dữ liệu
-
-        // Gọi các hàm fetchBookByType cùng một lúc và chờ đợi hoàn thành
-        const [freeData, followData, feeData] = await Promise.all([
-          fetchBookByType("Free"),
-          fetchBookByType("Follow"),
-          fetchBookByType("Fee"),
-        ]);
-
-        // Cập nhật state khi tất cả dữ liệu đã được lấy về thành công
-        setBookFree(freeData);
-        setBookFollow(followData);
-        setBookFee(feeData);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setIsLoading(!isLoading); // Đánh dấu là không còn tải dữ liệu
-      }
-    };
-
-    fetchData();
+    fetchBookByType(typeOfBook);
   }, []);
 
   return (
     <div>
-        <h1 style={{margin: '100px'}}>Đây là lọc theo đối tượng</h1>
-      {isLoading ? (
-        <div>
-          <StyledSlider>
-            <Shadow></Shadow>
-          </StyledSlider>
+      <div>
+        <StyledSlider>
+          <Shadow></Shadow>
+        </StyledSlider>
 
-          <StyledBox>
-            <StyledBoxTitle>
-              <h3>Sách miễn phí</h3>
-              <Link className="link" to="/search">
-                Xem thêm <i class="fa-solid fa-angles-right"></i>
-              </Link>
-            </StyledBoxTitle>
+        <StyledBox>
+          <StyledBoxTitle>
+            <h3>
+              {typeOfBook === "free"
+                ? "Sách miễn phí"
+                : typeOfBook === "follow"
+                ? "Sách theo dõi"
+                : "Sách mất phí"}
+            </h3>
+            <Link className="link" to="/search">
+              Xem thêm <i class="fa-solid fa-angles-right"></i>
+            </Link>
+          </StyledBoxTitle>
 
-            <StyledBoxList id="freeBooks">
-              <ListBooks data={bookFree}></ListBooks>
-            </StyledBoxList>
-
-            <StyledBoxTitle>
-              <h3>Sách theo dõi</h3>
-              <Link className="link" to="/search">
-                Xem thêm <i class="fa-solid fa-angles-right"></i>
-              </Link>
-            </StyledBoxTitle>
-            <StyledBoxList id="followBooks">
-              <ListBooks data={bookFollow}></ListBooks>
-            </StyledBoxList>
-
-            <StyledBoxTitle>
-              <h3>Sách trả phí</h3>
-              <Link className="link" to="/search">
-                Xem thêm <i class="fa-solid fa-angles-right"></i>
-              </Link>
-            </StyledBoxTitle>
-            <StyledBoxList id="paidBooks">
-              <ListBooks data={bookFee}></ListBooks>
-            </StyledBoxList>
-          </StyledBox>
-        </div>
-      ) : (
-        <div>Loading...</div>
-      )}
+          <StyledBoxList id="freeBooks">
+            <ListBooks data={data}></ListBooks>
+          </StyledBoxList>
+        </StyledBox>
+      </div>
     </div>
-    );
+  );
 };
 
 export default BooksOfType;
