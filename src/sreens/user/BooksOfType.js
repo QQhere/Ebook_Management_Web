@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { styled } from "styled-components";
 import Colors from "../../constants/Color";
-import ListBooks from "../../components/hompage/ListBooks";
 import { getAllBookByType } from "../../services/api/Book";
 import { Link, useParams } from "react-router-dom";
 import "../../components/styles/StyledHeader.css";
+import ListBooks from '../../components/search/ListBooks';
 
 const BooksOfType = () => {
   const [bookFree, setBookFree] = useState([]);
