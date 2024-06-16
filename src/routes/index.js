@@ -10,6 +10,7 @@ import NewBook from '../sreens/user/NewBook';
 import Overview from '../sreens/user/Overview';
 import Account from '../sreens/user/Account';
 import Reading from '../sreens/user/Reading';
+import BooksOfType from '../sreens/user/BooksOfType';
 
 export const routes = [
     {
@@ -56,6 +57,10 @@ export const routes = [
     {
         path: '/:bookId/:chapterId/reading',
         element: Reading,
+    },
+    {
+        path: '/:typeOfBook',
+        element: BooksOfType,
     },
     {
         path: '*',

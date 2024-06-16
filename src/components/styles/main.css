@@ -45,6 +45,11 @@
     font-size: 16px;
 }
 
+.btnRed {
+    background-color: var(--red);
+    color: var(--white);
+}
+
 .button > a {
     color: var(--white);
 }

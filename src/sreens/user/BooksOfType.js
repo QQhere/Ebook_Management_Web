@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import { styled } from "styled-components";
 import Colors from "../../constants/Color";
 import ListBooks from "../../components/hompage/ListBooks";
 import { getAllBookByType } from "../../services/api/Book";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "../../components/styles/StyledHeader.css";
 
-const Homepage = () => {
+const BooksOfType = () => {
   const [bookFree, setBookFree] = useState([]);
   const [bookFollow, setBookFollow] = useState([]);
   const [bookFee, setBookFee] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const { typeOfBook } = useParams();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -64,6 +65,7 @@ const Homepage = () => {
 
   return (
     <div>
+        <h1 style={{margin: '100px'}}>Đây là lọc theo đối tượng</h1>
       {isLoading ? (
         <div>
           <StyledSlider>
@@ -73,7 +75,7 @@ const Homepage = () => {
           <StyledBox>
             <StyledBoxTitle>
               <h3>Sách miễn phí</h3>
-              <Link className="link" to="/free">
+              <Link className="link" to="/search">
                 Xem thêm <i class="fa-solid fa-angles-right"></i>
               </Link>
             </StyledBoxTitle>
@@ -84,7 +86,7 @@ const Homepage = () => {
 
             <StyledBoxTitle>
               <h3>Sách theo dõi</h3>
-              <Link className="link" to="/follow">
+              <Link className="link" to="/search">
                 Xem thêm <i class="fa-solid fa-angles-right"></i>
               </Link>
             </StyledBoxTitle>
@@ -94,7 +96,7 @@ const Homepage = () => {
 
             <StyledBoxTitle>
               <h3>Sách trả phí</h3>
-              <Link className="link" to="/fee">
+              <Link className="link" to="/search">
                 Xem thêm <i class="fa-solid fa-angles-right"></i>
               </Link>
             </StyledBoxTitle>
@@ -107,10 +109,10 @@ const Homepage = () => {
         <div>Loading...</div>
       )}
     </div>
-  );
+    );
 };
 
-export default Homepage;
+export default BooksOfType;
 
 const StyledSlider = styled.div`
   position: relative;
