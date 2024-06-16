@@ -17,13 +17,19 @@ const Book = (props) => {
     }
   };
 
-  return (
-    <Link to={`${props.id}/overview`}>
-      <div className="boxRelative">
-        <StyledImage src={props.src}></StyledImage>
-        <StyledType className="textBold">{getTypeBook(props.type)}</StyledType>
-      </div>
-    </Link>
+  const content = (
+    <div className="boxRelative">
+      <StyledImage
+        src={props.src ? props.src : "/assets/images/ImageDefault.jpg"}
+      ></StyledImage>
+      <StyledType className="textBold">{getTypeBook(props.type)}</StyledType>
+    </div>
+  );
+
+  return props.isClickable == false ? (
+    content
+  ) : (
+    <Link to={`/${props.id}/overview`}>{content}</Link>
   );
 };
 
