@@ -43,7 +43,7 @@ export const deleteCategory = async (token, categoryId) => {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        "Authorization": `Bearer ${token}`,
       },
     });
     return response;

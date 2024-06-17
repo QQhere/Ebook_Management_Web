@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { styled } from "styled-components";
+import { keyframes, styled } from "styled-components";
 import Book from "../../components/common/Book";
 import Colors from "../../constants/Color";
 import "../../components/styles/StyledHeader.css";
@@ -26,24 +26,35 @@ const Categories = ({ categories }) => {
   );
 };
 
-const renderStars = (rating) => {
-  let fullStars = Math.floor(rating);
-  let emptyStars = 5 - fullStars;
+const RenderStars = (rating, score, setScore, status) => {
+  let fullStars = status === "view" ? Math.floor(rating) : score;
   let stars = [];
 
   for (let i = 0; i < fullStars; i++) {
-    stars.push(<i class="fas fa-star"></i>); // Thẻ icon ngôi sao tô màu vàng
+    stars.push(
+      <i
+        class="fas fa-star"
+        key={i + 1}
+        onClick={() => status === "edit" && setScore(i + 1)}
+      ></i>
+    ); // Thẻ icon ngôi sao tô màu vàng
   }
 
-  for (let i = 0; i < emptyStars; i++) {
-    stars.push(<i class="far fa-star"></i>); // Thẻ icon ngôi sao không tô màu
+  for (let i = fullStars + 1; i <= 5; i++) {
+    stars.push(
+      <i
+        class="far fa-star"
+        key={i}
+        onClick={() => status === "edit" && setScore(i)}
+      ></i>
+    ); // Thẻ icon ngôi sao không tô màu
   }
 
   return stars;
 };
 
-const Rating = ({ rating }) => {
-  return <List>{renderStars(rating)}</List>;
+const Rating = ({ rating, score, setScore, status }) => {
+  return <List>{RenderStars(rating, score, setScore, status)}</List>;
 };
 
 const Overview = () => {
@@ -58,10 +69,12 @@ const Overview = () => {
   const [rating, setRating] = useState(0);
   const [avgRating, setAvgRating] = useState(0);
   const [isShowRating, setIsShowRating] = useState(false);
+  const [startUI, setStartUI] = useState(0);
 
   const handleShowRating = () => {
     setIsShowRating(!isShowRating);
-  }
+    setStartUI(startUI + 1);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -78,7 +91,7 @@ const Overview = () => {
     if (stateRating) {
       const response = await updateRating(
         stateAccount.token,
-        allRating.find((item) => item.id === stateAccount.userId).id,
+        allRating.find((item) => item.user.id === stateAccount.userId).id,
         {
           score: rating,
         }
@@ -97,20 +110,24 @@ const Overview = () => {
         alert("Đánh giá thành công");
       }
     }
-    window.location.reload();
+    fetchRating();
   };
 
   const fetchRating = async () => {
-    getAllRatingByBookId(bookId)
-      .then((response) => {
-        if (response.status === "OK") {
-          console.log(response.data);
-          setAllRating(response.data);
-          console.log(allRating);
-          calculateRating(response.data);
-        }
-      })
+    getAllRatingByBookId(bookId).then((response) => {
+      if (response.status === "OK") {
+        setAllRating(response.data);
+        calculateRating(response.data);
+      }
+    });
   };
+
+  useEffect(() => {
+    if (startUI > 1) {
+      handleRating();
+      setIsShowRating(!isShowRating);
+    }
+  }, [rating]);
 
   const fetchDataBook = async () => {
     const response = await getBookById(bookId);
@@ -138,11 +155,12 @@ const Overview = () => {
     let totalRating = 0;
     allRating?.map((item) => {
       totalRating += item.score;
-      if (item.id === stateAccount.userId) {
+      if (item.user?.id === stateAccount.userId) {
         setStateRating(true);
+        setRating(item.score);
+        setStartUI(startUI + 1);
       }
     });
-    console.log(allRating);
     setAvgRating(allRating.length !== 0 ? totalRating / allRating.length : 0);
   };
 
@@ -185,8 +203,8 @@ const Overview = () => {
               {data.status === "process"
                 ? "Đang tiến hành"
                 : data.status === "pause"
-                  ? "Tạm ngưng"
-                  : "Đã hoàn thành"}
+                ? "Tạm ngưng"
+                : "Đã hoàn thành"}
             </P>
             <P>
               <Span>Cập nhật gần nhất: </Span>
@@ -196,7 +214,8 @@ const Overview = () => {
               <Span>Số chương: </Span> {listChapter.length}
             </P>
             <P>
-              <Span>Đánh giá: </Span> <Rating rating={avgRating}></Rating>
+              <Span>Đánh giá: </Span>{" "}
+              <Rating rating={avgRating} status="view"></Rating>
               {`${avgRating}/${allRating.length} đánh giá`}
             </P>
             <P>
@@ -220,8 +239,22 @@ const Overview = () => {
               ) : null}
               {stateAccount.userId === owner.id ? null : (
                 <>
-                  <i class="fa-regular fa-star iconColor btn icon" onClick={handleShowRating}></i>
-
+                  <i
+                    class="fa-regular fa-star iconColor btn icon"
+                    onClick={handleShowRating}
+                  ></i>
+                  {isShowRating ? (
+                    <RatingWrapper>
+                      <Rating
+                        rating={rating}
+                        score={rating}
+                        setScore={setRating}
+                        status="edit"
+                      />
+                    </RatingWrapper>
+                  ) : (
+                    <div />
+                  )}
                 </>
               )}
             </StyledBox>
@@ -249,34 +282,6 @@ const Overview = () => {
           </div>
         </Col2>
       </Box>
-
-      {isShowRating ? <div>
-        <Cover onClick={handleShowRating}></Cover>
-        <BoxContent>
-          <Header>
-            <Pbox>{stateRating ? "Bạn đã đánh giá" : "Đánh giá"}</Pbox>
-            <ClosedButton onClick={handleShowRating}><i class="fa-solid fa-xmark"></i></ClosedButton>
-          </Header>
-          <Content>
-            <BoxSelect onChange={(e) => setRating(e.target.value)}>
-              <select>
-                <option value="1">1 sao</option>
-                <option value="2">2 sao</option>
-                <option value="3">3 sao</option>
-                <option value="4">4 sao</option>
-                <option value="5">5 sao</option>
-              </select>
-
-              <StyledBoxSelect className="button" onClick={handleRating}>
-                Đến
-              </StyledBoxSelect>
-            </BoxSelect>
-          </Content>
-        </BoxContent>
-      </div> : <div> </div>}
-      {/* <TextTitle>Bình luận</TextTitle>
-      <Comment haha="hhh"></Comment>
-      <Comment haha="jjj"></Comment> */}
     </div>
   );
 };
@@ -284,54 +289,54 @@ const Overview = () => {
 export default Overview;
 
 const Cover = styled.div`
-    position: fixed;
-    display: flex;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: ${Colors.dark_grey};
-    opacity: 0.7;
-    z-index: 10;
+  position: fixed;
+  display: flex;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: ${Colors.dark_grey};
+  opacity: 0.7;
+  z-index: 10;
 `;
 
 const BoxContent = styled.div`
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 500px;
-    height: 600px;
-    background-color: ${Colors.bg_dark};
-    z-index: 1000;
-    border-radius: 20px;  
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 600px;
+  background-color: ${Colors.bg_dark};
+  z-index: 1000;
+  border-radius: 20px;
 `;
 
 const Header = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 40px;
-    border-bottom: 1px solid ${Colors.dark_grey};
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
+  border-bottom: 1px solid ${Colors.dark_grey};
 `;
 
 const ClosedButton = styled.button`
-    width: 40px;
-    height: 40px;
-    border: none;
-    border-radius: 0 20px 0 0;
-    background-color: transparent;
-    color: ${Colors.white};
-    font-size: 18px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 0 20px 0 0;
+  background-color: transparent;
+  color: ${Colors.white};
+  font-size: 18px;
 `;
 
 const Pbox = styled.p`
-    font-size: 15px;
-    margin-left: 30px;
+  font-size: 15px;
+  margin-left: 30px;
 `;
 
 const Content = styled.div`
-    margin: 30px;
+  margin: 30px;
 `;
 
 const BoxLinks = styled.div`
@@ -428,4 +433,24 @@ const StyledBoxSelect = styled.button`
   border: none;
   padding: 0 10px;
   font-size: 14px;
+`;
+
+// Tạo hiệu ứng trượt bằng CSS keyframes
+const slideIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translateX(-20%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+`;
+
+// Sử dụng styled-components để tạo style cho phần hiển thị rating
+const RatingWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  animation: ${slideIn} 0.5s forwards;
 `;
