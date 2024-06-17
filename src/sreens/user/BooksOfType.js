@@ -42,9 +42,6 @@ const BooksOfType = () => {
                 ? "Sách theo dõi"
                 : "Sách mất phí"}
             </h3>
-            <Link className="link" to="/search">
-              Xem thêm <i class="fa-solid fa-angles-right"></i>
-            </Link>
           </StyledBoxTitle>
 
           <StyledBoxList id="freeBooks">

@@ -7,6 +7,7 @@ import { getAllCategory } from "../../services/api/Category";
 import { searchBook } from "../../services/api/Book";
 import { act } from "react";
 import { searchUser } from "../../services/api/User";
+import { useSelector } from "react-redux";
 
 const Search = () => {
   const [activeElement, setActiveElement] = useState("book");
@@ -39,7 +40,7 @@ const Search = () => {
       status: status,
       type_of_book: type,
       keyword: keyword,
-      category: selectCategory,
+      categoryIds: selectCategory,
     };
     const response = await searchBook(data, pageSearch, size);
     if (response.status === "OK") {
@@ -85,6 +86,8 @@ const Search = () => {
     fetchSearchBook();
     fetchSearchUser();
   }, []);
+
+  console.log(selectCategory)
 
   function renderContent() {
     return (
@@ -186,7 +189,7 @@ const Search = () => {
                 const selectedValue = event.target.value;
                 setSelectCategory((prevCategories) => [
                   ...prevCategories,
-                  selectedValue,
+                  parseInt(selectedValue),
                 ]);
               }}
             >

@@ -10,7 +10,11 @@ import { getBookById } from "../../services/api/Book";
 import { getUserByUBId } from "../../services/api/User";
 import { useSelector } from "react-redux";
 import { getAllChapterByBook } from "../../services/api/Chapter";
-import { getAllRatingByBookId } from "../../services/api/Rating";
+import {
+  createRating,
+  getAllRatingByBookId,
+  updateRating,
+} from "../../services/api/Rating";
 
 const Categories = ({ categories }) => {
   return (
@@ -36,7 +40,7 @@ const renderStars = (rating) => {
   }
 
   return stars;
-}
+};
 
 const Rating = ({ rating }) => {
   return <List>{renderStars(rating)}</List>;
@@ -50,21 +54,58 @@ const Overview = () => {
   const stateAccount = useSelector((state) => state.auth);
   const [allRating, setAllRating] = useState([]);
 
-  console.log(allRating);
+  const [stateRating, setStateRating] = useState(false);
+  const [rating, setRating] = useState(0);
+  const [avgRating, setAvgRating] = useState(0);
 
   useEffect(() => {
+    const fetchData = async () => {
+      await fetchDataBook();
+      await fetchDataChapter();
+      await fetchRating();
+    };
+
     window.scrollTo(0, 0);
-    fetchRating();
-    fetchDataBook();
-    fetchDataChapter();
+    fetchData();
   }, []);
 
-  const fetchRating = async () => {
-    const response = await getAllRatingByBookId(bookId);
-    if (response.status === "OK") {
-      setAllRating(response.data);
+  const handleRating = async () => {
+    if (stateRating) {
+      const response = await updateRating(
+        stateAccount.token,
+        allRating.find((item) => item.id === stateAccount.userId).id,
+        {
+          score: rating,
+        }
+      );
+      if (response.status === "OK") {
+        alert("Cập nhật đánh giá thành công");
+      }
+    } else {
+      const response = await createRating(stateAccount.token, {
+        book_id: bookId,
+        user_id: stateAccount.userId,
+        score: rating,
+      });
+
+      if (response.status === "CREATED") {
+        alert("Đánh giá thành công");
+      }
     }
-  }
+    window.location.reload();
+  };
+
+  const fetchRating = async () => {
+    getAllRatingByBookId(bookId)
+      .then((response) => {
+        if (response.status === "OK") {
+          console.log(response.data);
+          setAllRating(response.data);
+          console.log(allRating);
+          calculateRating(response.data);
+        }
+      })
+  };
 
   const fetchDataBook = async () => {
     const response = await getBookById(bookId);
@@ -87,6 +128,19 @@ const Overview = () => {
   };
 
   const { time_dmy } = require("../../function/time");
+
+  const calculateRating = async (allRating) => {
+    let totalRating = 0;
+    allRating?.map((item) => {
+      totalRating += item.score;
+      if (item.id === stateAccount.userId) {
+        setStateRating(true);
+      }
+    });
+    console.log(allRating);
+    setAvgRating(allRating.length !== 0 ? totalRating / allRating.length : 0);
+  };
+
   return (
     <div className="body">
       <BoxLinks>
@@ -137,7 +191,8 @@ const Overview = () => {
               <Span>Số chương: </Span> {listChapter.length}
             </P>
             <P>
-              <Span>Đánh giá: </Span> <Rating rating="4.3"></Rating> 4.3
+              <Span>Đánh giá: </Span> <Rating rating={avgRating}></Rating>
+              {`${avgRating}/${allRating.length} đánh giá`}
             </P>
             <P>
               <Span>Lượt đọc: </Span>{" "}
@@ -147,7 +202,7 @@ const Overview = () => {
               <StyledButton className="button">
                 <i class="fa-solid fa-book-open"></i> Đọc sách
               </StyledButton>
-              {stateAccount.userId == owner.id ? (
+              {stateAccount.userId === owner.id ? (
                 <Link
                   to={{
                     pathname: `/${data.id}/editBook`,
@@ -158,8 +213,25 @@ const Overview = () => {
                   <StyledButton className="btn">Chỉnh sửa sách</StyledButton>
                 </Link>
               ) : null}
-              {stateAccount.userId == owner.id ? null : (
-                <i class="fa-regular fa-star iconColor btn icon"></i>
+              {stateAccount.userId === owner.id ? null : (
+                <>
+                  {" "}
+                  <i class="fa-regular fa-star iconColor btn icon"></i>
+                  {stateRating ? "Bạn đã đánh giá" : "Đánh giá"}
+                  <BoxSelect onChange={(e) => setRating(e.target.value)}>
+                    <select>
+                      <option value="1">1 sao</option>
+                      <option value="2">2 sao</option>
+                      <option value="3">3 sao</option>
+                      <option value="4">4 sao</option>
+                      <option value="5">5 sao</option>
+                    </select>
+
+                    <StyledBoxSelect className="button" onClick={handleRating}>
+                      Đến
+                    </StyledBoxSelect>
+                  </BoxSelect>
+                </>
               )}
 
               <i class="fa-regular fa-comments iconColor btn icon"></i>
