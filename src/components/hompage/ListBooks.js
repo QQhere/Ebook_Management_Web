@@ -15,7 +15,7 @@ const ListBooks = (props) => {
                             src={item.image ? item.image : "/assets/images/ImageDefault.jpg"}
                             type={item.type_of_book}
                         ></Book>
-                        <p className='textBold'>{item.title}</p>
+                        <p className='textBold'>{item.title} - {item.author}</p>
                     </StyledBox>             
                 );
             })}

@@ -57,6 +57,11 @@ const Overview = () => {
   const [stateRating, setStateRating] = useState(false);
   const [rating, setRating] = useState(0);
   const [avgRating, setAvgRating] = useState(0);
+  const [isShowRating, setIsShowRating] = useState(false);
+
+  const handleShowRating = () => {
+    setIsShowRating(!isShowRating);
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -180,8 +185,8 @@ const Overview = () => {
               {data.status === "process"
                 ? "Đang tiến hành"
                 : data.status === "pause"
-                ? "Tạm ngưng"
-                : "Đã hoàn thành"}
+                  ? "Tạm ngưng"
+                  : "Đã hoàn thành"}
             </P>
             <P>
               <Span>Cập nhật gần nhất: </Span>
@@ -215,29 +220,13 @@ const Overview = () => {
               ) : null}
               {stateAccount.userId === owner.id ? null : (
                 <>
-                  {" "}
-                  <i class="fa-regular fa-star iconColor btn icon"></i>
-                  {stateRating ? "Bạn đã đánh giá" : "Đánh giá"}
-                  <BoxSelect onChange={(e) => setRating(e.target.value)}>
-                    <select>
-                      <option value="1">1 sao</option>
-                      <option value="2">2 sao</option>
-                      <option value="3">3 sao</option>
-                      <option value="4">4 sao</option>
-                      <option value="5">5 sao</option>
-                    </select>
+                  <i class="fa-regular fa-star iconColor btn icon" onClick={handleShowRating}></i>
 
-                    <StyledBoxSelect className="button" onClick={handleRating}>
-                      Đến
-                    </StyledBoxSelect>
-                  </BoxSelect>
                 </>
               )}
-
-              <i class="fa-regular fa-comments iconColor btn icon"></i>
             </StyledBox>
             <Span>Mô tả:</Span>
-            <P>{data.summary}</P>
+            <Pre>{data.summary}</Pre>
           </div>
 
           <TextTitle>Mục lục</TextTitle>
@@ -260,14 +249,90 @@ const Overview = () => {
           </div>
         </Col2>
       </Box>
-      <TextTitle>Bình luận</TextTitle>
+
+      {isShowRating ? <div>
+        <Cover onClick={handleShowRating}></Cover>
+        <BoxContent>
+          <Header>
+            <Pbox>{stateRating ? "Bạn đã đánh giá" : "Đánh giá"}</Pbox>
+            <ClosedButton onClick={handleShowRating}><i class="fa-solid fa-xmark"></i></ClosedButton>
+          </Header>
+          <Content>
+            <BoxSelect onChange={(e) => setRating(e.target.value)}>
+              <select>
+                <option value="1">1 sao</option>
+                <option value="2">2 sao</option>
+                <option value="3">3 sao</option>
+                <option value="4">4 sao</option>
+                <option value="5">5 sao</option>
+              </select>
+
+              <StyledBoxSelect className="button" onClick={handleRating}>
+                Đến
+              </StyledBoxSelect>
+            </BoxSelect>
+          </Content>
+        </BoxContent>
+      </div> : <div> </div>}
+      {/* <TextTitle>Bình luận</TextTitle>
       <Comment haha="hhh"></Comment>
-      <Comment haha="jjj"></Comment>
+      <Comment haha="jjj"></Comment> */}
     </div>
   );
 };
 
 export default Overview;
+
+const Cover = styled.div`
+    position: fixed;
+    display: flex;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: ${Colors.dark_grey};
+    opacity: 0.7;
+    z-index: 10;
+`;
+
+const BoxContent = styled.div`
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    height: 600px;
+    background-color: ${Colors.bg_dark};
+    z-index: 1000;
+    border-radius: 20px;  
+`;
+
+const Header = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 40px;
+    border-bottom: 1px solid ${Colors.dark_grey};
+`;
+
+const ClosedButton = styled.button`
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 0 20px 0 0;
+    background-color: transparent;
+    color: ${Colors.white};
+    font-size: 18px;
+`;
+
+const Pbox = styled.p`
+    font-size: 15px;
+    margin-left: 30px;
+`;
+
+const Content = styled.div`
+    margin: 30px;
+`;
 
 const BoxLinks = styled.div`
   width: 100%;
@@ -314,6 +379,15 @@ const P = styled.p`
   align-items: center;
   text-align: justify;
   font-size: 17px;
+`;
+
+const Pre = styled.pre`
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 17px;
+  margin-top: 20px;
+  width: 80%;
+  white-space: break-spaces;
+  text-align: justify;
 `;
 
 const Span = styled.span`

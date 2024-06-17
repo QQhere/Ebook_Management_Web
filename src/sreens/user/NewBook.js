@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { styled } from "styled-components";
 import Colors from "../../constants/Color";
 import { useNavigate } from "react-router";
-import { getAllCategory } from "../../services/api/Category";
+import { deleteCategory, getAllCategory } from "../../services/api/Category";
 import { createBook } from "../../services/api/Book";
 import { useSelector } from "react-redux";
 import { uploadImage } from "../../services/api/Upload";
@@ -41,11 +41,20 @@ const CategoryComponent = (props) => {
     getCategory();
   }, []);
 
+  useEffect(() => {
+    setcategoryIds(categoryIds);
+  }, [categoryIds]);
+
+
+  // 
   return (
     <>
       <BoxFlex>
-        <p>Thể loại:</p>
-        <Categories categoryIds={categoryIds}></Categories>
+        <p>Thể loại: <span style={{color: '#D93E30', fontWeight: 'bold'}}>*</span></p>
+        <Categories
+          categoryIds={categoryIds}
+          setcategoryIds={setcategoryIds}
+        ></Categories>
       </BoxFlex>
       <BoxFlex>
         <Selection className="collection" onChange={handleSelectionChange}>
@@ -114,6 +123,8 @@ const NewBook = () => {
   const [price, setPrice] = useState(0);
   const [categoryIds, setcategoryIds] = useState([]);
 
+  const regText = /^[!@#$%^&*()_+{}\[\]:;<>,.?~\\/\\-]*$/; //kiểm tra dữ liệu vào (không trống, không bao gồm toàn space, không chỉ gồm kí tự đặc biệt)
+
   const stateAccount = useSelector((state) => state.auth);
 
   const navigate = useNavigate();
@@ -134,6 +145,15 @@ const NewBook = () => {
   };
 
   const handleAddBook = async () => {
+    if (regText.test(title) || regText.test(summary) || regText.test(author) || !typeOfBook || categoryIds.length === 0) {
+      alert("Các mục đánh dấu * là bắt buộc\nHãy nhập lại đúng định dạng")
+      return;
+    }
+
+    if (typeOfBook === 'Fee' && price <= 0) {
+      alert("Giá tiền phải là số nguyên dương\nHãy nhập lại")
+      return;
+    }
     const book = {
       title: title,
       summary: summary,
@@ -150,10 +170,10 @@ const NewBook = () => {
     const response = await addBook(book);
 
     if (response.status === "CREATED") {
-      alert("Thêm sách thành công");
+      alert("Thêm sách thành công " );
       navigate(-1);
     } else {
-      alert("Thêm sách thất bại");
+      alert("Thêm sách thất bại\n Hãy thử lại");
     }
     // done
   };
@@ -187,7 +207,7 @@ const NewBook = () => {
 
         <div>
           <BoxFlex>
-            <p>Tên sách:</p>
+            <p>Tên sách: <span style={{color: '#D93E30', fontWeight: 'bold'}}>*</span></p>
             <Collection
               type="text"
               className="collection"
@@ -197,7 +217,7 @@ const NewBook = () => {
           </BoxFlex>
 
           <BoxFlex>
-            <p>Tác giả:</p>
+            <p>Tác giả: <span style={{color: '#D93E30', fontWeight: 'bold'}}>*</span></p>
             <Collection
               type="text"
               className="collection"
@@ -227,7 +247,7 @@ const NewBook = () => {
           </BoxFlex>
 
           <BoxFlex>
-            <p>Loại sách:</p>
+            <p>Loại sách: <span style={{color: '#D93E30', fontWeight: 'bold'}}>*</span></p>
             <Selection
               className="collection"
               onChange={(event) => setTypeOfBook(event.target.value)}
@@ -244,7 +264,7 @@ const NewBook = () => {
 
           {typeOfBook === "Fee" && (
             <BoxFlex>
-              <p>Giá:</p>
+              <p>Giá: <span style={{color: '#D93E30', fontWeight: 'bold'}}>*</span></p>
               <Collection
                 type="number"
                 className="collection"
@@ -260,7 +280,7 @@ const NewBook = () => {
           ></CategoryComponent>
 
           <div>
-            <p>Mô tả:</p>
+            <p>Mô tả: <span style={{color: '#D93E30', fontWeight: 'bold'}}>*</span></p>
             <InputDescription
               className="collection"
               onChange={(event) => setSummary(event.target.value)}

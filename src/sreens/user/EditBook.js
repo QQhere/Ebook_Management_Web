@@ -72,7 +72,7 @@ const CategoryComponent = (props) => {
   return (
     <>
       <BoxFlex>
-        <p>Thể loại:(Nhấn để xóa)</p>
+        <p>Thể loại: <span style={{color: '#D93E30', fontWeight: 'bold'}}>*</span></p>
         <Categories
           categoryIds={props.categoryIds}
           setCategoryIds={props.setCategoryIds}
@@ -160,6 +160,8 @@ const EditBook = () => {
   const [file, setFile] = useState(null);
   const [ordinalNumber, setOrdinalNumber] = useState(1);
 
+  const regText = /^[!@#$%^&*()_+{}\[\]:;<>,.?~\\/\\-]*$/; //kiểm tra dữ liệu vào (không trống, không bao gồm toàn space, không chỉ gồm kí tự đặc biệt)
+
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
     if (selectedFile) {
@@ -213,6 +215,15 @@ const EditBook = () => {
   }, []);
 
   const handleUpdate = async () => {
+    if (regText.test(title) || regText.test(summary) || regText.test(author) || !typeOfBook || categoryIds.length === 0) {
+      alert("Các mục đánh dấu * là bắt buộc\nHãy nhập lại đúng định dạng")
+      return;
+    }
+
+    if (typeOfBook === 'Fee' && price <= 0) {
+      alert("Giá tiền phải là số nguyên dương\nHãy nhập lại")
+      return;
+    }
     const book = {
       title: title,
       author: author,
@@ -290,7 +301,7 @@ const EditBook = () => {
           </div>
           <div>
             <BoxFlex>
-              <p>Tên sách:</p>
+              <p>Tên sách: <span style={{color: '#D93E30', fontWeight: 'bold'}}>*</span></p>
               <Collection
                 type="text"
                 className="collection"
@@ -301,7 +312,7 @@ const EditBook = () => {
             </BoxFlex>
 
             <BoxFlex>
-              <p>Tác giả:</p>
+              <p>Tác giả: <span style={{color: '#D93E30', fontWeight: 'bold'}}>*</span></p>
               <Collection
                 type="text"
                 className="collection"
@@ -334,7 +345,7 @@ const EditBook = () => {
             </BoxFlex>
 
             <BoxFlex>
-              <p>Tình trạng:</p>
+              <p>Tình trạng: <span style={{color: '#D93E30', fontWeight: 'bold'}}>*</span></p>
               <Selection
                 className="collection"
                 onChange={(e) => setStatus(e.target.value)}
@@ -350,7 +361,7 @@ const EditBook = () => {
             </BoxFlex>
 
             <BoxFlex>
-              <p>Loại sách:</p>
+              <p>Loại sách: <span style={{color: '#D93E30', fontWeight: 'bold'}}>*</span></p>
               <Selection
                 className="collection"
                 value={typeOfBook}
@@ -368,7 +379,7 @@ const EditBook = () => {
 
             {typeOfBook === "Fee" && (
               <BoxFlex>
-                <p>Giá tiền:</p>
+                <p>Giá tiền: <span style={{color: '#D93E30', fontWeight: 'bold'}}>*</span></p>
                 <Collection
                   type="text"
                   className="collection"
@@ -385,7 +396,7 @@ const EditBook = () => {
             ></CategoryComponent>
 
             <div>
-              <p>Mô tả:</p>
+              <p>Mô tả: <span style={{color: '#D93E30', fontWeight: 'bold'}}>*</span></p>
               <InputDescription
                 className="collection"
                 value={summary}
