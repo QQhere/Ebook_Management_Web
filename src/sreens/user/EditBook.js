@@ -72,7 +72,7 @@ const CategoryComponent = (props) => {
   return (
     <>
       <BoxFlex>
-        <p>Thể loại: <span style={{color: '#D93E30', fontWeight: 'bold'}}>*</span></p>
+        <p>Thể loại: <span style={{ color: '#D93E30', fontWeight: 'bold' }}>*</span></p>
         <Categories
           categoryIds={props.categoryIds}
           setCategoryIds={props.setCategoryIds}
@@ -301,7 +301,7 @@ const EditBook = () => {
           </div>
           <div>
             <BoxFlex>
-              <p>Tên sách: <span style={{color: '#D93E30', fontWeight: 'bold'}}>*</span></p>
+              <p>Tên sách: <span style={{ color: '#D93E30', fontWeight: 'bold' }}>*</span></p>
               <Collection
                 type="text"
                 className="collection"
@@ -312,7 +312,7 @@ const EditBook = () => {
             </BoxFlex>
 
             <BoxFlex>
-              <p>Tác giả: <span style={{color: '#D93E30', fontWeight: 'bold'}}>*</span></p>
+              <p>Tác giả: <span style={{ color: '#D93E30', fontWeight: 'bold' }}>*</span></p>
               <Collection
                 type="text"
                 className="collection"
@@ -345,7 +345,7 @@ const EditBook = () => {
             </BoxFlex>
 
             <BoxFlex>
-              <p>Tình trạng: <span style={{color: '#D93E30', fontWeight: 'bold'}}>*</span></p>
+              <p>Tình trạng: <span style={{ color: '#D93E30', fontWeight: 'bold' }}>*</span></p>
               <Selection
                 className="collection"
                 onChange={(e) => setStatus(e.target.value)}
@@ -361,7 +361,7 @@ const EditBook = () => {
             </BoxFlex>
 
             <BoxFlex>
-              <p>Loại sách: <span style={{color: '#D93E30', fontWeight: 'bold'}}>*</span></p>
+              <p>Loại sách: <span style={{ color: '#D93E30', fontWeight: 'bold' }}>*</span></p>
               <Selection
                 className="collection"
                 value={typeOfBook}
@@ -379,7 +379,7 @@ const EditBook = () => {
 
             {typeOfBook === "Fee" && (
               <BoxFlex>
-                <p>Giá tiền: <span style={{color: '#D93E30', fontWeight: 'bold'}}>*</span></p>
+                <p>Giá tiền: <span style={{ color: '#D93E30', fontWeight: 'bold' }}>*</span></p>
                 <Collection
                   type="text"
                   className="collection"
@@ -396,7 +396,7 @@ const EditBook = () => {
             ></CategoryComponent>
 
             <div>
-              <p>Mô tả: <span style={{color: '#D93E30', fontWeight: 'bold'}}>*</span></p>
+              <p>Mô tả: <span style={{ color: '#D93E30', fontWeight: 'bold' }}>*</span></p>
               <InputDescription
                 className="collection"
                 value={summary}
@@ -448,8 +448,9 @@ const EditBook = () => {
                 />
               </BoxFlex>
               <Button className="button" onClick={handleUploadClick}>
-                Upload file
+                Upload file {file ? `(${file.name})` : ''}
               </Button>
+
               <Button className="button" onClick={handleAddChapter}>
                 Tải lên nội dung
               </Button>

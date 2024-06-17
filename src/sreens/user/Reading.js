@@ -18,6 +18,7 @@ const Reading = () => {
   const [showSellect, setShowSellect] = useState(false);
   const [iconColorC, setIconColorC] = useState(false);
   const [iconColorD, setIconColorD] = useState(false);
+  const [bookData, setBookData] = useState('');
   const { bookId, chapterId } = useParams();
   const stateAccount = useSelector((state) => state.auth);
 
@@ -27,10 +28,12 @@ const Reading = () => {
   const DivBody = styled.div`
     background-color: ${BgColor};
   `;
-  const PBody = styled.p`
+  const PBody = styled.pre`
     color: ${TextColor};
     font-size: ${FontSize}px;
     font-family: ${FontFamily};
+    white-space: break-spaces;
+    text-align: justify;
   `;
 
   const fetchDataChapter = async () => {
@@ -45,6 +48,7 @@ const Reading = () => {
   const handleUpdateNumberRead = async () => {
     const response = await updateNumberRead(stateAccount.token, bookId);
     if (response.status === "OK") {
+      setBookData(response.data);
       console.log("Update number read successfully");
     } else {
       console.log("Update number read failed");
@@ -121,18 +125,19 @@ const Reading = () => {
     setFontFamily(font);
   };
 
+  console.log(bookData);
   return (
     <div>
       <div className="fixed header">
-        {/* <p className='title'>{data.title}</p> */}
-        <div className="list1">
+        <p className='title'>{bookData.title}</p>
+        <Box>
           <div className={iconColorC ? "iconColor" : ""} onClick={handleClickC}>
             <i class="fa-regular fa-rectangle-list"></i>
           </div>
           <div className={iconColorD ? "iconColor" : ""} onClick={handleClickD}>
             <i class="fa-solid fa-palette"></i>
           </div>
-        </div>
+        </Box>
       </div>
       <DivBody className="bodyReading">
         <h3 style={{ textAlign: "center", color: TextColor }}>
@@ -143,7 +148,7 @@ const Reading = () => {
         </div>
       </DivBody>
       <div className="fixed footer">
-        <p className="title">Chương 1: Cuộc gọi lúc nửa đêm</p>
+        <p className="title">{dataChapter.name}</p>
       </div>
 
       <div
@@ -152,17 +157,9 @@ const Reading = () => {
         style={{ display: showTabletOfContents ? "block" : "none" }}
       >
         <p className="title">Mục lục</p>
-        <select className="select collection">
-          <option value="" selected disabled hidden>
-            Chọn trang
-          </option>
-          <option value="1">Trang 1</option>
-          <option value="2">Trang 2</option>
-          <option value="3">Trang 3</option>
-        </select>
         <ul className="menu">
           <li>
-            <a href="/chuong1">Chương 1: Cuộc gọi lúc nửa đêm</a>
+            <a href="chuong1">Chương 1: Cuộc gọi lúc nửa đêm</a>
           </li>
           <li>
             <a href="/chuong1">Chương 1: Cuộc gọi lúc nửa đêm</a>
@@ -239,3 +236,10 @@ const Reading = () => {
 };
 
 export default Reading;
+
+const Box = styled.div`
+  display: flex;
+  gap: 30px;
+  font-size: 20px;
+  justify-content: flex-start;
+`;
