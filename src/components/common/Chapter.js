@@ -22,12 +22,12 @@ const Chapter = (props) => {
 
   const renderContent = () => {
     switch (props.type) {
-      case "overview":
-        return (
-          <BoxIcon>
-            <i class="fa-solid fa-comment iconColor"></i>
-          </BoxIcon>
-        );
+      // case "overview":
+      //   return (
+      //     <BoxIcon>
+      //       <i class="fa-solid fa-comment iconColor"></i>
+      //     </BoxIcon>
+      //   );
       case "edit":
         return (
           <BoxIcon>
@@ -37,15 +37,10 @@ const Chapter = (props) => {
             <div onClick={handleDelete}>
               <i class="fa-solid fa-trash-can iconRed"></i>
             </div>
-            {/* <div>
-              <i class="fa-regular fa-eye iconColor"></i>
-            </div> */}
           </BoxIcon>
         );
-      case "show":
-        return <div></div>;
       default:
-        return null;
+        return <div></div>;
     }
   };
 
