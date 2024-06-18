@@ -3,7 +3,6 @@ import { styled } from "styled-components";
 import { Link } from "react-router-dom";
 
 const Book = (props) => {
-  console.log(props);
   const getTypeBook = (type) => {
     switch (type) {
       case "Free":

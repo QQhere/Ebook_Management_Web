@@ -104,7 +104,6 @@ const Reading = () => {
     );
     if (response.status === "OK") {
       const history = response.data.filter((history) => history.book.id == bookId && history.user.id == stateAccount.userId)[0];
-      console.log(history); 
       if (history?.id !== undefined) {
         handleUpdateHistoryReading(history.id);
       } else {

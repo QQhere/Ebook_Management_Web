@@ -5,12 +5,17 @@ import ListBooks from "../../components/hompage/ListBooks";
 import { getAllBookByType } from "../../services/api/Book";
 import { Link } from "react-router-dom";
 import "../../components/styles/StyledHeader.css";
+import { getAllHistoryReadingByUser } from "../../services/api/HistoryReading";
+import { useSelector } from "react-redux";
 
 const Homepage = () => {
   const [bookFree, setBookFree] = useState([]);
   const [bookFollow, setBookFollow] = useState([]);
   const [bookFee, setBookFee] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  const [bookReding, setBookReading] = useState([]);
+  const stateAccount = useSelector((state) => state.auth);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -34,6 +39,18 @@ const Homepage = () => {
     return response.data;
   };
 
+  const fetchAllHistory = async () => {
+    if (stateAccount === null) return;
+    const response = await getAllHistoryReadingByUser(stateAccount.token, stateAccount.userId);
+    if (response.status === "OK") {
+      setBookReading(response.data
+        .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
+        .slice(0, 5)
+        .map((item) => item.book)
+      );
+    }
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -44,6 +61,7 @@ const Homepage = () => {
           fetchBookByType("Free"),
           fetchBookByType("Follow"),
           fetchBookByType("Fee"),
+          fetchAllHistory()
         ]);
 
         // Cập nhật state khi tất cả dữ liệu đã được lấy về thành công
@@ -69,14 +87,14 @@ const Homepage = () => {
           </StyledSlider>
 
           <StyledBox>
-            {0 ? null : (
+            {bookReding.length === 0 ? null : (
               <>
                 <StyledBoxTitle>
                   <h3>Tiếp tục cho bạn</h3>
                 </StyledBoxTitle>
 
                 <StyledBoxList id="freeBooks">
-                  <ListBooks data={bookFree}></ListBooks>
+                  <ListBooks data={bookReding}></ListBooks>
                 </StyledBoxList>
               </>
             )}

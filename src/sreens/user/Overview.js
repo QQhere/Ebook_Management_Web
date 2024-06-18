@@ -16,6 +16,7 @@ import {
   updateRating,
 } from "../../services/api/Rating";
 import { getAllHistoryReadingByUser } from "../../services/api/HistoryReading";
+import { getFollowByTwoUser } from "../../services/api/Follow";
 
 const Categories = ({ categories }) => {
   return (
@@ -72,6 +73,7 @@ const Overview = () => {
   const [isShowRating, setIsShowRating] = useState(false);
   const [startUI, setStartUI] = useState(0);
   const [chapterIdHistory, setChapterIdHistory] = useState(0);
+  const [stateFollow, setStateFollow] = useState(false);
 
   const navigate = useNavigate();
 
@@ -109,6 +111,10 @@ const Overview = () => {
   };
 
   const handleReading = async () => {
+    if (!stateFollow) {
+      alert("Bạn cần theo dõi tác giả trước khi đọc sách");
+      return;
+    }
     if (chapterIdHistory !== 0) {
       navigate(`/${bookId}/${chapterIdHistory}/reading`);
     } else if (listChapter.length > 0) {
@@ -158,6 +164,22 @@ const Overview = () => {
     }
   }, [rating]);
 
+  useEffect(() => {
+    fetchFollowAccount();
+  }, [owner]);
+
+  const fetchFollowAccount = async () => {
+     if (stateAccount.userId == owner.id) {
+      setStateFollow(true);
+      return;
+    } 
+    const response = await getFollowByTwoUser(stateAccount.token, owner.id, stateAccount.userId);
+    
+    if (response.status === "OK" && response.data.id !== 0) {
+      setStateFollow(true);
+    }
+  }
+
   const fetchDataBook = async () => {
     const response = await getBookById(bookId);
     if (response.status === "OK") {
@@ -187,9 +209,9 @@ const Overview = () => {
       if (item.user?.id === stateAccount.userId) {
         setStateRating(true);
         setRating(item.score);
-        setStartUI(startUI + 1);
       }
     });
+    setStartUI(startUI + 1);
     setAvgRating(allRating.length !== 0 ? totalRating / allRating.length : 0);
   };
 

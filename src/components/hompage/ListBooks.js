@@ -12,7 +12,7 @@ const ListBooks = (props) => {
                         <Book
                             id={item.id}
                             src={item.image ? item.image : "/assets/images/ImageDefault.jpg"}
-                            type={item.type_of_book}
+                            type={item.type_of_book ? item.type_of_book : item.typeOfBook}
                             price={item.price}
                         ></Book>
                         <p className='textBold'>{item.title} - {item.author}</p>

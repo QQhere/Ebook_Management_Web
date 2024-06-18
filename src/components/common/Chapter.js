@@ -30,12 +30,6 @@ const Chapter = (props) => {
 
   const renderContent = () => {
     switch (props.type) {
-      // case "overview":
-      //   return (
-      //     <BoxIcon>
-      //       <i class="fa-solid fa-comment iconColor"></i>
-      //     </BoxIcon>
-      //   );
       case "edit":
         return (
           <BoxIcon>

@@ -85,8 +85,6 @@ const Search = () => {
     fetchSearchUser();
   }, []);
 
-  console.log(selectCategory)
-
   function renderContent() {
     return (
       <div>

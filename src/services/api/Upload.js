@@ -74,9 +74,6 @@ export const getFileContent = async (fileUrl) => {
     // Giải mã ArrayBuffer thành nội dung của file .docx sử dụng mammoth
     const {value } = await mammoth.extractRawText({ arrayBuffer: arrayBuffer });
 
-    // In nội dung file ra console
-    // console.log("File content:", value);
-
     // Trả về nội dung của file
     return value;
   } catch (error) {

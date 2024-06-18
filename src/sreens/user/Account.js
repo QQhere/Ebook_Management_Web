@@ -62,7 +62,6 @@ const Account = () => {
   const handleFollow = async () => {
     if (stateFollow) {
       const response = await deleteFollow(stateAccount.token, follower.filter((item) => item.user.id === stateAccount.userId)[0]?.id);
-      console.log(response)
       if (response.status === "OK") {
         setStateFollow(false);
       }
