@@ -3,7 +3,7 @@ import { styled } from "styled-components";
 import Colors from "../../constants/Color";
 import "../../components/styles/reading.css";
 import { useParams } from "react-router";
-import { getChapterById } from "../../services/api/Chapter";
+import { getAllChapterByBook, getChapterById } from "../../services/api/Chapter";
 import { useSelector } from "react-redux";
 import { getFileContent } from "../../services/api/Upload";
 import { updateNumberRead } from "../../services/api/Book";
@@ -23,6 +23,7 @@ const Reading = () => {
   const stateAccount = useSelector((state) => state.auth);
 
   const [dataChapter, setDataChapter] = useState({});
+  const [allChapter, setAllChapter] = useState([]);
   const [contentChapter, setContentChapter] = useState("");
 
   const DivBody = styled.div`
@@ -55,10 +56,21 @@ const Reading = () => {
     }
   }
 
+  const fetchAllChapter = async () => {
+    const response = await getAllChapterByBook(stateAccount.token, bookId);
+    if (response.status === "OK") {
+      setAllChapter(response.data);
+      console.log("Get all chapter successfully");
+    } else {
+      console.log("Get all chapter failed");
+    }
+  }
+
   useEffect(() => {
     window.scrollTo(0, 0);
     fetchDataChapter();
     handleUpdateNumberRead();
+    fetchAllChapter();
   }, []);
 
   const changeColors = (newBgColor, newTextColor, newBorderColor) => {
@@ -125,7 +137,6 @@ const Reading = () => {
     setFontFamily(font);
   };
 
-  console.log(bookData);
   return (
     <div>
       <div className="fixed header">
@@ -158,21 +169,11 @@ const Reading = () => {
       >
         <p className="title">Mục lục</p>
         <ul className="menu">
-          <li>
-            <a href="chuong1">Chương 1: Cuộc gọi lúc nửa đêm</a>
-          </li>
-          <li>
-            <a href="/chuong1">Chương 1: Cuộc gọi lúc nửa đêm</a>
-          </li>
-          <li>
-            <a href="/chuong1">Chương 1: Cuộc gọi lúc nửa đêm</a>
-          </li>
-          <li className="liChoice">
-            <a href="/chuong1">Chương 1: Cuộc gọi lúc nửa đêm</a>
-          </li>
-          <li>
-            <a href="/chuong1">Chương 1: Cuộc gọi lúc nửa đêm</a>
-          </li>
+          {allChapter.map((chapter) => (
+            <li key={chapter.id}>
+              <a href={`/${bookId}/${chapter.id}/reading`}>{chapter.name}</a>
+            </li>
+          ))}
         </ul>
       </div>
 
