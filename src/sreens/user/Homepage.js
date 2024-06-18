@@ -41,15 +41,51 @@ const Homepage = () => {
 
   const fetchAllHistory = async () => {
     if (stateAccount === null) return;
-    const response = await getAllHistoryReadingByUser(stateAccount.token, stateAccount.userId);
+    const response = await getAllHistoryReadingByUser(
+      stateAccount.token,
+      stateAccount.userId
+    );
     if (response.status === "OK") {
-      setBookReading(response.data
-        .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
-        .slice(0, 5)
-        .map((item) => item.book)
+      console.log(response.data);
+      setBookReading(
+        response.data
+          .sort((a, b) => {
+            if (a.updated_at[0] < b.updated_at[0]) {
+              return 1;
+            } else if (a.updated_at[0] > b.updated_at[0]) {
+              return -1;
+            }
+            if (a.updated_at[1] < b.updated_at[1]) {
+              return 1;
+            } else if (a.updated_at[1] > b.updated_at[1]) {
+              return -1;
+            }
+            if (a.updated_at[2] < b.updated_at[2]) {
+              return 1;
+            } else if (a.updated_at[2] > b.updated_at[2]) {
+              return -1;
+            }
+            if (a.updated_at[3] < b.updated_at[3]) {
+              return 1;
+            } else if (a.updated_at[3] > b.updated_at[3]) {
+              return -1;
+            }
+            if (a.updated_at[4] < b.updated_at[4]) {
+              return 1;
+            } else if (a.updated_at[4] > b.updated_at[4]) {
+              return -1;
+            }
+            if (a.updated_at[5] < b.updated_at[5]) {
+              return 1;
+            } else if (a.updated_at[5] > b.updated_at[5]) {
+              return -1;
+            }
+          })
+          .slice(0, 5)
+          .map((item) => item.book)
       );
     }
-  }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -61,7 +97,7 @@ const Homepage = () => {
           fetchBookByType("Free"),
           fetchBookByType("Follow"),
           fetchBookByType("Fee"),
-          fetchAllHistory()
+          fetchAllHistory(),
         ]);
 
         // Cập nhật state khi tất cả dữ liệu đã được lấy về thành công

@@ -111,16 +111,20 @@ const Overview = () => {
   };
 
   const handleReading = async () => {
-    if (!stateFollow) {
-      alert("Bạn cần theo dõi tác giả trước khi đọc sách");
-      return;
-    }
     if (chapterIdHistory !== 0) {
+      if (!stateFollow && data.type_of_book === "follow") {
+        alert("Bạn cần theo dõi tác giả trước khi đọc sách");
+        return;
+      }
       navigate(`/${bookId}/${chapterIdHistory}/reading`);
     } else if (listChapter.length > 0) {
+      if (!stateFollow && data.type_of_book === "follow") {
+        alert("Bạn cần theo dõi tác giả trước khi đọc sách");
+        return;
+      }
       navigate(`/${bookId}/${listChapter[0].id}/reading`);
     } else alert("Sách chưa có chương");
-  }
+  };
 
   const handleRating = async () => {
     if (stateRating) {
@@ -169,16 +173,20 @@ const Overview = () => {
   }, [owner]);
 
   const fetchFollowAccount = async () => {
-     if (stateAccount.userId == owner.id) {
+    if (stateAccount.userId == owner.id) {
       setStateFollow(true);
       return;
-    } 
-    const response = await getFollowByTwoUser(stateAccount.token, owner.id, stateAccount.userId);
-    
+    }
+    const response = await getFollowByTwoUser(
+      stateAccount.token,
+      owner.id,
+      stateAccount.userId
+    );
+
     if (response.status === "OK" && response.data.id !== 0) {
       setStateFollow(true);
     }
-  }
+  };
 
   const fetchDataBook = async () => {
     const response = await getBookById(bookId);
