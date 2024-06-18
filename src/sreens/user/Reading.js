@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import Colors from "../../constants/Color";
 import "../../components/styles/reading.css";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import {
   getAllChapterByBook,
   getChapterById,
@@ -34,6 +34,7 @@ const Reading = () => {
   const [dataChapter, setDataChapter] = useState({});
   const [allChapter, setAllChapter] = useState([]);
   const [contentChapter, setContentChapter] = useState("");
+  const navigate = useNavigate();
 
   const DivBody = styled.div`
     background-color: ${BgColor};
@@ -89,7 +90,7 @@ const Reading = () => {
   };
 
   const handleUpdateHistoryReading = async (historyId) => {
-    const response = await updateHistoryReading(stateAccount.token, historyId , chapterId);
+    const response = await updateHistoryReading(stateAccount.token, historyId, chapterId);
     if (response.status === "OK") {
       console.log("Update history reading successfully");
     } else {
@@ -187,6 +188,28 @@ const Reading = () => {
     setFontFamily(font);
   };
 
+  const prevChapter = () => {
+    const targetIndex = allChapter.findIndex((chapter) => chapter.id === chapterId);
+    if (targetIndex > 0) {
+      const prevId = allChapter[targetIndex - 1]?.id;
+      navigate(`/${bookId}/${prevId}`);
+    } else {
+      alert("Đây là chương đầu tiên của sách");
+    }
+  }
+
+  const nextChapter = () => {
+    const targetIndex = allChapter.findIndex((chapter) => chapter.id === chapterId);
+    console.log(targetIndex);
+    if (targetIndex < allChapter.length - 1) {
+      const nextId = allChapter[targetIndex + 1]?.id;
+      console.log(nextId);
+      navigate(`/${bookId}/${nextId}`);
+    } else {
+      alert("Đây là chương mới nhất của sách");
+    }
+  }
+
   return (
     <div>
       <div className="fixed header">
@@ -201,7 +224,7 @@ const Reading = () => {
         </Box>
       </div>
       <DivBody className="bodyReading">
-        <h3 style={{ textAlign: "center", color: TextColor,  margin: "50px"}}>
+        <h3 style={{ textAlign: "center", color: TextColor, margin: "50px" }}>
           {dataChapter.name}
         </h3>
         <div className="contents">
@@ -209,8 +232,8 @@ const Reading = () => {
         </div>
       </DivBody>
       <div className="fixed footer">
-        <Link to="" className="title"><p><i class="fa-solid fa-angles-left"></i> Chương trước</p></Link>
-        <Link to="" className="title"><p>Chương sau <i class="fa-solid fa-angles-right"></i></p></Link>       
+        <Link className="title" onClick={prevChapter}><p><i class="fa-solid fa-angles-left"></i> Chương trước</p></Link>
+        <Link className="title" onClick={nextChapter}><p>Chương sau <i class="fa-solid fa-angles-right"></i></p></Link>
       </div>
 
       <div

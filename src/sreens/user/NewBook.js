@@ -11,11 +11,16 @@ const CategoryComponent = (props) => {
   const [allCategory, setAllCategory] = useState([]);
   const [categoryIds, setcategoryIds] = useState([]);
 
+  const handleRemove = (id) => {
+    const newCategoryIds = categoryIds.filter((item) => item.id !== id);
+    setcategoryIds(newCategoryIds);
+  };
+
   const Categories = ({ categoryIds }) => {
     return (
       <List>
         {categoryIds.map((item, index) => {
-          return <Category>{item}</Category>;
+          return <Category onClick={() => handleRemove(item.id)}>{item}</Category>;
         })}
       </List>
     );

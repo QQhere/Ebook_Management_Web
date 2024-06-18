@@ -129,7 +129,7 @@ const Homepage = () => {
                   <h3>Tiếp tục cho bạn</h3>
                 </StyledBoxTitle>
 
-                <StyledBoxList id="freeBooks">
+                <StyledBoxList id="myList">
                   <ListBooks data={bookReding}></ListBooks>
                 </StyledBoxList>
               </>

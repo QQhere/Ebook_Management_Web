@@ -452,7 +452,7 @@ const EditBook = () => {
               </div>
             </BoxContent>
 
-            <TabletOfContents data={listChapter} type="edit"></TabletOfContents>
+            <TabletOfContents data={listChapter} type="edit" bookId={bookId}></TabletOfContents>
           </div>
         </Col2>
       </Box>
@@ -514,6 +514,7 @@ const EditBook = () => {
                 <p>Tên chương:</p>
                 <Collection
                   type="text"
+                  accept=".doc,.docx"
                   className="collection"
                   placeholder="Nhập tên chương"
                   onChange={(e) => setNameChapter(e.target.value)}

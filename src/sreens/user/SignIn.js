@@ -101,7 +101,7 @@ const SignIn = () => {
             type="password"
             setValue={setPassword}
           ></InputLogin>
-          <StyledBox2>
+          {/* <StyledBox2>
             <StyledMiniBox>
               <input type="checkbox" id="checkbox" />
               <label for="checkbox">Lưu tài khoản</label>
@@ -109,7 +109,7 @@ const SignIn = () => {
             <Link className="link" href="">
               Quên mật khẩu
             </Link>
-          </StyledBox2>
+          </StyledBox2> */}
           <StyledButton className="button" onClick={handleLogIn}>
             Đăng nhập
           </StyledButton>

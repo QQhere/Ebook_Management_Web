@@ -16,7 +16,7 @@ const BooksOfType = () => {
   }, []);
 
   const fetchBookByType = async (type) => {
-    const response = await getAllBookByType(type, 1, 5);
+    const response = await getAllBookByType(type, 1, 25);
     if (response.status === "OK") {
       setData(response.data);
     }
@@ -44,7 +44,7 @@ const BooksOfType = () => {
             </h3>
           </StyledBoxTitle>
 
-          <StyledBoxList id="freeBooks">
+          <StyledBoxList>
             <ListBooks data={data}></ListBooks>
           </StyledBoxList>
         </StyledBox>

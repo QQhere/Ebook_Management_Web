@@ -120,10 +120,10 @@ const Header = () => {
 
         <ul id="nav">
           <li>
-            <a href="/#freeBooks">Sách miễn phí</a>
+            <a href="/free">Sách miễn phí</a>
           </li>
           <li>
-            <a href="/#followBooks">Sách theo dõi</a>
+            <a href="/follow">Sách theo dõi</a>
           </li>
           {/* <li>
             <a href="/#paidBooks">Sách trả phí</a>
