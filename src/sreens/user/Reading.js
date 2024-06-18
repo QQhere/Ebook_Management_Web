@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import Colors from "../../constants/Color";
 import "../../components/styles/reading.css";
-import { useNavigate, useParams } from "react-router";
+import { useParams } from "react-router";
 import {
   getAllChapterByBook,
   getChapterById,
@@ -16,13 +16,14 @@ import {
   updateHistoryReading,
 } from "../../services/api/HistoryReading";
 import { Link } from "react-router-dom";
+import { ListFont } from "../../constants/ListFont";
+import { Themes } from "../../constants/Themes";
 
 const Reading = () => {
   const [BgColor, setBgColor] = useState(Colors.black);
   const [TextColor, setTextColor] = useState(Colors.white);
-  const [BorderColor, setBorderColor] = useState(Colors.nude);
   const [FontSize, setFontSize] = useState("19");
-  const [FontFamily, setFontFamily] = useState();
+  const [FontFamily, setFontFamily] = useState(ListFont[0]);
   const [showTabletOfContents, setShowTabletOfContents] = useState(false);
   const [showSellect, setShowSellect] = useState(false);
   const [iconColorC, setIconColorC] = useState(false);
@@ -34,7 +35,6 @@ const Reading = () => {
   const [dataChapter, setDataChapter] = useState({});
   const [allChapter, setAllChapter] = useState([]);
   const [contentChapter, setContentChapter] = useState("");
-  const navigate = useNavigate();
 
   const DivBody = styled.div`
     background-color: ${BgColor};
@@ -124,10 +124,9 @@ const Reading = () => {
     fetchHistory();
   }, []);
 
-  const changeColors = (newBgColor, newTextColor, newBorderColor) => {
+  const changeColors = (newBgColor, newTextColor) => {
     setBgColor(newBgColor);
     setTextColor(newTextColor);
-    setBorderColor(newBorderColor);
   };
 
   const decreaseFontSize = () => {
@@ -159,56 +158,41 @@ const Reading = () => {
   const ColorBody = () => {
     return (
       <div className="list2">
-        <div
-          class="toggle toggleBlack"
-          style={{ borderColor: BorderColor }}
-          onClick={() =>
-            changeColors(Colors.black, Colors.white, Colors.green_more)
-          }
-        ></div>
-        <div
-          class="toggle toggleGrey"
-          style={{ borderColor: BorderColor }}
-          onClick={() =>
-            changeColors(Colors.bg_dark, Colors.white, Colors.green_more)
-          }
-        ></div>
-        <div
-          class="toggle toggleWhite"
-          style={{ borderColor: BorderColor }}
-          onClick={() =>
-            changeColors(Colors.white, Colors.black, Colors.green_more)
-          }
-        ></div>
+        {Themes.map((theme) => (
+          <div
+            className={theme.bg == BgColor ? "toggle toggleChoice" : "toggle"}
+            style={{ backgroundColor: theme.bg }}
+            onClick={() => changeColors(theme.bg, theme.text)}
+          >
+          </div>
+        ))}
       </div>
     );
   };
+
+  const FontFamilyBody = () => {
+    return (
+      <ul className="menu">
+        {ListFont.map((font) => (
+          <li
+            className={font == FontFamily ? 'liChoice' : ''}
+            onClick={() => changeFont(font)}
+          >
+            {font}
+          </li>
+        ))}
+      </ul>
+    )
+  }
 
   const changeFont = (font) => {
     setFontFamily(font);
   };
 
-  const prevChapter = () => {
-    const targetIndex = allChapter.findIndex((chapter) => chapter.id === chapterId);
-    if (targetIndex > 0) {
-      const prevId = allChapter[targetIndex - 1]?.id;
-      navigate(`/${bookId}/${prevId}`);
-    } else {
-      alert("Đây là chương đầu tiên của sách");
-    }
-  }
-
-  const nextChapter = () => {
-    const targetIndex = allChapter.findIndex((chapter) => chapter.id === chapterId);
-    console.log(targetIndex);
-    if (targetIndex < allChapter.length - 1) {
-      const nextId = allChapter[targetIndex + 1]?.id;
-      console.log(nextId);
-      navigate(`/${bookId}/${nextId}`);
-    } else {
-      alert("Đây là chương mới nhất của sách");
-    }
-  }
+  const index = allChapter.findIndex(chapter => chapter.id === chapterId);
+  const nextId = allChapter[index + 1]?.id;
+  const prevId = allChapter[index - 1]?.id;
+  console.log(nextId, prevId);
 
   return (
     <div>
@@ -232,8 +216,8 @@ const Reading = () => {
         </div>
       </DivBody>
       <div className="fixed footer">
-        <Link className="title" onClick={prevChapter}><p><i class="fa-solid fa-angles-left"></i> Chương trước</p></Link>
-        <Link className="title" onClick={nextChapter}><p>Chương sau <i class="fa-solid fa-angles-right"></i></p></Link>
+        <Link to={`/${bookId}/${prevId}/reading`} className="title"><p><i class="fa-solid fa-angles-left"></i> Chương trước</p></Link>
+        <Link to={`/${bookId}/${nextId}/reading`} className="title"><p>Chương sau <i class="fa-solid fa-angles-right"></i></p></Link>
       </div>
 
       <div
@@ -274,38 +258,7 @@ const Reading = () => {
           </div>
         </div>
         <div>
-          <ul id="fontOptions" className="menu">
-            <li
-              style={{ fontFamily: "Segoe UI" }}
-              onClick={() => changeFont("Segoe UI")}
-            >
-              Segoe UI
-            </li>
-            <li
-              style={{ fontFamily: "Arial" }}
-              onClick={() => changeFont("Arial")}
-            >
-              Arial
-            </li>
-            <li
-              style={{ fontFamily: "Times New Roman" }}
-              onClick={() => changeFont("Times New Roman")}
-            >
-              Times New Roman
-            </li>
-            <li
-              style={{ fontFamily: "Courier New" }}
-              onClick={() => changeFont("Courier New")}
-            >
-              Belgrano
-            </li>
-            <li
-              style={{ fontFamily: "Verdana" }}
-              onClick={() => changeFont("Verdana")}
-            >
-              Verdana
-            </li>
-          </ul>
+          <FontFamilyBody></FontFamilyBody>
         </div>
       </div>
     </div>
