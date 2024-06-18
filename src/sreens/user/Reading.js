@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import Colors from "../../constants/Color";
 import "../../components/styles/reading.css";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import {
   getAllChapterByBook,
   getChapterById,
@@ -35,6 +35,13 @@ const Reading = () => {
   const [dataChapter, setDataChapter] = useState({});
   const [allChapter, setAllChapter] = useState([]);
   const [contentChapter, setContentChapter] = useState("");
+  const index = allChapter.findIndex(chapter => chapter.id == chapterId);
+  const nextId = allChapter[index + 1]?.id;
+  const prevId = allChapter[index - 1]?.id;
+
+  const [isShowPrev, setIsShowPrev] = useState(false);
+  const [isShowNext, setIsShowNext] = useState(false);
+
 
   const DivBody = styled.div`
     background-color: ${BgColor};
@@ -189,11 +196,6 @@ const Reading = () => {
     setFontFamily(font);
   };
 
-  const index = allChapter.findIndex(chapter => chapter.id === chapterId);
-  const nextId = allChapter[index + 1]?.id;
-  const prevId = allChapter[index - 1]?.id;
-  console.log(nextId, prevId);
-
   return (
     <div>
       <div className="fixed header">
@@ -216,8 +218,8 @@ const Reading = () => {
         </div>
       </DivBody>
       <div className="fixed footer">
-        <Link to={`/${bookId}/${prevId}/reading`} className="title"><p><i class="fa-solid fa-angles-left"></i> Chương trước</p></Link>
-        <Link to={`/${bookId}/${nextId}/reading`} className="title"><p>Chương sau <i class="fa-solid fa-angles-right"></i></p></Link>
+        {prevId === undefined ? <><p></p></> : <a href={`/${bookId}/${prevId}/reading`} className="title" ><p><i class="fa-solid fa-angles-left"></i> Chương trước</p></a>}
+        {nextId === undefined ? <><p></p></> : <a href={`/${bookId}/${nextId}/reading`} className="title" ><p>Chương sau <i class="fa-solid fa-angles-right"></i></p></a>}
       </div>
 
       <div
