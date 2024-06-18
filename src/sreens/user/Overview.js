@@ -5,7 +5,7 @@ import Colors from "../../constants/Color";
 import "../../components/styles/StyledHeader.css";
 import Comment from "../../components/common/Comment";
 import TabletOfContents from "../../components/common/TabletOfContents";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { getBookById } from "../../services/api/Book";
 import { getUserByUBId } from "../../services/api/User";
 import { useSelector } from "react-redux";
@@ -15,6 +15,7 @@ import {
   getAllRatingByBookId,
   updateRating,
 } from "../../services/api/Rating";
+import { getAllHistoryReadingByUser } from "../../services/api/HistoryReading";
 
 const Categories = ({ categories }) => {
   return (
@@ -70,6 +71,9 @@ const Overview = () => {
   const [avgRating, setAvgRating] = useState(0);
   const [isShowRating, setIsShowRating] = useState(false);
   const [startUI, setStartUI] = useState(0);
+  const [chapterIdHistory, setChapterIdHistory] = useState(0);
+
+  const navigate = useNavigate();
 
   const handleShowRating = () => {
     setIsShowRating(!isShowRating);
@@ -81,11 +85,36 @@ const Overview = () => {
       await fetchDataBook();
       await fetchDataChapter();
       await fetchRating();
+      await fetchHistory();
     };
 
     window.scrollTo(0, 0);
     fetchData();
   }, []);
+
+  const fetchHistory = async () => {
+    const response = await getAllHistoryReadingByUser(
+      stateAccount.token,
+      stateAccount.userId
+    );
+    if (response.status === "OK") {
+      const history = response.data.find(
+        (history) =>
+          history.book.id == bookId && history.user.id == stateAccount.userId
+      );
+      if (history?.id !== undefined) {
+        setChapterIdHistory(history.chapter.id);
+      }
+    }
+  };
+
+  const handleReading = async () => {
+    if (chapterIdHistory !== 0) {
+      navigate(`/${bookId}/${chapterIdHistory}/reading`);
+    } else {
+      navigate(`/${bookId}/${listChapter[0].id}/reading`);
+    }
+  }
 
   const handleRating = async () => {
     if (stateRating) {
@@ -223,7 +252,7 @@ const Overview = () => {
               {data.number_reads ? data.number_reads : 0}
             </P>
             <StyledBox>
-              <StyledButton className="button">
+              <StyledButton className="button" onClick={handleReading}>
                 <i class="fa-solid fa-book-open"></i> Đọc sách
               </StyledButton>
               {stateAccount.userId === owner.id ? (

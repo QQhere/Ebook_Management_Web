@@ -3,10 +3,18 @@ import { styled } from "styled-components";
 import Colors from "../../constants/Color";
 import "../../components/styles/reading.css";
 import { useParams } from "react-router";
-import { getAllChapterByBook, getChapterById } from "../../services/api/Chapter";
+import {
+  getAllChapterByBook,
+  getChapterById,
+} from "../../services/api/Chapter";
 import { useSelector } from "react-redux";
 import { getFileContent } from "../../services/api/Upload";
 import { updateNumberRead } from "../../services/api/Book";
+import {
+  createHistoryReading,
+  getAllHistoryReadingByUser,
+  updateHistoryReading,
+} from "../../services/api/HistoryReading";
 
 const Reading = () => {
   const [BgColor, setBgColor] = useState(Colors.black);
@@ -18,7 +26,7 @@ const Reading = () => {
   const [showSellect, setShowSellect] = useState(false);
   const [iconColorC, setIconColorC] = useState(false);
   const [iconColorD, setIconColorD] = useState(false);
-  const [bookData, setBookData] = useState('');
+  const [bookData, setBookData] = useState("");
   const { bookId, chapterId } = useParams();
   const stateAccount = useSelector((state) => state.auth);
 
@@ -54,7 +62,7 @@ const Reading = () => {
     } else {
       console.log("Update number read failed");
     }
-  }
+  };
 
   const fetchAllChapter = async () => {
     const response = await getAllChapterByBook(stateAccount.token, bookId);
@@ -64,13 +72,55 @@ const Reading = () => {
     } else {
       console.log("Get all chapter failed");
     }
+  };
+
+  const handleCreateHistoryReading = async () => {
+    const response = await createHistoryReading(stateAccount.token, {
+      chapter_id: chapterId,
+      book_id: bookId,
+      user_id: stateAccount.userId,
+    });
+    if (response.status === "CREATED") {
+      console.log("Create history reading successfully");
+    } else {
+      console.log("Create history reading failed");
+    }
+  };
+
+  const handleUpdateHistoryReading = async (historyId) => {
+    const response = await updateHistoryReading(stateAccount.token, historyId , chapterId);
+    if (response.status === "OK") {
+      console.log("Update history reading successfully");
+    } else {
+      console.log("Update history reading failed");
+    }
   }
+
+  const fetchHistory = async () => {
+    const response = await getAllHistoryReadingByUser(
+      stateAccount.token,
+      stateAccount.userId
+    );
+    if (response.status === "OK") {
+      const history = response.data.filter((history) => history.book.id == bookId && history.user.id == stateAccount.userId)[0];
+      console.log(history); 
+      if (history?.id !== undefined) {
+        handleUpdateHistoryReading(history.id);
+      } else {
+        handleCreateHistoryReading();
+      }
+
+    } else {
+      console.log("Get all history reading failed");
+    }
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
     fetchDataChapter();
-    handleUpdateNumberRead();
     fetchAllChapter();
+    handleUpdateNumberRead();
+    fetchHistory();
   }, []);
 
   const changeColors = (newBgColor, newTextColor, newBorderColor) => {
@@ -140,7 +190,7 @@ const Reading = () => {
   return (
     <div>
       <div className="fixed header">
-        <p className='title'>{bookData.title}</p>
+        <p className="title">{bookData.title}</p>
         <Box>
           <div className={iconColorC ? "iconColor" : ""} onClick={handleClickC}>
             <i class="fa-regular fa-rectangle-list"></i>
