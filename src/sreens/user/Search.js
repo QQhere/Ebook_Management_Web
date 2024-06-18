@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import Colors from "../../constants/Color";
-import ListBooks from "../../components/search/ListBooks";
+import ListBooks from "../../components/search/ListBooks"
 import ListAccounts from "../../components/search/ListAccounts";
 import { getAllCategory } from "../../services/api/Category";
 import { searchBook } from "../../services/api/Book";
-import { act } from "react";
 import { searchUser } from "../../services/api/User";
-import { useSelector } from "react-redux";
 
 const Search = () => {
   const [activeElement, setActiveElement] = useState("book");
@@ -177,7 +175,7 @@ const Search = () => {
               </option>
               <option value="Free">Miễn phí</option>
               <option value="Follow">Theo dõi</option>
-              <option value="Fee">Trả phí</option>
+              {/* <option value="Fee">Trả phí</option> */}
             </Selection>
           </BoxFlex>
 

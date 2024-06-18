@@ -69,6 +69,18 @@ const Homepage = () => {
           </StyledSlider>
 
           <StyledBox>
+            {0 ? null : (
+              <>
+                <StyledBoxTitle>
+                  <h3>Tiếp tục cho bạn</h3>
+                </StyledBoxTitle>
+
+                <StyledBoxList id="freeBooks">
+                  <ListBooks data={bookFree}></ListBooks>
+                </StyledBoxList>
+              </>
+            )}
+
             {bookFree.length === 0 ? null : (
               <>
                 <StyledBoxTitle>

@@ -257,7 +257,7 @@ const NewBook = () => {
               </option>
               <option value="Free">Miễn phí</option>
               <option value="Follow">Theo dõi</option>
-              <option value="Fee">Trả phí</option>
+              {/* <option value="Fee">Trả phí</option> */}
               <option value="Private">Riêng tư</option>
             </Selection>
           </BoxFlex>

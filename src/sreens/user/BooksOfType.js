@@ -4,7 +4,7 @@ import Colors from "../../constants/Color";
 import { getAllBookByType } from "../../services/api/Book";
 import { Link, useParams } from "react-router-dom";
 import "../../components/styles/StyledHeader.css";
-import ListBooks from "../../components/search/ListBooks";
+import ListBooks from "../../components/hompage/ListBooks";
 
 const BooksOfType = () => {
   const [data, setData] = useState([]);

@@ -198,3 +198,18 @@
 .hidden {
     display: none;
 }
+
+.free {
+    color: var(--white);
+    background-color: var(--green_button);
+}
+
+.follow {
+    color: var(--white);
+    background-color: var(--yellow);
+}
+
+.fee {
+    color: var(--white);
+    background-color: var(--red);
+}

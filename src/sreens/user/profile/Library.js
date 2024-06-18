@@ -80,14 +80,14 @@ const Library = () => {
                 Thư viện cá nhân
               </a>
             </li>
-            <li>
+            {/* <li>
               <a href="transaction_history" className="colorWhite">
                 <Orther>
                   <i class="fa-solid fa-cart-shopping"></i>
                 </Orther>
                 Lịch sử giao dịch
               </a>
-            </li>
+            </li> */}
           </BoxNav>
         </Col1>
 

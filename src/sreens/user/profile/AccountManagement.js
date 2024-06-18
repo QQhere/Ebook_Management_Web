@@ -399,14 +399,14 @@ const AccountManagement = () => {
                 Thư viện cá nhân
               </a>
             </li>
-            <li>
+            {/* <li>
               <a href="transaction_history" className="colorWhite">
                 <Orther>
                   <i class="fa-solid fa-cart-shopping"></i>
                 </Orther>
                 Lịch sử giao dịch
               </a>
-            </li>
+            </li> */}
           </BoxNav>
           <BoxApp className="flex">
             <BoxCenter onClick={follower}>

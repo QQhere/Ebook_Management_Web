@@ -76,14 +76,14 @@ const Header = () => {
                   Thư viện cá nhân
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link to="/transaction_history" onClick={handleClick}>
                   <div>
                     <i class="fa-solid fa-cart-shopping"></i>
                   </div>
                   Lịch sử giao dịch
                 </Link>
-              </li>
+              </li> */}
               <li>
                 <a onClick={handleLogOut}>
                   <div>
@@ -125,9 +125,9 @@ const Header = () => {
           <li>
             <a href="/#followBooks">Sách theo dõi</a>
           </li>
-          <li>
+          {/* <li>
             <a href="/#paidBooks">Sách trả phí</a>
-          </li>
+          </li> */}
         </ul>
       </div>
       {showHeader()}

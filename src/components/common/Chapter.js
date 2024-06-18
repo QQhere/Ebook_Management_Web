@@ -20,6 +20,14 @@ const Chapter = (props) => {
       }
     }
 
+    
+  function confirmDelete() {
+    const isConfirmed = window.confirm("Bạn có chắc chắn muốn xóa không?");
+    if (isConfirmed) {
+      handleDelete();
+    }
+  }
+
   const renderContent = () => {
     switch (props.type) {
       // case "overview":
@@ -31,10 +39,10 @@ const Chapter = (props) => {
       case "edit":
         return (
           <BoxIcon>
-            <div>
+            {/* <div>
               <i class="fa-regular fa-pen-to-square iconColor"></i>
-            </div>
-            <div onClick={handleDelete}>
+            </div> */}
+            <div onClick={confirmDelete}>
               <i class="fa-solid fa-trash-can iconRed"></i>
             </div>
           </BoxIcon>

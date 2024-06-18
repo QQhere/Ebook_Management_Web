@@ -15,6 +15,7 @@ import {
   getAllHistoryReadingByUser,
   updateHistoryReading,
 } from "../../services/api/HistoryReading";
+import { Link } from "react-router-dom";
 
 const Reading = () => {
   const [BgColor, setBgColor] = useState(Colors.black);
@@ -190,7 +191,7 @@ const Reading = () => {
   return (
     <div>
       <div className="fixed header">
-        <p className="title">{bookData.title}</p>
+        <Link to={`/${bookId}/overview`}><p className="title">{bookData.title}</p></Link>
         <Box>
           <div className={iconColorC ? "iconColor" : ""} onClick={handleClickC}>
             <i class="fa-regular fa-rectangle-list"></i>
@@ -201,7 +202,7 @@ const Reading = () => {
         </Box>
       </div>
       <DivBody className="bodyReading">
-        <h3 style={{ textAlign: "center", color: TextColor }}>
+        <h3 style={{ textAlign: "center", color: TextColor,  margin: "50px"}}>
           {dataChapter.name}
         </h3>
         <div className="contents">
@@ -209,7 +210,8 @@ const Reading = () => {
         </div>
       </DivBody>
       <div className="fixed footer">
-        <p className="title">{dataChapter.name}</p>
+        <Link to="" className="title"><p><i class="fa-solid fa-angles-left"></i> Chương trước</p></Link>
+        <Link to="" className="title"><p>Chương sau <i class="fa-solid fa-angles-right"></i></p></Link>       
       </div>
 
       <div
@@ -220,7 +222,9 @@ const Reading = () => {
         <p className="title">Mục lục</p>
         <ul className="menu">
           {allChapter.map((chapter) => (
-            <li key={chapter.id}>
+            <li key={chapter.id}
+              className={chapter.id == chapterId ? 'liChoice' : ''}
+            >
               <a href={`/${bookId}/${chapter.id}/reading`}>{chapter.name}</a>
             </li>
           ))}

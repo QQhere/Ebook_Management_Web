@@ -4,7 +4,7 @@ import { styled } from 'styled-components';
 
 const ListBooks = (props) => {
     return (
-        <div className="list1">
+        <div className="list">
             {props.children}
             {props.data?.map((item, index) => {
                 return (
@@ -13,6 +13,7 @@ const ListBooks = (props) => {
                             id={item.id}
                             src={item.image === "" ? "/assets/images/ImageDefault.jpg" : item.image}
                             type={item.type_of_book}
+                            price={item.price}
                         ></Book>
                         <p className='textBold'>{item.title} - {item.author}</p>
                     </StyledBox>             

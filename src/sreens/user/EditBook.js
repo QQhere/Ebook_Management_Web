@@ -272,6 +272,13 @@ const EditBook = () => {
     setAddNewChapter(!addNewChapter);
   };
 
+  function confirmDelete() {
+  const isConfirmed = window.confirm("Bạn có chắc chắn muốn xóa không?");
+  if (isConfirmed) {
+    handleDelete();
+  }
+}
+
   return (
     <div>
       <Box className="body">
@@ -292,7 +299,7 @@ const EditBook = () => {
             <Button className="button" onClick={handleUpdate}>
               Lưu thay đổi
             </Button>
-            <Button className="btnRed" onClick={handleDelete}>
+            <Button className="btnRed" onClick={confirmDelete}>
               Xóa
             </Button>
             <Button className="btn" onClick={() => navigate(-1)}>
@@ -372,7 +379,7 @@ const EditBook = () => {
                 </option>
                 <option value="Free">Miễn phí</option>
                 <option value="Follow">Theo dõi</option>
-                <option value="Fee">Trả phí</option>
+                {/* <option value="Fee">Trả phí</option> */}
                 <option value="Private">Riêng tư</option>
               </Selection>
             </BoxFlex>
@@ -442,6 +449,7 @@ const EditBook = () => {
 
                 <input
                   type="file"
+                  accept=".doc,.docx"
                   id="fileInput"
                   style={{ display: "none" }}
                   onChange={handleFileChange}

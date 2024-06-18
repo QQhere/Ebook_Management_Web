@@ -34,10 +34,10 @@ export const routes = [
         path: '/library',
         element: Library,
     },
-    {
-        path: '/transaction_history',
-        element: TransactionHistory,
-    },
+    // {
+    //     path: '/transaction_history',
+    //     element: TransactionHistory,
+    // },
     {
         path: '/new_book',
         element: NewBook,

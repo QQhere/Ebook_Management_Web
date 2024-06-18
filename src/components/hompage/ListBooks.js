@@ -1,5 +1,4 @@
 import React from 'react';
-import { Data } from '../../data';
 import Book from '../common/Book';
 import { styled } from 'styled-components';
 
@@ -14,6 +13,7 @@ const ListBooks = (props) => {
                             id={item.id}
                             src={item.image ? item.image : "/assets/images/ImageDefault.jpg"}
                             type={item.type_of_book}
+                            price={item.price}
                         ></Book>
                         <p className='textBold'>{item.title} - {item.author}</p>
                     </StyledBox>             

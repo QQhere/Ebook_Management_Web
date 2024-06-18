@@ -111,9 +111,9 @@ const Overview = () => {
   const handleReading = async () => {
     if (chapterIdHistory !== 0) {
       navigate(`/${bookId}/${chapterIdHistory}/reading`);
-    } else {
+    } else if (listChapter.length > 0) {
       navigate(`/${bookId}/${listChapter[0].id}/reading`);
-    }
+    } else alert("Sách chưa có chương");
   }
 
   const handleRating = async () => {
@@ -210,6 +210,7 @@ const Overview = () => {
             type={data.type_of_book}
             src={data.image}
             isClickable={false}
+            price={data.price}
           ></Book>
         </Col1>
         <Col2>
@@ -298,7 +299,7 @@ const Overview = () => {
               bookId={bookId}
               type="overview"
             />
-            <BoxSelect>
+            {/* <BoxSelect>
               <select>
                 <option value="1">Trang 1</option>
                 <option value="2">Trang 2</option>
@@ -307,7 +308,7 @@ const Overview = () => {
               </select>
 
               <StyledBoxSelect className="button">Đến</StyledBoxSelect>
-            </BoxSelect>
+            </BoxSelect> */}
           </div>
         </Col2>
       </Box>

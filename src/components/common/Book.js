@@ -1,9 +1,9 @@
 import React from "react";
 import { styled } from "styled-components";
-import Colors from "../../constants/Color";
 import { Link } from "react-router-dom";
 
 const Book = (props) => {
+  console.log(props);
   const getTypeBook = (type) => {
     switch (type) {
       case "Free":
@@ -17,12 +17,24 @@ const Book = (props) => {
     }
   };
 
+  const getClass = (type) => {
+    switch (type) {
+      case "Free":
+        return "free";
+      case "Follow":
+        return "follow";
+      default:
+        return "fee";
+    }
+  };
+  const formattedPrice = props.price?.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+
   const content = (
     <div className="boxRelative">
       <StyledImage
         src={props.src ? props.src : "/assets/images/ImageDefault.jpg"}
       ></StyledImage>
-      <StyledType className="textBold">{getTypeBook(props.type)}</StyledType>
+      <StyledType className={getClass(props.type)}>{props.price > 0 ? formattedPrice :getTypeBook(props.type)}</StyledType>
     </div>
   );
 
@@ -49,9 +61,11 @@ const StyledType = styled.div`
   display: flex;
   right: 0;
   border-radius: 0 20px 0 20px;
-  background-color: ${Colors.green};
   justify-content: center;
   align-items: center;
   padding: 10px 20px;
   text-transform: uppercase;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: 15px;
 `;
