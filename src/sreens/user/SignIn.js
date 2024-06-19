@@ -171,7 +171,7 @@ const SignIn = () => {
           </p>
           <p style={{ marginTop: "20px" }}>
             Quay lại{" "}
-            <Link className="link" href="/">
+            <Link className="link" to="/">
               Trang chủ
             </Link>
           </p>

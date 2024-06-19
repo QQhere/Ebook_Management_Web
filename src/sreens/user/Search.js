@@ -17,6 +17,7 @@ const Search = () => {
   const [type, setType] = useState(null);
   const [keyword, setKeyword] = useState(null);
   const [selectCategory, setSelectCategory] = useState([]);
+  const [categoryIds, setCategoryIds] = useState([]);
   const [page, setPage] = useState(1);
   const [size, setSize] = useState(25);
   const [mark, setMark] = useState(0);
@@ -49,7 +50,7 @@ const Search = () => {
   };
 
   const fetchSearchUser = async () => {
-    const response = await searchUser( 
+    const response = await searchUser(
       keyword !== null ? keyword : null,
       pageSearch,
       size
@@ -85,6 +86,66 @@ const Search = () => {
     fetchSearchUser();
   }, []);
 
+  const CategoryComponent = () => {
+    const handleRemove = (value) => {
+      const newCategoryIds = categoryIds.filter((item) => item !== value);
+      const newSelectCategory = selectCategory.filter((item => item != allCategory.find((item) => item.name === value).id))
+      
+      setCategoryIds(newCategoryIds);
+      setSelectCategory(newSelectCategory);
+      console.log(selectCategory);
+    }
+
+    const Categories = () => {
+      return (
+        <List>
+          {categoryIds.map((item, index) => {
+            return <Category onClick={() => handleRemove(item)}>{item}</Category>;
+          })}
+        </List>
+      );
+    };
+
+    const handleSelectionChange = (event) => {
+      const selectedValue = event.target.value;
+      console.log(selectedValue);
+      if (selectCategory.includes(selectedValue)) {
+        return;
+      }
+      const selectedText = event.target.options[event.target.selectedIndex].text;
+      setCategoryIds([...categoryIds, selectedText]);
+      setSelectCategory((prevCategories) => [
+        ...prevCategories,
+        parseInt(selectedValue),
+      ]);
+    }
+
+    useEffect(() => {
+      setCategoryIds(categoryIds);
+    }, [categoryIds]);
+    // 
+    return (
+      <>
+        <BoxFlex>
+          <p>Thể loại:</p>
+          <Selection
+            className="collection"
+            onChange={handleSelectionChange}
+          >
+            <option value="" selected disabled hidden>
+              Thể loại sách
+            </option>
+            {allCategory.map((item, index) => {
+              return <option value={item.id}>{item.name}</option>;
+            })}
+            ;
+          </Selection>
+        </BoxFlex>
+        <Categories
+          ></Categories>
+      </>
+    );
+  };
   function renderContent() {
     return (
       <div>
@@ -177,27 +238,8 @@ const Search = () => {
             </Selection>
           </BoxFlex>
 
-          <BoxFlex>
-            <p>Thể loại:</p>
-            <Selection
-              className="collection"
-              onChange={(event) => {
-                const selectedValue = event.target.value;
-                setSelectCategory((prevCategories) => [
-                  ...prevCategories,
-                  parseInt(selectedValue),
-                ]);
-              }}
-            >
-              <option value="" selected disabled hidden>
-                Thể loại sách
-              </option>
-              {allCategory.map((item, index) => {
-                return <option value={item.id}>{item.name}</option>;
-              })}
-              ;
-            </Selection>
-          </BoxFlex>
+          <CategoryComponent
+          ></CategoryComponent>
         </div>
       </Col1>
 
@@ -223,35 +265,47 @@ const Search = () => {
         {renderContent()}
         {((activeElement === "book" && mark > 0) ||
           (activeElement === "account" && markUser > 0)) && (
-          <BoxSelect
-            onChange={(event) => {
-              activeElement === "book"
-                ? setPage(event.target.value)
-                : setPageUser(event.target.value);
-            }}
-          >
-            <select style={{ height: "100%" }}>
-              {Array.from({ length: dataSearch.totalPages }, (_, index) => (
-                <option value={index + 1}>Trang {index + 1}</option>
-              ))}
-            </select>
+            <BoxSelect
+              onChange={(event) => {
+                activeElement === "book"
+                  ? setPage(event.target.value)
+                  : setPageUser(event.target.value);
+              }}
+            >
+              <select style={{ height: "100%" }}>
+                {Array.from({ length: dataSearch.totalPages }, (_, index) => (
+                  <option value={index + 1}>Trang {index + 1}</option>
+                ))}
+              </select>
 
-            <p>{`Hiển thị ${
-              dataSearch.numberOfElements ? dataSearch.numberOfElements : 0
-            } kết quả từ ${(pageSearch - 1) * size + 1}-${
-              (pageSearch - 1) * size +
-              (dataSearch.numberOfElements ? dataSearch.numberOfElements : 0)
-            } trên tổng số ${
-              dataSearch.totalElements ? dataSearch.totalElements : 0
-            } kết quả`}</p>
-          </BoxSelect>
-        )}
+              <p>{`Hiển thị ${dataSearch.numberOfElements ? dataSearch.numberOfElements : 0
+                } kết quả từ ${(pageSearch - 1) * size + 1}-${(pageSearch - 1) * size +
+                (dataSearch.numberOfElements ? dataSearch.numberOfElements : 0)
+                } trên tổng số ${dataSearch.totalElements ? dataSearch.totalElements : 0
+                } kết quả`}</p>
+            </BoxSelect>
+          )}
       </Col2>
     </Box>
   );
 };
 
 export default Search;
+
+const Category = styled.div`
+  display: flex;
+  padding: 5px 10px;
+  background-color: ${Colors.white};
+  border-radius: 20px;
+  font-size: 12px;
+  color: ${Colors.black};
+`;
+
+const List = styled.div`
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+`;
 
 const Box = styled.div`
   display: flex;

@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { uploadImage } from "../../services/api/Upload";
 
 const CategoryComponent = (props) => {
+  console.log(props);
   const [allCategory, setAllCategory] = useState([]);
   const [categoryIds, setCategoryIds] = useState([]);
 

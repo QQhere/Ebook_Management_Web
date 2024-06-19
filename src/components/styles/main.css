@@ -61,9 +61,17 @@
     font-style: unset;
 }
 
+.link:hover {
+    opacity: 0.8;
+}
+
 .iconColor {
     color: var(--green_button);
     cursor: pointer;
+}
+
+.iconColor:hover {
+    opacity: 0.8;
 }
 
 .iconRed {
@@ -71,9 +79,17 @@
     cursor: pointer;
 }
 
+.iconGrey:hover {
+    opacity: 0.8;
+}
+
 .iconGrey {
     color: var(--bg_dark);
     cursor: pointer;
+}
+
+.iconGrey:hover {
+    opacity: 0.8;
 }
 
 .colorWhite {
@@ -141,6 +157,10 @@
     font-style: unset;
 }
 
+.nav:hover {
+    opacity: 0.8;
+}
+
 .navIcon {
     color: var(--white);
     margin: 0 10px;
@@ -193,6 +213,10 @@
 
 .cursor {
     cursor: pointer;
+}
+
+.cursor:hover {
+    opacity: 0.8;
 }
 
 .hidden {

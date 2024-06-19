@@ -69,3 +69,11 @@ ul > li, i {
   cursor: pointer;
   list-style-type: none;
 }
+
+button:hover{
+  opacity: 0.8;
+}
+
+a:hover {
+  opacity: 0.8;
+}
