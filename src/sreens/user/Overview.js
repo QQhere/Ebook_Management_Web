@@ -112,13 +112,13 @@ const Overview = () => {
 
   const handleReading = async () => {
     if (chapterIdHistory !== 0) {
-      if (!stateFollow && data.type_of_book === "follow") {
+      if (!stateFollow && data.type_of_book === "Follow") {
         alert("Bạn cần theo dõi tác giả trước khi đọc sách");
         return;
       }
       navigate(`/${bookId}/${chapterIdHistory}/reading`);
     } else if (listChapter.length > 0) {
-      if (!stateFollow && data.type_of_book === "follow") {
+      if (!stateFollow && data.type_of_book === "Follow") {
         alert("Bạn cần theo dõi tác giả trước khi đọc sách");
         return;
       }

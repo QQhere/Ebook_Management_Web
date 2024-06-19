@@ -9,18 +9,19 @@ import { uploadImage } from "../../services/api/Upload";
 
 const CategoryComponent = (props) => {
   const [allCategory, setAllCategory] = useState([]);
-  const [categoryIds, setcategoryIds] = useState([]);
+  const [categoryIds, setCategoryIds] = useState([]);
 
-  const handleRemove = (id) => {
-    const newCategoryIds = categoryIds.filter((item) => item.id !== id);
-    setcategoryIds(newCategoryIds);
+  const handleRemove = (value) => {
+    const newCategoryIds = categoryIds.filter((item) => item !== value);
+    setCategoryIds(newCategoryIds);
+    props.setCategoryIds(props.categoryIds.filter((item) => item != allCategory.find((item) => item.name === value).id));
   };
 
   const Categories = ({ categoryIds }) => {
     return (
       <List>
         {categoryIds.map((item, index) => {
-          return <Category onClick={() => handleRemove(item.id)}>{item}</Category>;
+          return <Category onClick={() => handleRemove(item)}>{item}</Category>;
         })}
       </List>
     );
@@ -33,8 +34,8 @@ const CategoryComponent = (props) => {
     }
 
     const selectedText = event.target.options[event.target.selectedIndex].text;
-    setcategoryIds([...categoryIds, selectedText]);
-    props.setcategoryIds([...props.categoryIds, selectedValue]);
+    setCategoryIds([...categoryIds, selectedText]);
+    props.setCategoryIds([...props.categoryIds, selectedValue]);
   };
 
   const getCategory = async () => {
@@ -47,9 +48,8 @@ const CategoryComponent = (props) => {
   }, []);
 
   useEffect(() => {
-    setcategoryIds(categoryIds);
+    setCategoryIds(categoryIds);
   }, [categoryIds]);
-
 
   // 
   return (
@@ -58,7 +58,7 @@ const CategoryComponent = (props) => {
         <p>Thể loại: <span style={{color: '#D93E30', fontWeight: 'bold'}}>*</span></p>
         <Categories
           categoryIds={categoryIds}
-          setcategoryIds={setcategoryIds}
+          setCategoryIds={setCategoryIds}
         ></Categories>
       </BoxFlex>
       <BoxFlex>
@@ -126,14 +126,13 @@ const NewBook = () => {
   const [author, setAuthor] = useState("");
   const [painter, setPainter] = useState("");
   const [price, setPrice] = useState(0);
-  const [categoryIds, setcategoryIds] = useState([]);
+  const [categoryIds, setCategoryIds] = useState([]);
 
   const regText = /^[!@#$%^&*()_+{}\[\]:;<>,.?~\\/\\-]*$/; //kiểm tra dữ liệu vào (không trống, không bao gồm toàn space, không chỉ gồm kí tự đặc biệt)
 
   const stateAccount = useSelector((state) => state.auth);
 
   const navigate = useNavigate();
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -281,7 +280,7 @@ const NewBook = () => {
 
           <CategoryComponent
             categoryIds={categoryIds}
-            setcategoryIds={setcategoryIds}
+            setCategoryIds={setCategoryIds}
           ></CategoryComponent>
 
           <div>

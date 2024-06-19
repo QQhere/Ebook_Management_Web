@@ -46,7 +46,6 @@ const Homepage = () => {
       stateAccount.userId
     );
     if (response.status === "OK") {
-      console.log(response.data);
       setBookReading(
         response.data
           .sort((a, b) => {
