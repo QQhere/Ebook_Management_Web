@@ -93,7 +93,6 @@ const Search = () => {
       
       setCategoryIds(newCategoryIds);
       setSelectCategory(newSelectCategory);
-      console.log(selectCategory);
     }
 
     const Categories = () => {
@@ -108,22 +107,21 @@ const Search = () => {
 
     const handleSelectionChange = (event) => {
       const selectedValue = event.target.value;
-      console.log(selectedValue);
-      if (selectCategory.includes(selectedValue)) {
+      if (selectCategory.includes(parseInt(selectedValue))) {
         return;
       }
       const selectedText = event.target.options[event.target.selectedIndex].text;
-      setCategoryIds([...categoryIds, selectedText]);
+      setCategoryIds([...categoryIds, selectedText]); // Lưu tên
       setSelectCategory((prevCategories) => [
         ...prevCategories,
         parseInt(selectedValue),
-      ]);
+      ]); // Lưu id
     }
 
     useEffect(() => {
       setCategoryIds(categoryIds);
     }, [categoryIds]);
-    // 
+     
     return (
       <>
         <BoxFlex>
@@ -146,6 +144,7 @@ const Search = () => {
       </>
     );
   };
+
   function renderContent() {
     return (
       <div>
