@@ -359,7 +359,7 @@ const EditBook = () => {
             <BoxFlex>
               <p>Năm xuất bản:</p>
               <Collection
-                type="text"
+                type="number"
                 className="collection"
                 placeholder="Nhập năm xuất bản"
                 value={publishingYear}

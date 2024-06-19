@@ -15,7 +15,7 @@ const ListBooks = (props) => {
                             type={item.type_of_book}
                             price={item.price}
                         ></Book>
-                        <p className='textBold'>{item.title} - {item.author}</p>
+                        <P>{item.title}</P>
                     </StyledBox>             
                 );
             })}
@@ -27,4 +27,15 @@ export default ListBooks;
 
 const StyledBox = styled.div`
     width: 160px;
+`;
+
+const P = styled.p`
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Số dòng muốn hiển thị */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    margin-top: 10px;
 `;

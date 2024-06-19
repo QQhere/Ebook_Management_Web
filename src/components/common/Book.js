@@ -48,7 +48,7 @@ export default Book;
 
 const StyledImage = styled.div`
   width: 100%;
-  padding-top: 160%;
+  padding-top: 150%;
   border-radius: 20px;
   background-image: url(${(props) => props.src});
   background-size: cover;

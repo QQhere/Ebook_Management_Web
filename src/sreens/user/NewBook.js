@@ -243,7 +243,7 @@ const NewBook = () => {
           <BoxFlex>
             <p>Năm xuất bản:</p>
             <Collection
-              type="text"
+              type="number"
               className="collection"
               placeholder="Nhập năm xuất bản"
               onChange={(event) => setPublishingYear(event.target.value)}

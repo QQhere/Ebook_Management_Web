@@ -15,7 +15,7 @@ const ListBooks = (props) => {
                             type={item.type_of_book ? item.type_of_book : item.typeOfBook}
                             price={item.price}
                         ></Book>
-                        <p className='textBold'>{item.title} - {item.author}</p>
+                        <p className='textBold'>{item.title}</p>
                     </StyledBox>             
                 );
             })}
