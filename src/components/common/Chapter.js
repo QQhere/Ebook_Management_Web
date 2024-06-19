@@ -10,7 +10,6 @@ const Chapter = (props) => {
   const dataChapter = props.data;
   const bookId = props.bookId;
   const stateAccount = useSelector((state) => state.auth);
-  console.log(dataChapter);
 
   const [editChapter, setEditChapter] = useState(false);
   const [nameChapter, setNameChapter] = useState(dataChapter.name);
@@ -25,7 +24,7 @@ const Chapter = (props) => {
     } else {
       alert("Xóa chương thất bại");
     }
-  }
+  };
 
   const handleUpdate = async () => {
     const urlFile = await uploadFile(file);
@@ -34,15 +33,19 @@ const Chapter = (props) => {
       original_number: ordinalNumber,
       thumbnail: urlFile ? urlFile : dataChapter.thumbnail,
       book_id: bookId,
-    }
-    const response = await updateChapter(stateAccount.token, dataChapter.id, newChapter);
+    };
+    const response = await updateChapter(
+      stateAccount.token,
+      dataChapter.id,
+      newChapter
+    );
     if (response.status === "OK") {
       alert("Cập nhật chương thành công");
       window.location.reload();
     } else {
       alert("Cập nhật chương thất bại");
     }
-  }
+  };
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
@@ -64,7 +67,7 @@ const Chapter = (props) => {
 
   const handleClick = () => {
     setEditChapter(!editChapter);
-  }
+  };
 
   const renderContent = () => {
     switch (props.type) {
@@ -126,12 +129,12 @@ const Chapter = (props) => {
   };
 
   return (
-    <Link to={`/${bookId}/${dataChapter.id}/reading`}>
-      <StyledChapter>
+    <StyledChapter>
+      <Link to={`/${bookId}/${dataChapter.id}/reading`}>
         <P>{dataChapter.name}</P>
-        <List>{renderContent(props.type)}</List>
-      </StyledChapter>
-    </Link>
+      </Link>
+      <List>{renderContent(props.type)}</List>
+    </StyledChapter>
   );
 };
 
