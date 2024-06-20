@@ -311,6 +311,7 @@ const Category = styled.div`
   border-radius: 20px;
   font-size: 12px;
   color: ${Colors.black};
+  cursor: pointer;
 `;
 
 const List = styled.div`
