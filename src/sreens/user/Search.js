@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import Colors from "../../constants/Color";
-import ListBooks from "../../components/search/ListBooks"
+import ListBooks from "../../components/search/ListBooks";
 import ListAccounts from "../../components/search/ListAccounts";
 import { getAllCategory } from "../../services/api/Category";
 import { searchBook } from "../../services/api/Book";
@@ -72,9 +72,19 @@ const Search = () => {
     }
   };
 
+  const handleSelectPageBook = (event) => {
+    setPage(event.target.value);
+    setPageSearch(event.target.value);
+  };
+
+  const handleSelectPageUser = (event) => {
+    setPageUser(event.target.value);
+    setPageSearch(event.target.value);
+  };
+
   useEffect(() => {
     handleSearch();
-  }, [page, status, type, selectCategory]);
+  }, [pageSearch, status, type, selectCategory]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -82,24 +92,28 @@ const Search = () => {
 
   useEffect(() => {
     fetchAllCategory();
-    fetchSearchBook();
     fetchSearchUser();
+    fetchSearchBook();
   }, []);
 
   const CategoryComponent = () => {
     const handleRemove = (value) => {
       const newCategoryIds = categoryIds.filter((item) => item !== value);
-      const newSelectCategory = selectCategory.filter((item => item != allCategory.find((item) => item.name === value).id))
-      
+      const newSelectCategory = selectCategory.filter(
+        (item) => item != allCategory.find((item) => item.name === value).id
+      );
+
       setCategoryIds(newCategoryIds);
       setSelectCategory(newSelectCategory);
-    }
+    };
 
     const Categories = () => {
       return (
         <List>
           {categoryIds.map((item, index) => {
-            return <Category onClick={() => handleRemove(item)}>{item}</Category>;
+            return (
+              <Category onClick={() => handleRemove(item)}>{item}</Category>
+            );
           })}
         </List>
       );
@@ -110,26 +124,24 @@ const Search = () => {
       if (selectCategory.includes(parseInt(selectedValue))) {
         return;
       }
-      const selectedText = event.target.options[event.target.selectedIndex].text;
+      const selectedText =
+        event.target.options[event.target.selectedIndex].text;
       setCategoryIds([...categoryIds, selectedText]); // Lưu tên
       setSelectCategory((prevCategories) => [
         ...prevCategories,
         parseInt(selectedValue),
       ]); // Lưu id
-    }
+    };
 
     useEffect(() => {
       setCategoryIds(categoryIds);
     }, [categoryIds]);
-     
+
     return (
       <>
         <BoxFlex>
           <p>Thể loại:</p>
-          <Selection
-            className="collection"
-            onChange={handleSelectionChange}
-          >
+          <Selection className="collection" onChange={handleSelectionChange}>
             <option value="" selected disabled hidden>
               Thể loại sách
             </option>
@@ -139,8 +151,7 @@ const Search = () => {
             ;
           </Selection>
         </BoxFlex>
-        <Categories
-          ></Categories>
+        <Categories></Categories>
       </>
     );
   };
@@ -237,8 +248,7 @@ const Search = () => {
             </Selection>
           </BoxFlex>
 
-          <CategoryComponent
-          ></CategoryComponent>
+          <CategoryComponent></CategoryComponent>
         </div>
       </Col1>
 
@@ -264,26 +274,29 @@ const Search = () => {
         {renderContent()}
         {((activeElement === "book" && mark > 0) ||
           (activeElement === "account" && markUser > 0)) && (
-            <BoxSelect
-              onChange={(event) => {
-                activeElement === "book"
-                  ? setPage(event.target.value)
-                  : setPageUser(event.target.value);
-              }}
-            >
-              <select style={{ height: "100%" }}>
-                {Array.from({ length: dataSearch.totalPages }, (_, index) => (
-                  <option value={index + 1}>Trang {index + 1}</option>
-                ))}
-              </select>
+          <BoxSelect
+            onChange={(event) => {
+              activeElement === "book"
+                ? handleSelectPageBook(event)
+                : handleSelectPageUser(event);
+            }}
+          >
+            <select style={{ height: "100%" }}>
+              {Array.from({ length: dataSearch.totalPages }, (_, index) => (
+                <option value={index + 1}>Trang {index + 1}</option>
+              ))}
+            </select>
 
-              <p>{`Hiển thị ${dataSearch.numberOfElements ? dataSearch.numberOfElements : 0
-                } kết quả từ ${(pageSearch - 1) * size + 1}-${(pageSearch - 1) * size +
-                (dataSearch.numberOfElements ? dataSearch.numberOfElements : 0)
-                } trên tổng số ${dataSearch.totalElements ? dataSearch.totalElements : 0
-                } kết quả`}</p>
-            </BoxSelect>
-          )}
+            <p>{`Hiển thị ${
+              dataSearch.numberOfElements ? dataSearch.numberOfElements : 0
+            } kết quả từ ${(pageSearch - 1) * size + 1}-${
+              (pageSearch - 1) * size +
+              (dataSearch.numberOfElements ? dataSearch.numberOfElements : 0)
+            } trên tổng số ${
+              dataSearch.totalElements ? dataSearch.totalElements : 0
+            } kết quả`}</p>
+          </BoxSelect>
+        )}
       </Col2>
     </Box>
   );
@@ -335,18 +348,18 @@ const H1 = styled.p`
 `;
 
 const BoxFlex = styled.div`
-    display: flex;
-    width: 100%;
-    align-items: center;
-    padding-bottom: 15px;
-    justify-content: space-between;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  padding-bottom: 15px;
+  justify-content: space-between;
 `;
 
 const Selection = styled.select`
-    height: 30px;
-    padding: 0 5px;
-    border-radius: 5px;
-    width: 200px;
+  height: 30px;
+  padding: 0 5px;
+  border-radius: 5px;
+  width: 200px;
 `;
 
 const SearchBox = styled.input`
@@ -384,10 +397,10 @@ const BoxSelect = styled.div`
 `;
 
 const BoxContent = styled.div`
-    display: flex;
-    width: 100%;
-    align-items: center;
-    padding-bottom: 15px;
-    gap: 30px; 
-    border-bottom: 1px solid ${Colors.bg_dark};
+  display: flex;
+  width: 100%;
+  align-items: center;
+  padding-bottom: 15px;
+  gap: 30px;
+  border-bottom: 1px solid ${Colors.bg_dark};
 `;
