@@ -127,13 +127,12 @@ export const getAllBookByAccount = async (accountId) => {
   }
 }
 
-export const updateNumberRead = async (token, bookId) => {
+export const updateNumberRead = async (bookId) => {
   try {
     const response = await fetchData(`api/v1/book/number-read/${bookId}`, {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json"
       },
     });
     

@@ -78,6 +78,10 @@ const Overview = () => {
   const navigate = useNavigate();
 
   const handleShowRating = () => {
+    if (stateAccount.isLoggedIn === false) {
+      alert("Bạn cần đăng nhập để đánh giá");
+      return;
+    }
     setIsShowRating(!isShowRating);
     setStartUI(startUI + 1);
   };
@@ -113,13 +117,13 @@ const Overview = () => {
   const handleReading = async () => {
     if (chapterIdHistory !== 0) {
       if (!stateFollow && data.type_of_book === "Follow") {
-        alert("Bạn cần theo dõi tác giả trước khi đọc sách");
+        alert("Bạn cần theo dõi người đăng trước khi đọc sách");
         return;
       }
       navigate(`/${bookId}/${chapterIdHistory}/reading`);
     } else if (listChapter.length > 0) {
       if (!stateFollow && data.type_of_book === "Follow") {
-        alert("Bạn cần theo dõi tác giả trước khi đọc sách");
+        alert("Bạn cần theo dõi người đăng trước khi đọc sách");
         return;
       }
       navigate(`/${bookId}/${listChapter[0].id}/reading`);
@@ -328,6 +332,7 @@ const Overview = () => {
               data={listChapter}
               bookId={bookId}
               type="overview"
+              status={!stateFollow && data.type_of_book === "Follow"}
             />
             {/* <BoxSelect>
               <select>

@@ -60,6 +60,10 @@ const Account = () => {
   };
 
   const handleFollow = async () => {
+    if (stateAccount.isLoggedIn === false) {
+      alert("Bạn cần đăng nhập để thực hiện chức năng này");
+      return;
+    }
     if (stateFollow) {
       const response = await deleteFollow(stateAccount.token, follower.filter((item) => item.user.id === stateAccount.userId)[0]?.id);
       if (response.status === "OK") {

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Colors from "../../constants/Color";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { deleteChapter, updateChapter } from "../../services/api/Chapter";
 import { useSelector } from "react-redux";
 import { uploadFile } from "../../services/api/Upload";
@@ -15,6 +15,7 @@ const Chapter = (props) => {
   const [nameChapter, setNameChapter] = useState(dataChapter.name);
   const [file, setFile] = useState(null);
   const [ordinalNumber, setOrdinalNumber] = useState(1);
+  const navigate = useNavigate();
 
   const handleDelete = async () => {
     const response = await deleteChapter(stateAccount.token, dataChapter.id);
@@ -68,6 +69,15 @@ const Chapter = (props) => {
   const handleClick = () => {
     setEditChapter(!editChapter);
   };
+
+  const handleRead = () => {
+    if (props.status === true) {
+      alert("Bạn cần theo dõi người đăng để đọc chương này");
+      return;
+    }
+    console.log(1)
+    navigate(`/${bookId}/${dataChapter.id}/reading`);
+  }
 
   const renderContent = () => {
     switch (props.type) {
@@ -130,9 +140,7 @@ const Chapter = (props) => {
 
   return (
     <StyledChapter>
-      <Link to={`/${bookId}/${dataChapter.id}/reading`}>
-        <P>{dataChapter.name}</P>
-      </Link>
+        <P onClick={handleRead}>{dataChapter.name}</P>
       <List>{renderContent(props.type)}</List>
     </StyledChapter>
   );
@@ -229,6 +237,7 @@ const StyledChapter = styled.div`
 
 const P = styled.p`
   color: ${Colors.black};
+  cursor: pointer;
 `;
 
 const List = styled.div`

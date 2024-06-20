@@ -10,6 +10,7 @@ const TabletOfContents = (props) => {
             data={item}
             type={props.type}
             bookId={props.bookId}
+            status={props.status}
           ></Chapter>
         );
       })}

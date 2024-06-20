@@ -64,7 +64,7 @@ const Reading = () => {
   };
 
   const handleUpdateNumberRead = async () => {
-    const response = await updateNumberRead(stateAccount.token, bookId);
+    const response = await updateNumberRead(bookId);
     if (response.status === "OK") {
       setBookData(response.data);
       console.log("Update number read successfully");

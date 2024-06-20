@@ -113,6 +113,12 @@ const Homepage = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    if (!stateAccount.isLoggedIn) {
+      setBookReading([]);
+    }
+  }, [stateAccount.isLoggedIn]);
+
   return (
     <div>
       {isLoading ? (
