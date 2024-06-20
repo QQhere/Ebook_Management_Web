@@ -123,7 +123,7 @@ const AccountManagement = () => {
         password: password,
         retype_password: retypePassword,
       },
-      1
+      stateAccount.userId
     );
 
     if (response.status === "OK") {
