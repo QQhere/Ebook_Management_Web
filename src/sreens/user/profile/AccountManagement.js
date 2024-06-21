@@ -129,6 +129,8 @@ const AccountManagement = () => {
     if (response.status === "OK") {
       alert("Đổi mật khẩu thành công");
       setIsVisible(false);
+    } else {
+      alert("Đổi mật khẩu thất bại\n" + response.message);
     }
   };
 
