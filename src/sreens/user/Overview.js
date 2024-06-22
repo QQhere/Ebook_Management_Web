@@ -166,6 +166,7 @@ const Overview = () => {
   };
 
   useEffect(() => {
+    console.log(startUI)
     if (startUI > 1) {
       handleRating();
       setIsShowRating(!isShowRating);
@@ -266,7 +267,7 @@ const Overview = () => {
               <Span>Tình trạng: </Span>{" "}
               {data.status === "process"
                 ? "Đang tiến hành"
-                : data.status === "pause"
+                : data.status === "Pause"
                 ? "Tạm ngưng"
                 : "Đã hoàn thành"}
             </P>
